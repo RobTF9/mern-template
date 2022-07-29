@@ -1,7 +1,6 @@
 {
   "name": "tscaf",
   "version": "1.0.0",
-  "main": "dist/index.js",
   "license": "MIT",
   "devDependencies": {
     "@types/express": "^4.17.13",
@@ -16,8 +15,11 @@
   },
   "scripts": {
     "build:server": "tsc",
+    "build:client": "parcel build client/index.html --dist-dir dist/client",
     "dev:client": "parcel serve client/index.html --dist-dir dist/client",
     "dev:server": "nodemon",
+    "dev": "concurrently \"yarn dev:server\" \"yarn dev:client\"",
+    "start": "node dist/server/index.js",
     "test": "jest"
   },
   "alias": {
