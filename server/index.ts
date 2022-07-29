@@ -1,1 +1,2 @@
-console.log("retrying");
+import startServer from "./server";
+startServer();
