@@ -10,6 +10,7 @@ const port = process.env.PORT || 3000;
 app.use(json());
 app.use(urlencoded({ extended: true }));
 app.use(morgan("dev"));
+app.set("trust proxy", 1);
 
 app.use("/api", router);
 
