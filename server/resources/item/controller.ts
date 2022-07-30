@@ -15,7 +15,7 @@ export const create: RequestHandler = async (req, res, next) => {
 export const readAll: RequestHandler = async (_, res, next) => {
   try {
     const items = await Item.find();
-    return res.json(200).json({ data: items });
+    return res.status(200).json({ data: items });
   } catch (error) {
     return next(error);
   }
