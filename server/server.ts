@@ -3,6 +3,10 @@ import { json, urlencoded } from "body-parser";
 import morgan from "morgan";
 import router from "./resources/item/router";
 import path from "path";
+import dotenv from "dotenv";
+import connect from "./db/connect";
+
+dotenv.config();
 
 export const app = express();
 const port = process.env.PORT || 3000;
@@ -20,7 +24,7 @@ app.use("*", express.static(clientPath));
 
 async function startServer(): Promise<void> {
   try {
-    // await connect();
+    connect();
     app.listen(port, () => console.log(`Server running on ${port}`));
   } catch (error) {
     console.error(error);
