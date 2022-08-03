@@ -1,16 +1,19 @@
-import React from 'react';
-import { ItemListWrapper } from './styles';
+import React from 'react'
+import { ItemListWrapper } from './styles'
 
 interface Props {
-  value: string;
+  items?: { data?: ItemResource[] }
+  itemsLoading?: boolean
 }
 
-const ItemList: React.FC<Props> = ({ value }) => {
-  return (
+const ItemList: React.FC<Props> = ({ items, itemsLoading }) => {
+  return itemsLoading ? (
+    <h2>Items loading...</h2>
+  ) : (
     <ItemListWrapper>
-      <p>{value}</p>
+      {items && items.data && items.data.map((item) => <li key={item._id}>{item.item}</li>)}
     </ItemListWrapper>
-  );
-};
+  )
+}
 
-export default ItemList;
+export default ItemList

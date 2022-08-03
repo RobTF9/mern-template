@@ -1,4 +1,3 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
-export const ItemListWrapper = styled.div`
-`;
+export const ItemListWrapper = styled.ul``
