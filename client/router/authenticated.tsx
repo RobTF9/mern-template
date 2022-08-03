@@ -9,8 +9,10 @@ const Authenticated = () => {
   return (
     <QueryContext>
       <div>
-        <h1>Authenticated</h1>
-        <button onClick={signOut}>Sign out</button>
+        <header>
+          <h1>Authenticated</h1>
+          <button onClick={signOut}>Sign out</button>
+        </header>
         <Routes>
           <Route path="/" element={<Items />} />
           <Route path="*" element={<Navigate to="/" />} />

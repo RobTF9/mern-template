@@ -11,7 +11,13 @@ const ItemList: React.FC<Props> = ({ items, itemsLoading }) => {
     <h2>Items loading...</h2>
   ) : (
     <ItemListWrapper>
-      {items && items.data && items.data.map((item) => <li key={item._id}>{item.item}</li>)}
+      {items &&
+        items.data &&
+        items.data.map((item) => (
+          <li key={item._id}>
+            <h3>{item.item}</h3>
+          </li>
+        ))}
     </ItemListWrapper>
   )
 }
