@@ -7,6 +7,7 @@ import connect from './db/connect'
 import errorHandler from './utils/error'
 import authSession from './auth/session'
 import { protect } from './auth/middleware'
+import authRouter from './auth/router'
 
 export const app = express()
 const port = process.env.PORT || 3000
@@ -16,7 +17,7 @@ app.use(urlencoded({ extended: true }))
 app.use(morgan('dev'))
 app.set('trust proxy', 1)
 app.use(authSession)
-
+app.use('/auth', authRouter)
 app.use('/api', protect)
 app.use('/api/item', itemRouter)
 
