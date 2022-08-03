@@ -13,6 +13,7 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "stripInternal": true,
+    "noEmit": true,
     "types": ["node"],
     "paths": { "*": ["../types/*.d.ts"] }
   },
