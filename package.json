@@ -50,6 +50,7 @@
     "start": "node dist/server/index.js",
     "test": "jest",
     "clean": "rimraf .parcel-cache dist",
+    "new": "node scripts/component.js",
     "kill": "npx kill-port 3000"
   },
   "alias": {
