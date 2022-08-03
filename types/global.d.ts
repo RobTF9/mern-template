@@ -1,3 +1,5 @@
+import { ObjectId } from 'mongoose'
+
 export {}
 
 declare global {
@@ -38,7 +40,7 @@ declare global {
   /** The item interface, without mongodb fields (timestamps & _id) */
   interface ItemInterface {
     item: string
-    createdBy: string
+    createdBy: ObjectId
   }
 
   /** Item resource from the database */

@@ -1,9 +1,16 @@
-import { Schema, model } from 'mongoose'
+import { Schema, model, SchemaTypes } from 'mongoose'
 
 const collection = 'Item'
 
 const itemSchema = new Schema<ItemInterface>(
-  { item: { type: String, required: true } },
+  {
+    item: { type: String, required: true },
+    createdBy: {
+      type: SchemaTypes.ObjectId,
+      required: true,
+      ref: 'user',
+    },
+  },
   { timestamps: true, collection }
 )
 
