@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import ItemForm from '../../components/ItemForm'
 import ItemList from '../../components/ItemList'
 import { createItem, getItems, updateItem } from '../../data/itemResource'
 
@@ -12,17 +13,7 @@ const Items = () => {
 
   return (
     <div>
-      <form
-        onSubmit={(event) => {
-          event.preventDefault()
-          create({ item })
-        }}
-      >
-        <label>
-          New item: <input value={item} onChange={(event) => setItem(event.target.value)} />
-        </label>
-        <button type="submit">Submit</button>
-      </form>
+      <ItemForm create={create} />
       <ItemList items={items} itemsLoading={itemsLoading} />
     </div>
   )

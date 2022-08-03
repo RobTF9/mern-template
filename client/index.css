@@ -29,6 +29,7 @@ button {
   border-radius: 0.25rem;
   font-size: 1rem;
   width: fit-content;
+  cursor: pointer;
 }
 
 a {
