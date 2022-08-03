@@ -1,7 +1,10 @@
-import { APIGiver, APIReciever, createOne, getMany } from './crud'
+import { APIGiver, APIReciever, createOne, getMany, updateOne } from './crud'
 
-export const getItems: APIReciever<{ item: string }[]> = () =>
-  getMany<{ item: string }>(['items'], '/api/item')
+export const getItems: APIReciever<ItemResource[]> = () =>
+  getMany<ItemResource>(['/api/item'], '/api/item')
 
-export const createItem: APIGiver<{ item: string }, ServerReponse<{ item: string }>> = () =>
-  createOne<{ item: string }, { item: string }>(['items'], '/api/item')
+export const createItem: APIGiver<Partial<ItemInterface>, ItemResource> = () =>
+  createOne<Partial<ItemInterface>, ItemResource>(['/api/item'], '/api/item')
+
+export const updateItem: APIGiver<Partial<ItemInterface>, ItemResource> = (id) =>
+  updateOne<Partial<ItemInterface>, ItemResource>(['/api/item'], `/api/item/${id}`)

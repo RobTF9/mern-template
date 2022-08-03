@@ -44,7 +44,7 @@ declare global {
   }
 
   /** Item resource from the database */
-  type ItemResoure = ItemInterface & Resource
+  type ItemResource = ItemInterface & Resource
 
   /** The user interface, without mongodb fields (timestamps & _id) */
   interface UserInterface {
