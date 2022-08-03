@@ -6,7 +6,6 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
-    "outDir": "dist/server",
     "declaration": true,
     "jsx": "react",
     "moduleResolution": "Node",
@@ -17,5 +16,5 @@
     "types": ["node"],
     "paths": { "*": ["../types/*.d.ts"] }
   },
-  "include": ["server", "types"]
+  "include": ["server", "types", "client"]
 }
