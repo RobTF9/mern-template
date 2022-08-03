@@ -5,7 +5,7 @@ export const ItemFormWrapper = styled.form`
   display: flex;
   margin-top: 1rem;
   padding: 2rem 0 0;
-  border-top: 0.1rem solid rgba(0, 0, 0, 0.2);
+  border-top: 0.01rem solid rgba(0, 0, 0, 0.2);
 
   button {
     background-color: var(--success);
