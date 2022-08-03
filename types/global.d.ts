@@ -1,5 +1,3 @@
-import { ObjectId } from 'mongoose'
-
 export {}
 
 declare global {
@@ -40,4 +38,20 @@ declare global {
 
   /** Item resource from the database */
   type ItemResoure = ItemInterface & Resource
+
+  /** The user interface, without mongodb fields (timestamps & _id) */
+  interface UserInterface {
+    username: string
+    email: string
+    password: string
+    checkPassword?: (password: string) => boolean
+    getPublicFields?: () => {
+      username: string
+      email: string
+      _id: string
+    }
+  }
+
+  /** User resource from the database */
+  type UserResource = UserInterface & Resource
 }

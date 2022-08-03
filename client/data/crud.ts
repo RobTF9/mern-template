@@ -3,11 +3,7 @@ import { get, post } from './fetch'
 import { queryClient } from '../context/query'
 
 export interface APIReciever<T> {
-  (id?: string): [
-    data: { data: T; searched?: boolean } | undefined,
-    isLoading: boolean,
-    refetch: () => void
-  ]
+  (id?: string): [data: ServerReponse<T> | undefined, isLoading: boolean, refetch: () => void]
 }
 
 export function getMany<T>(
@@ -26,7 +22,7 @@ export function getMany<T>(
 }
 
 export interface APIGiver<T, U> {
-  (id?: string, callback?: (res: { data: U }) => void): [
+  (id?: string, callback?: (res: ServerReponse<U>) => void): [
     mutate: UseMutateFunction<U, unknown, T, unknown>,
     isLoading: boolean
   ]
