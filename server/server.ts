@@ -3,11 +3,9 @@ import { json, urlencoded } from 'body-parser'
 import morgan from 'morgan'
 import router from './resources/item/router'
 import path from 'path'
-import dotenv from 'dotenv'
 import connect from './db/connect'
 import errorHandler from './utils/error'
-
-dotenv.config()
+import authSession from './auth/session'
 
 export const app = express()
 const port = process.env.PORT || 3000
@@ -16,6 +14,7 @@ app.use(json())
 app.use(urlencoded({ extended: true }))
 app.use(morgan('dev'))
 app.set('trust proxy', 1)
+app.use(authSession)
 
 app.use('/api', router)
 

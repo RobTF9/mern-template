@@ -44,14 +44,19 @@ declare global {
     username: string
     email: string
     password: string
-    checkPassword?: (password: string) => boolean
-    getPublicFields?: () => {
+    checkPassword: (password: string) => boolean
+    getPublicFields: () => {
       username: string
       email: string
       _id: string
     }
   }
 
+  interface PublicUserInterface {
+    username: string
+    email: string
+  }
+
   /** User resource from the database */
-  type UserResource = UserInterface & Resource
+  type UserResource = PublicUserInterface & Resource
 }
