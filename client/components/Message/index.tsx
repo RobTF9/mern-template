@@ -3,16 +3,12 @@ import { MessageWrapper } from './styles'
 
 interface Props {
   message: Message
-  hide: () => void
 }
 
-const Message: React.FC<Props> = ({ message, hide }) => {
+const Message: React.FC<Props> = ({ message }) => {
   return message.visible ? (
-    <MessageWrapper>
+    <MessageWrapper type={message.type}>
       <p>{message.message}</p>
-      <button type="button" onClick={hide}>
-        Hide
-      </button>
     </MessageWrapper>
   ) : (
     <></>
