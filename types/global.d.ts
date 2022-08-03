@@ -1,6 +1,9 @@
 export {}
 
 declare global {
+  type Email = { email: string }
+  type Password = { password: string }
+  type Username = { username: string }
   /** Base mongoose resource, always contain timestamps and _id */
   interface Resource {
     _id: string
