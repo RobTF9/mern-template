@@ -16,7 +16,6 @@ const AuthenticationForm: React.FC<Props> = ({ details, submit, onChange }) => {
     <AuthenticationFormWrapper
       onSubmit={(event) => {
         event.preventDefault()
-        console.log('submitting')
         submit()
       }}
     >
