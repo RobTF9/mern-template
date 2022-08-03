@@ -38,6 +38,7 @@ declare global {
   /** The item interface, without mongodb fields (timestamps & _id) */
   interface ItemInterface {
     item: string
+    createdBy: string
   }
 
   /** Item resource from the database */

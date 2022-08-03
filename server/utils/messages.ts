@@ -12,6 +12,8 @@ const succesMessage = (message: string) => ({
 
 export const SUCCESS_MESSAGE = {
   RESOURCE_CREATED: (resource: string) => succesMessage(`${resource} created`),
+  RESOURCE_UPDATED: (resource: string) => succesMessage(`${resource} updated`),
+  RESOURCE_DELETED: (resource: string) => succesMessage(`${resource} deleted`),
   SUCCESSFUL_SIGN_IN: succesMessage('Successfully signed in'),
   SUCCESSFUL_SIGN_UP: succesMessage('Successfully signed up'),
   SUCCESSFUL_SIGN_OUT: succesMessage('Successfully signed out'),
