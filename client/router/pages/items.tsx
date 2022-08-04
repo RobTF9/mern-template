@@ -8,9 +8,8 @@ const Items = () => {
   const [del, delLoading] = deleteItem()
   const [update, updateLoading] = updateItem()
   const [create, createLoading] = createItem()
-  const [item, setItem] = useState('')
 
-  if (itemsLoading || delLoading || createLoading) return <h1>Loading...</h1>
+  if (itemsLoading || delLoading || createLoading || updateLoading) return <h1>Loading...</h1>
 
   return (
     <div>
