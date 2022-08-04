@@ -1,5 +1,5 @@
 import { useQuery, UseMutateFunction, useMutation, QueryKey } from '@tanstack/react-query'
-import { get, patch, post, put } from './fetch'
+import { del, get, patch, post, put } from './fetch'
 import { queryClient } from '../context/query'
 import { useMessageContext } from '../context/message'
 
@@ -47,19 +47,23 @@ export function createOne<T, U>(
   callback?: (res: ServerReponse<U>) => void
 ): [mutate: UseMutateFunction<ServerReponse<U>, unknown, T, unknown>, isLoading: boolean] {
   const { showMessage } = useMessageContext()
-  const { mutate, isLoading } = useMutation((u: T) => post<T, ServerReponse<U>>(endpoint, u), {
-    onSuccess: (res) => {
-      queryClient.invalidateQueries(cache)
-      if (res) {
-        if (res.message) {
-          showMessage(res.message)
+  const { mutate, isLoading, reset } = useMutation(
+    (u: T) => post<T, ServerReponse<U>>(endpoint, u),
+    {
+      onSuccess: (res) => {
+        reset()
+        queryClient.invalidateQueries(cache)
+        if (res) {
+          if (res.message) {
+            showMessage(res.message)
+          }
+          if (callback) {
+            callback(res)
+          }
         }
-        if (callback) {
-          callback(res)
-        }
-      }
-    },
-  })
+      },
+    }
+  )
   return [mutate, isLoading]
 }
 
@@ -106,6 +110,32 @@ export function patchOne<T, U>(
       }),
     {
       onSuccess: (res) => {
+        queryClient.invalidateQueries(cache)
+        if (res) {
+          if (res.message) {
+            showMessage(res.message)
+          }
+          if (callback) {
+            callback(res)
+          }
+        }
+      },
+    }
+  )
+  return [mutate, isLoading]
+}
+
+export function deleteOne<U>(
+  cache: QueryKey,
+  endpoint: string,
+  callback?: (res: ServerReponse<U>) => void
+): [mutate: UseMutateFunction<ServerReponse<U>, unknown, string, unknown>, isLoading: boolean] {
+  const { showMessage } = useMessageContext()
+  const { mutate, isLoading, reset } = useMutation(
+    (id: string) => del<ServerReponse<U>>(`${endpoint}/${id}`),
+    {
+      onSuccess: (res) => {
+        reset()
         queryClient.invalidateQueries(cache)
         if (res) {
           if (res.message) {

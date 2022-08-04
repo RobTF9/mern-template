@@ -1,68 +1,63 @@
 async function http<T>(endpoint: RequestInfo, config: RequestInit): Promise<T> {
-  const request = new Request(endpoint, config);
+  const request = new Request(endpoint, config)
   try {
-    const response = await fetch(request);
-    return response.json();
+    const response = await fetch(request)
+    return response.json()
   } catch (error) {
-    console.log(error, config, endpoint);
-    throw error;
+    console.log(error, config, endpoint)
+    throw error
   }
 }
 
-export async function get<T>(
-  endpoint: string,
-  config?: RequestInit
-): Promise<T> {
+export async function get<T>(endpoint: string, config?: RequestInit): Promise<T> {
   const init = {
-    method: "GET",
+    method: 'GET',
     ...config,
-    headers: { ...config?.headers, "Content-Type": "application/json" },
-  };
-  const response = await http<T>(endpoint, init);
-  return response;
+    headers: { ...config?.headers, 'Content-Type': 'application/json' },
+  }
+  const response = await http<T>(endpoint, init)
+  return response
 }
 
-export async function post<T, U>(
-  endpoint: string,
-  body: T,
-  config?: RequestInit
-): Promise<U> {
+export async function post<T, U>(endpoint: string, body: T, config?: RequestInit): Promise<U> {
   const init = {
-    method: "POST",
+    method: 'POST',
     body: JSON.stringify(body),
     ...config,
-    headers: { ...config?.headers, "Content-Type": "application/json" },
-  };
-  const response = await http<U>(endpoint, init);
-  return response;
+    headers: { ...config?.headers, 'Content-Type': 'application/json' },
+  }
+  const response = await http<U>(endpoint, init)
+  return response
 }
 
-export async function put<T, U>(
-  endpoint: string,
-  body: T,
-  config?: RequestInit
-): Promise<U> {
+export async function put<T, U>(endpoint: string, body: T, config?: RequestInit): Promise<U> {
   const init = {
-    method: "PUT",
+    method: 'PUT',
     body: JSON.stringify(body),
     ...config,
-    headers: { ...config?.headers, "Content-Type": "application/json" },
-  };
-  const response = await http<U>(endpoint, init);
-  return response;
+    headers: { ...config?.headers, 'Content-Type': 'application/json' },
+  }
+  const response = await http<U>(endpoint, init)
+  return response
 }
 
-export async function patch<T, U>(
-  endpoint: string,
-  body: T,
-  config?: RequestInit
-): Promise<U> {
+export async function patch<T, U>(endpoint: string, body: T, config?: RequestInit): Promise<U> {
   const init = {
-    method: "PATCH",
+    method: 'PATCH',
     body: JSON.stringify(body),
     ...config,
-    headers: { ...config?.headers, "Content-Type": "application/json" },
-  };
-  const response = await http<U>(endpoint, init);
-  return response;
+    headers: { ...config?.headers, 'Content-Type': 'application/json' },
+  }
+  const response = await http<U>(endpoint, init)
+  return response
+}
+
+export async function del<U>(endpoint: string, config?: RequestInit): Promise<U> {
+  const init = {
+    method: 'DELETE',
+    ...config,
+    headers: { ...config?.headers, 'Content-Type': 'application/json' },
+  }
+  const response = await http<U>(endpoint, init)
+  return response
 }
