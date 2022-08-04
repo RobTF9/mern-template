@@ -15,7 +15,7 @@ const Items = () => {
   return (
     <div>
       <ItemForm create={create} />
-      <ItemList items={items} itemsLoading={itemsLoading} del={del} />
+      <ItemList items={items} itemsLoading={itemsLoading} del={del} update={update} />
     </div>
   )
 }
