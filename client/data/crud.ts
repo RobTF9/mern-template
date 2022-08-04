@@ -131,11 +131,10 @@ export function deleteOne<U>(
   callback?: (res: ServerReponse<U>) => void
 ): [mutate: UseMutateFunction<ServerReponse<U>, unknown, string, unknown>, isLoading: boolean] {
   const { showMessage } = useMessageContext()
-  const { mutate, isLoading, reset } = useMutation(
+  const { mutate, isLoading } = useMutation(
     (id: string) => del<ServerReponse<U>>(`${endpoint}/${id}`),
     {
       onSuccess: (res) => {
-        reset()
         queryClient.invalidateQueries(cache)
         if (res) {
           if (res.message) {
