@@ -28,4 +28,5 @@ export const ERROR_MESSAGE = {
   EMAIL_IN_USE: errorMessage('Email address is already in use'),
   USERNAME_IN_USE: errorMessage('Username is already in use'),
   NOT_AUTHORIZED: errorMessage('Not authorized'),
+  RESOURCE_NOT_FOUND: (resource: string) => succesMessage(`${resource} deleted`),
 }

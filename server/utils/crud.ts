@@ -1,6 +1,6 @@
 import { RequestHandler } from 'express'
 import { Model } from 'mongoose'
-import { SUCCESS_MESSAGE } from './messages'
+import { ERROR_MESSAGE, SUCCESS_MESSAGE } from './messages'
 
 function crudControllers<T>(model: Model<T>, collection: string) {
   const create: RequestHandler = async (req, res, next) => {
@@ -37,13 +37,10 @@ function crudControllers<T>(model: Model<T>, collection: string) {
 
   const update: RequestHandler = async (req, res, next) => {
     try {
-      const item = await model.findByIdAndUpdate(
-        req.params.id,
-        {
-          ...req.body,
-        },
-        { new: true }
-      )
+      const item = await model.findByIdAndUpdate(req.params.id, req.body).lean().exec()
+
+      if (!item) res.status(404).json({ message: ERROR_MESSAGE.RESOURCE_NOT_FOUND(collection) })
+
       return res
         .status(201)
         .json({ data: item, message: SUCCESS_MESSAGE.RESOURCE_UPDATED(collection) })
