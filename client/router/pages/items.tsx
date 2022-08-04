@@ -1,15 +1,13 @@
-import React, { useState } from 'react'
+import React from 'react'
 import ItemForm from '../../components/ItemForm'
 import ItemList from '../../components/ItemList'
-import { createItem, deleteItem, getItems, updateItem } from '../../data/itemResource'
+import useResource from '../../data/useResource'
 
 const Items = () => {
-  const [items, itemsLoading] = getItems()
-  const [del, delLoading] = deleteItem()
-  const [update, updateLoading] = updateItem()
-  const [create, createLoading] = createItem()
+  const resource = useResource<ItemResource, ItemInterface>('/api/item')
+  const { items, itemsLoading, create, createLoading, update, del } = resource
 
-  if (itemsLoading || delLoading || createLoading || updateLoading) return <h1>Loading...</h1>
+  if (itemsLoading || createLoading) return <h1>Loading...</h1>
 
   return (
     <div>
