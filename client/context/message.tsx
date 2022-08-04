@@ -40,7 +40,7 @@ export const MessageProvider: React.FC<{ children: ReactNode }> = ({ children })
 
   return (
     <messageContext.Provider value={{ showMessage, hideMessage }}>
-      <Message message={message} hide={hideMessage} />
+      <Message message={message} />
       {children}
     </messageContext.Provider>
   )

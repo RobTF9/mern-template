@@ -3,14 +3,6 @@ import { del, get, patch, post, put } from './fetch'
 import { queryClient } from '../context/query'
 import { useMessageContext } from '../context/message'
 
-export interface APIReciever<T> {
-  (id?: string): [
-    data: { data: T; searched?: boolean } | undefined,
-    isLoading: boolean,
-    refetch: () => void
-  ]
-}
-
 export function getMany<T>(
   cache: QueryKey,
   endpoint: string,
@@ -34,13 +26,6 @@ export function getOne<T>(
   return [data, isLoading, refetch]
 }
 
-export interface APIGiver<T, U> {
-  (id?: string, callback?: (res: ServerReponse<U>) => void): [
-    mutate: UseMutateFunction<ServerReponse<U>, unknown, T, unknown>,
-    isLoading: boolean
-  ]
-}
-
 export function createOne<T, U>(
   cache: QueryKey,
   endpoint: string,
@@ -51,7 +36,6 @@ export function createOne<T, U>(
     (u: T) => post<T, ServerReponse<U>>(endpoint, u),
     {
       onSuccess: (res) => {
-        reset()
         queryClient.invalidateQueries(cache)
         if (res) {
           if (res.message) {
