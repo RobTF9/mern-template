@@ -67,7 +67,7 @@ export function createOne<T, U>(
   return [mutate, isLoading]
 }
 
-export function updateOne<T, U>(
+export function updateOne<T extends Resource, U>(
   cache: QueryKey,
   endpoint: string,
   callback?: (res: ServerReponse<U>) => void
@@ -75,7 +75,7 @@ export function updateOne<T, U>(
   const { showMessage } = useMessageContext()
   const { mutate, isLoading } = useMutation(
     (u: T) =>
-      put<T, ServerReponse<U>>(endpoint, {
+      put<T, ServerReponse<U>>(`${endpoint}/${u._id}`, {
         ...u,
         updatedAt: undefined,
       }),

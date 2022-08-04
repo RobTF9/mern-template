@@ -6,6 +6,7 @@ import { createItem, deleteItem, getItems, updateItem } from '../../data/itemRes
 const Items = () => {
   const [items, itemsLoading] = getItems()
   const [del, delLoading] = deleteItem()
+  const [update, updateLoading] = updateItem()
   const [create, createLoading] = createItem()
   const [item, setItem] = useState('')
 
