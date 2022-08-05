@@ -20,7 +20,7 @@ const AuthenticationForm: React.FC<Props> = ({ details, submit, onChange }) => {
       }}
     >
       {Object.entries(details).map(([key, value]) => (
-        <label>
+        <label key={key}>
           <p>{key}</p>
           <input
             onChange={onChange}

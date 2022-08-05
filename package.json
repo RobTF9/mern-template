@@ -55,7 +55,8 @@
     "test": "jest",
     "clean": "rimraf .parcel-cache dist",
     "new": "node scripts/component.js",
-    "kill": "kill-port 3000"
+    "kill": "kill-port 3000",
+    "reset": "mongo mern --eval \"db.dropDatabase();\""
   },
   "alias": {
     "process": false

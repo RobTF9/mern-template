@@ -1,6 +1,6 @@
 import { Schema, model, SchemaTypes } from 'mongoose'
 
-const collection = 'Item'
+const collection = 'item'
 
 const itemSchema = new Schema<ItemInterface>(
   {
