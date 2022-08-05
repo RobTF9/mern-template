@@ -32,22 +32,19 @@ export function createOne<T, U>(
   callback?: (res: ServerReponse<U>) => void
 ): [mutate: UseMutateFunction<ServerReponse<U>, unknown, T, unknown>, isLoading: boolean] {
   const { showMessage } = useMessageContext()
-  const { mutate, isLoading, reset } = useMutation(
-    (u: T) => post<T, ServerReponse<U>>(endpoint, u),
-    {
-      onSuccess: (res) => {
-        queryClient.invalidateQueries(cache)
-        if (res) {
-          if (res.message) {
-            showMessage(res.message)
-          }
-          if (callback) {
-            callback(res)
-          }
+  const { mutate, isLoading } = useMutation((u: T) => post<T, ServerReponse<U>>(endpoint, u), {
+    onSuccess: (res) => {
+      queryClient.invalidateQueries(cache)
+      if (res) {
+        if (res.message) {
+          showMessage(res.message)
         }
-      },
-    }
-  )
+        if (callback) {
+          callback(res)
+        }
+      }
+    },
+  })
   return [mutate, isLoading]
 }
 
