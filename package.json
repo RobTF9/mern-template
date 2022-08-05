@@ -56,7 +56,8 @@
     "clean": "rimraf .parcel-cache dist",
     "new": "node scripts/component.js",
     "kill": "kill-port 3000",
-    "reset": "mongosh mern --eval \"db.dropDatabase();\""
+    "reset": "mongosh mern --eval \"db.dropDatabase();\"",
+    "seed": "node scripts/seed.js"
   },
   "alias": {
     "process": false

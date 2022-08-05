@@ -15,7 +15,7 @@ const users = [
     },
     username: 'r',
     email: 'r@r.com',
-    password: '$2a$08$uhkeztHQS3f3GLFFiEfAGOn3n9un84fUYqjJAgN8uHZ5Kwxa0kCtK',
+    password: '$2a$08$nR5AlhhxkvKp55iIv0jKreGtjNOg/FHb3A2g6obDp5BFajvnpT9I2',
     createdAt: {
       $date: date,
     },
@@ -94,4 +94,4 @@ async function postCollection(collection, object) {
 }
 
 postCollection('item', items)
-postCollection('user', users)
+postCollection('users', users)
