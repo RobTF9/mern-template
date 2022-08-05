@@ -1,0 +1,4 @@
+- [ ] Controllers should be replaced with low level database functions that react to webscokets
+- [ ] Probably need to re-write client logic as caching layers doesn't make much sense in real time
+- [ ] Replace routers with socket subscriptions, can you abstract the logic easily (same pattern?)
+- [ ] Clone front end masters course repo before you get on the plane!
