@@ -1,10 +1,19 @@
-- [ ] Controllers should be replaced with low level database functions that react to webscokets
-- [ ] Probably need to re-write client logic as caching layers doesn't make much sense in real time
-- [ ] Replace routers with socket subscriptions, can you abstract the logic easily (same pattern?)
-- [ ] Clone front end masters course repo before you get on the plane!
-- [ ] Auth is obviously the same pattern server side, how do you stop websocket running if user isn't signed in
-- [ ] Can you just replace the fetch abstractions and get rid of the cache?
-- [ ] Can you put constants in root and use them in both server and client (item:get)
+## Thoughts on architecture
+
+- Controllers should be replaced with low level database functions that react to webscokets
+- Probably need to re-write client logic as caching layers doesn't make much sense in real time
+- Replace routers with socket subscriptions, can you abstract the logic easily (same pattern?)
+- Clone front end masters course repo before you get on the plane!
+- Auth is obviously the same pattern server side, how do you stop websocket running if user isn't signed in
+- Can you just replace the fetch abstractions and get rid of the cache?
+- Can you put constants in root and use them in both server and client (item:get)
+
+## TODO
+
+- [ ] Add an on connection event to server and client
+- [ ] Add express session to websocket
+- [ ] Replicate controllers with websocket events on server
+- [ ] Edit data cache layer to use websocket events
 
 Socket item routes
 
