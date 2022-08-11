@@ -30,11 +30,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setAuthLoading(true)
     const response = await post<Email & Password, ServerReponse>('/auth/signin', details)
     if (response.auth) setAuthenticated(response.auth)
-    if (!response.auth && response.message)
-      if (!response.auth && response.message) {
-        setAuthenticated(response.auth)
-        showMessage(response.message)
-      }
+    if (!response.auth && response.message) {
+      setAuthenticated(response.auth)
+      showMessage(response.message)
+    }
     setAuthLoading(false)
   }
 
