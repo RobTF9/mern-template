@@ -33,12 +33,12 @@ app.use('/api/item', itemRouter)
 // Websocket
 const io = new Server(httpServer)
 
-io.on('connect', () => {
+io.on('connect', (socket) => {
   console.log('A user is connected')
-})
 
-io.on('disconnect', () => {
-  console.log('A user has disconnected')
+  socket.on('disconnect', () => {
+    console.log('A user has disconnected')
+  })
 })
 
 // Client
