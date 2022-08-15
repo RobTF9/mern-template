@@ -36,6 +36,18 @@ const io = new Server(httpServer)
 io.on('connect', (socket) => {
   console.log('A user is connected')
 
+  socket.on('joined', (event) => {
+    console.log('joined', event)
+  })
+
+  socket.on('update', (event) => {
+    console.log('update', event)
+  })
+
+  socket.on('create', (event) => {
+    console.log('create', event)
+  })
+
   socket.on('disconnect', () => {
     console.log('A user has disconnected')
   })
