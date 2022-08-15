@@ -42,10 +42,12 @@ io.on('connect', (socket) => {
 
   socket.on('update', (event) => {
     console.log('update', event)
+    io.emit('refresh')
   })
 
   socket.on('create', (event) => {
     console.log('create', event)
+    io.emit('refresh')
   })
 
   socket.on('disconnect', () => {

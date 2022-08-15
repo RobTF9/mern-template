@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { io, Socket } from 'socket.io-client'
+import { queryClient } from '../context/query'
 
 function useSocket() {
   const socketRef = useRef<Socket | null>(null)
@@ -9,17 +10,22 @@ function useSocket() {
       socketRef.current = io()
       return
     }
-  }, [])
+  }, [socketRef])
 
   const { current: socket } = socketRef
 
   useEffect(() => {
-    if (socket)
+    if (socket) {
       socket.on('connect', () => {
         console.log('connected')
         console.log(socket.id)
-        socket.emit('joined', socket.id)
       })
+
+      socket.on('refresh', () => {
+        console.log('refresh')
+        queryClient.invalidateQueries(['/api/item'])
+      })
+    }
 
     return () => {
       if (socket) socket.off('connect')
