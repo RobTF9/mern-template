@@ -34,6 +34,26 @@ const io = new Server(httpServer)
 io.on('connect', (socket) => {
   console.log('A user is connected')
 
+  socket.on('create', (data: string) => {
+    console.log('server create', data)
+    io.emit('create')
+  })
+
+  socket.on('read', (data: string) => {
+    console.log('server read', data)
+    io.emit('read')
+  })
+
+  socket.on('update', (data: string) => {
+    console.log('server update', data)
+    io.emit('update')
+  })
+
+  socket.on('delete', (data: string) => {
+    console.log('server delete', data)
+    io.emit('delete')
+  })
+
   socket.on('disconnect', () => {
     console.log('A user has disconnected')
   })
