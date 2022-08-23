@@ -10,6 +10,7 @@ import errorHandler from './utils/error'
 import authSession from './auth/session'
 import { protect } from './auth/middleware'
 import authRouter from './auth/router'
+import listRouter from './resources/list/router'
 
 export const app = express()
 const httpServer = createServer(app)
@@ -27,6 +28,7 @@ app.use(authSession)
 // RESTful endpoints
 app.use('/auth', authRouter)
 app.use('/api', protect)
+app.use('/api/list', listRouter)
 
 // Websocket
 const io = new Server(httpServer)

@@ -46,6 +46,14 @@ declare global {
   /** Item resource from the database */
   type ItemResource = ItemInterface & Resource
 
+  interface ListInterface {
+    name: string
+    items: ObjectId[]
+    createdBy: ObjectId
+  }
+
+  type ListResource = ListInterface & Resource
+
   /** The user interface, without mongodb fields (timestamps & _id) */
   interface UserInterface {
     username: string
