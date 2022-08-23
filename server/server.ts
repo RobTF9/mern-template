@@ -4,7 +4,6 @@ import { Server } from 'socket.io'
 import { json, urlencoded } from 'body-parser'
 import morgan from 'morgan'
 import cors from 'cors'
-import itemRouter from './resources/item/router'
 import path from 'path'
 import connect from './db/connect'
 import errorHandler from './utils/error'
@@ -28,27 +27,12 @@ app.use(authSession)
 // RESTful endpoints
 app.use('/auth', authRouter)
 app.use('/api', protect)
-app.use('/api/item', itemRouter)
 
 // Websocket
 const io = new Server(httpServer)
 
 io.on('connect', (socket) => {
   console.log('A user is connected')
-
-  socket.on('joined', (event) => {
-    console.log('joined', event)
-  })
-
-  socket.on('update', (event) => {
-    console.log('update', event)
-    io.emit('refresh')
-  })
-
-  socket.on('create', (event) => {
-    console.log('create', event)
-    io.emit('refresh')
-  })
 
   socket.on('disconnect', () => {
     console.log('A user has disconnected')
