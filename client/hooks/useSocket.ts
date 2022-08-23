@@ -17,8 +17,8 @@ function useSocket() {
       console.log('disconnected')
     })
 
-    socket.current.onAny((e) => {
-      console.log(e)
+    socket.current.onAny((e, d) => {
+      console.log(e, d)
     })
 
     return () => {

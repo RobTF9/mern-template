@@ -36,22 +36,22 @@ io.on('connect', (socket) => {
 
   socket.on('create', (data: string) => {
     console.log('server create', data)
-    io.emit('create')
+    io.emit('create', data)
   })
 
   socket.on('read', (data: string) => {
     console.log('server read', data)
-    io.emit('read')
+    io.emit('read', data)
   })
 
   socket.on('update', (data: string) => {
     console.log('server update', data)
-    io.emit('update')
+    io.emit('update', data)
   })
 
   socket.on('delete', (data: string) => {
     console.log('server delete', data)
-    io.emit('delete')
+    io.emit('delete', data)
   })
 
   socket.on('disconnect', () => {
