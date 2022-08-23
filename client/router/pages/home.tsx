@@ -1,7 +1,7 @@
 import React from 'react'
 import useSocket from '../../hooks/useSocket'
 
-const emitters = ['update', 'read', 'create', 'update']
+const emitters = ['update', 'read', 'create', 'delete']
 
 const Home = () => {
   const { emitter } = useSocket()
