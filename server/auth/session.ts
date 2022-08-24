@@ -5,6 +5,7 @@ import config from '../config'
 declare module 'express-session' {
   export interface SessionData {
     user: string
+    room: string
   }
 }
 

@@ -1,4 +1,4 @@
-import express from 'express'
+import express, { Request, Response } from 'express'
 import { createServer } from 'http'
 import { Server } from 'socket.io'
 import { json, urlencoded } from 'body-parser'
@@ -11,6 +11,8 @@ import authSession from './auth/session'
 import { protect } from './auth/middleware'
 import authRouter from './auth/router'
 import listRouter from './resources/list/router'
+import { SessionData } from 'express-session'
+import { NextFunction } from 'express-serve-static-core'
 
 export const app = express()
 const httpServer = createServer(app)
@@ -30,8 +32,19 @@ app.use('/auth', authRouter)
 app.use('/api', protect)
 app.use('/api/list', listRouter)
 
+declare module 'http' {
+  interface IncomingMessage {
+    session: SessionData & {
+      authenticated: boolean
+    }
+  }
+}
+
 // Websocket
 const io = new Server(httpServer)
+io.use((socket, next) =>
+  authSession(socket.request as Request, {} as Response, next as NextFunction)
+)
 
 io.on('connect', (socket) => {
   console.log('A user is connected')
@@ -39,7 +52,9 @@ io.on('connect', (socket) => {
   socket.on('join', (room: string) => {
     console.log('join', room)
     socket.join(room)
-    socket.to(room).emit('joined', room)
+    io.to(room).emit('joined', room)
+    socket.request.session.room = room
+    console.log(socket.request.session)
   })
 
   socket.on('disconnect', () => {
