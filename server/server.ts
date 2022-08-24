@@ -13,6 +13,7 @@ import authRouter from './auth/router'
 import listRouter from './resources/list/router'
 import { SessionData } from 'express-session'
 import { NextFunction } from 'express-serve-static-core'
+import itemRouter from './resources/item/router'
 
 export const app = express()
 const httpServer = createServer(app)
@@ -41,7 +42,8 @@ declare module 'http' {
 }
 
 // Websocket
-const io = new Server(httpServer)
+export const io = new Server(httpServer)
+
 io.use((socket, next) =>
   authSession(socket.request as Request, {} as Response, next as NextFunction)
 )
@@ -50,17 +52,18 @@ io.on('connect', (socket) => {
   console.log('A user is connected')
 
   socket.on('join', (room: string) => {
-    console.log('join', room)
     socket.join(room)
     io.to(room).emit('joined', room)
     socket.request.session.room = room
-    console.log(socket.request.session)
+    socket.request.session.save()
   })
 
   socket.on('disconnect', () => {
     console.log('A user has disconnected')
   })
 })
+
+app.use('/api/item', itemRouter(io))
 
 // Client
 const clientPath = path.join(__dirname, '..', 'client')

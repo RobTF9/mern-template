@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { io, Socket } from 'socket.io-client'
 
-function useSocket(id: string) {
+function useSocket<T>(id: string, listeners?: [string, (d: T) => void][]) {
   const socket = useRef<Socket | null>(null)
 
   function emitter(event: string, data: string) {
@@ -30,6 +30,12 @@ function useSocket(id: string) {
 
     socket.current.onAny((e, d) => {
       console.log(e, d)
+
+      listeners?.forEach(([event, action]) => {
+        if (e === event) {
+          action(d)
+        }
+      })
     })
 
     return () => {
