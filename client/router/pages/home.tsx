@@ -1,35 +1,29 @@
 import React, { useState } from 'react'
-import useLists from '../../hooks/useLists'
-import useSocket from '../../hooks/useSocket'
-
-const emitters = ['update', 'read', 'create', 'delete']
+import { Link } from 'react-router-dom'
+import { useListContext } from '../../context/lists'
 
 const Home = () => {
-  const { emitter } = useSocket()
-  const { lists, createList } = useLists()
+  const { lists, createList } = useListContext()
   const [newList, setNewList] = useState('')
 
   return (
     <div>
-      <h2>Home</h2>
-      <div>
-        {emitters.map((e) => (
-          <button key={e} onClick={() => emitter(e, 'data')}>
-            Emit {e}
-          </button>
-        ))}
-      </div>
       <form
         onSubmit={(event) => {
           event.preventDefault()
           createList(newList)
         }}
       >
-        <input value={newList} onChange={(event) => setNewList(event.target.value)} />
+        <label>
+          New list
+          <input value={newList} onChange={(event) => setNewList(event.target.value)} />
+        </label>
       </form>
       <ul>
         {lists.map(({ name, _id }) => (
-          <li key={_id}>{name}</li>
+          <li key={_id}>
+            <Link to={`/${_id}`}>{name}</Link>
+          </li>
         ))}
       </ul>
     </div>

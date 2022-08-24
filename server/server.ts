@@ -36,24 +36,10 @@ const io = new Server(httpServer)
 io.on('connect', (socket) => {
   console.log('A user is connected')
 
-  socket.on('create', (data: string) => {
-    console.log('server create', data)
-    io.emit('create', data)
-  })
-
-  socket.on('read', (data: string) => {
-    console.log('server read', data)
-    io.emit('read', data)
-  })
-
-  socket.on('update', (data: string) => {
-    console.log('server update', data)
-    io.emit('update', data)
-  })
-
-  socket.on('delete', (data: string) => {
-    console.log('server delete', data)
-    io.emit('delete', data)
+  socket.on('join', (room: string) => {
+    console.log('join', room)
+    socket.join(room)
+    socket.to(room).emit('joined', room)
   })
 
   socket.on('disconnect', () => {
