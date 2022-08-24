@@ -12,6 +12,7 @@ const listSchema = new Schema<ListInterface>(
         ref: 'user',
       },
     ],
+    editors: [{ type: SchemaTypes.ObjectId, required: true, ref: 'user' }],
     createdBy: {
       type: SchemaTypes.ObjectId,
       required: true,

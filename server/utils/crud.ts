@@ -25,9 +25,20 @@ function crudControllers<T>(model: Model<T>, collection: string, io?: Server) {
     }
   }
 
-  const readAll: RequestHandler = async (_, res, next) => {
+  const readAll: RequestHandler = async (req, res, next) => {
+    function query() {
+      let q = {}
+      if (collection === 'list') {
+        q = { $or: [{ createdBy: req.session.user }, { editors: req.session.user }] }
+      } else if (collection === 'item') {
+        q = { list: req.session.room }
+      }
+      return q
+    }
+
     try {
-      const items = await model.find()
+      const items = await model.find(query())
+      console.log(items)
       return res.status(200).json({ data: items })
     } catch (error) {
       return next(error)

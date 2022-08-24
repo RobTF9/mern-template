@@ -59,6 +59,7 @@ declare global {
   interface ListInterface {
     name: string
     items: ObjectId[]
+    editors: ObjectId[]
     createdBy: ObjectId
   }
 

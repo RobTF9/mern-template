@@ -15,6 +15,7 @@ const Authenticated = () => {
           <button onClick={signOut}>Sign out</button>
         </header>
         <Routes>
+          <Route path="/signin" element={<Navigate to="/" />} />
           <Route path="/:id" element={<List />} />
           <Route path="/" element={<Home />} />
           <Route path="*" element={<Navigate to="/" />} />

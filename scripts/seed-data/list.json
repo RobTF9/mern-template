@@ -1,0 +1,1 @@
+[{"_id":{"$oid":"62ebe39fea4bf07f32b51f1a"},"name":"List 1","createdBy":{"$oid":"62ebe39aea4bf07f32b51f18"},"items":[{"$oid":"62ebe39fea4bf07f32b51f1d"},{"$oid":"62ebe39fea4bf07f32b51f1e"},{"$oid":"62ebe39fea4bf07f32b51f1f"}],"editors":[{"$oid":"62ebe39aea4bf07f32b51f19"}]}]

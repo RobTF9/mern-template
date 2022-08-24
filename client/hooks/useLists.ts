@@ -8,6 +8,7 @@ function useLists() {
 
   async function getLists() {
     const response = await get<ListResource[]>('/api/list')
+
     if (response.data) {
       setLists(response.data)
     }
