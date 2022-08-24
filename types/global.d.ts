@@ -1,6 +1,15 @@
+import { SessionData } from 'express-session'
 import { ObjectId } from 'mongoose'
 
 export {}
+
+declare module 'http' {
+  interface IncomingMessage {
+    session: SessionData & {
+      authenticated: boolean
+    }
+  }
+}
 
 declare global {
   type Email = { email: string }

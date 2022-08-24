@@ -11,7 +11,6 @@ import authSession from './auth/session'
 import { protect } from './auth/middleware'
 import authRouter from './auth/router'
 import listRouter from './resources/list/router'
-import { SessionData } from 'express-session'
 import { NextFunction } from 'express-serve-static-core'
 import itemRouter from './resources/item/router'
 
@@ -32,14 +31,6 @@ app.use(authSession)
 app.use('/auth', authRouter)
 app.use('/api', protect)
 app.use('/api/list', listRouter)
-
-declare module 'http' {
-  interface IncomingMessage {
-    session: SessionData & {
-      authenticated: boolean
-    }
-  }
-}
 
 // Websocket
 export const io = new Server(httpServer)
