@@ -12,8 +12,6 @@ function crudControllers<T>(model: Model<T>, collection: string, io?: Server) {
       })
 
       if (io) {
-        console.log(`emitting create ${collection}...`)
-        console.log(req.session.room)
         io.to(req.session.room).emit(`create ${collection}`, item)
       }
 
