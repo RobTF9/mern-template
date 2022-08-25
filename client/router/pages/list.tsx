@@ -1,27 +1,14 @@
 // create a new socket that cruds items in a room equivalent to a active list id
 // push active list to session
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { get, post } from '../../data/fetch'
 import useSocket from '../../hooks/useSocket'
 
 const List = () => {
   const { id } = useParams()
-  const [items, setItems] = useState<ItemResource[]>([])
 
-  useSocket<ItemResource>(id || '', [['create item', (d) => setItems((s) => [d, ...s])]])
-  const [newItem, setNewItem] = useState('')
-
-  async function getItems() {
-    const response = await get<ItemResource[]>('/api/item')
-    if (response.data) {
-      setItems(response.data)
-    }
-  }
-
-  useEffect(() => {
-    getItems()
-  }, [])
+  const { list, emitter } = useSocket(id || '')
+  const [item, setItem] = useState('')
 
   return (
     <div>
@@ -29,21 +16,14 @@ const List = () => {
       <form
         onSubmit={async (event) => {
           event.preventDefault()
-          await post<{ item: string; list: string }, ItemResource>('/api/item', {
-            item: newItem,
-            list: id || '',
-          })
+          emitter('create item', { item })
         }}
       >
         <label>
           New item{' '}
-          <input type="text" value={newItem} onChange={(event) => setNewItem(event.target.value)} />
+          <input type="text" value={item} onChange={(event) => setItem(event.target.value)} />
         </label>
-        <ul>
-          {items.map(({ item, _id }) => (
-            <li key={_id}>{item}</li>
-          ))}
-        </ul>
+        <ul>{list && list.items.map(({ item }) => <li key={item}>{item}</li>)}</ul>
       </form>
     </div>
   )

@@ -47,22 +47,8 @@ const lists = [
     createdBy: {
       $oid: '62ebe39aea4bf07f32b51f18',
     },
-    items: [
-      {
-        $oid: '62ebe39fea4bf07f32b51f1d',
-      },
-      {
-        $oid: '62ebe39fea4bf07f32b51f1e',
-      },
-      {
-        $oid: '62ebe39fea4bf07f32b51f1f',
-      },
-    ],
-    editors: [
-      {
-        $oid: '62ebe39aea4bf07f32b51f19',
-      },
-    ],
+    items: [],
+    editors: [{ $oid: '62ebe39aea4bf07f32b51f19' }],
   },
   {
     _id: {
@@ -72,90 +58,8 @@ const lists = [
     createdBy: {
       $oid: '62ebe39aea4bf07f32b51f19',
     },
-    items: [
-      {
-        $oid: '62ebe39fea4bf07f32b51f10',
-      },
-    ],
-    editors: [
-      {
-        $oid: '62ebe39aea4bf07f32b51f18',
-      },
-    ],
-  },
-]
-const items = [
-  {
-    _id: {
-      $oid: '62ebe39fea4bf07f32b51f1d',
-    },
-    list: {
-      $oid: '62ebe39fea4bf07f32b51f1a',
-    },
-    item: 'Item 1',
-    createdBy: {
-      $oid: '62ebe39aea4bf07f32b51f18',
-    },
-    createdAt: {
-      $date: date,
-    },
-    updatedAt: {
-      $date: date,
-    },
-  },
-  {
-    _id: {
-      $oid: '62ebe39fea4bf07f32b51f1e',
-    },
-    list: {
-      $oid: '62ebe39fea4bf07f32b51f1a',
-    },
-    item: 'Item 2',
-    createdBy: {
-      $oid: '62ebe39aea4bf07f32b51f18',
-    },
-    createdAt: {
-      $date: date,
-    },
-    updatedAt: {
-      $date: date,
-    },
-  },
-  {
-    _id: {
-      $oid: '62ebe39fea4bf07f32b51f1f',
-    },
-    list: {
-      $oid: '62ebe39fea4bf07f32b51f1a',
-    },
-    item: 'Item 3',
-    createdBy: {
-      $oid: '62ebe39aea4bf07f32b51f18',
-    },
-    createdAt: {
-      $date: date,
-    },
-    updatedAt: {
-      $date: date,
-    },
-  },
-  {
-    _id: {
-      $oid: '62ebe39fea4bf07f32b51f10',
-    },
-    list: {
-      $oid: '62ebe39fea4bf07f32b51f1b',
-    },
-    item: 'Item 4',
-    createdBy: {
-      $oid: '62ebe39aea4bf07f32b51f19',
-    },
-    createdAt: {
-      $date: date,
-    },
-    updatedAt: {
-      $date: date,
-    },
+    items: [],
+    editors: [{ $oid: '62ebe39aea4bf07f32b51f18' }],
   },
 ]
 
@@ -180,6 +84,5 @@ async function postCollection(collection, object) {
   )
 }
 
-postCollection('item', items)
 postCollection('users', users)
 postCollection('list', lists)

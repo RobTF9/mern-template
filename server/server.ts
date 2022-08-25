@@ -11,7 +11,6 @@ import authSession from './auth/session'
 import { protect } from './auth/middleware'
 import authRouter from './auth/router'
 import listRouter from './resources/list/router'
-import itemRouter from './resources/item/router'
 import connectWebSocket from './socket/connector'
 import userRouter from './resources/user/router'
 
@@ -42,8 +41,6 @@ io.use((socket, next) =>
 )
 
 connectWebSocket(io)
-
-app.use('/api/item', itemRouter(io))
 
 // Client
 const clientPath = path.join(__dirname, '..', 'client')

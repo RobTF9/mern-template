@@ -7,9 +7,7 @@ const listSchema = new Schema<ListInterface>(
     name: { type: String, required: true },
     items: [
       {
-        type: SchemaTypes.ObjectId,
-        required: true,
-        ref: 'user',
+        item: { type: String, required: true },
       },
     ],
     editors: [{ type: SchemaTypes.ObjectId, required: true, ref: 'user' }],

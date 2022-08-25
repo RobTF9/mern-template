@@ -46,19 +46,9 @@ declare global {
     searched?: boolean
   }
 
-  /** The item interface, without mongodb fields (timestamps & _id) */
-  interface ItemInterface {
-    item: string
-    list: ObjectId
-    createdBy: ObjectId
-  }
-
-  /** Item resource from the database */
-  type ItemResource = ItemInterface & Resource
-
   interface ListInterface {
     name: string
-    items: ObjectId[]
+    items: { item: string }[]
     editors: ObjectId[]
     createdBy: ObjectId
   }
@@ -70,12 +60,6 @@ declare global {
     username: string
     email: string
     password: string
-    checkPassword: (password: string) => boolean
-    getPublicFields: () => {
-      username: string
-      email: string
-      _id: string
-    }
   }
 
   interface PublicUserInterface {

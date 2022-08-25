@@ -37,16 +37,6 @@ userSchema.methods.checkPassword = function (password: string) {
   })
 }
 
-userSchema.methods.getPublicFields = function () {
-  return {
-    username: this.username,
-    email: this.email,
-    _id: this._id,
-    createdAt: this.createdAt,
-    updatedAt: this.updatedAt,
-  }
-}
-
 userSchema.pre('save', function (next) {
   if (!this.isModified('password')) {
     next()
