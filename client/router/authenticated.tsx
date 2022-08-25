@@ -1,5 +1,5 @@
 import React from 'react'
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Link, Navigate, Route, Routes } from 'react-router-dom'
 import { useAuthContext } from '../context/auth'
 import ListProvider from '../context/lists'
 import Home from './pages/home'
@@ -11,7 +11,7 @@ const Authenticated = () => {
     <ListProvider>
       <div>
         <header>
-          <h1>Authenticated</h1>
+          <Link to="/">Home</Link>
           <button onClick={signOut}>Sign out</button>
         </header>
         <Routes>
