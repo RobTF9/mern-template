@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import ListGrid from '../../components/ListGrid'
+import { useAuthContext } from '../../context/auth'
 import { useListContext } from '../../context/lists'
 
 const Home = () => {
   const { lists, createList } = useListContext()
+  const { user } = useAuthContext()
   const [newList, setNewList] = useState('')
 
   return (
@@ -19,13 +21,7 @@ const Home = () => {
           <input value={newList} onChange={(event) => setNewList(event.target.value)} />
         </label>
       </form>
-      <ul>
-        {lists.map(({ name, _id }) => (
-          <li key={_id}>
-            <Link to={`/${_id}`}>{name}</Link>
-          </li>
-        ))}
-      </ul>
+      {user && <ListGrid lists={lists} user={user} />}
     </div>
   )
 }

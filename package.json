@@ -58,7 +58,7 @@
     "build:client": "parcel build client/index.html --dist-dir dist/client",
     "build": "yarn build:server && yarn build:client",
     "prebuild": "yarn clean",
-    "dev:client": "parcel serve client/index.html --dist-dir dist/client",
+    "dev:client": "parcel serve --hmr-port 3001 client/index.html --dist-dir dist/client",
     "dev:server": "nodemon",
     "predev": "yarn clean",
     "dev": "concurrently \"yarn dev:server\" \"yarn dev:client\"",

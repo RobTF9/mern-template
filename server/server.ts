@@ -13,6 +13,7 @@ import authRouter from './auth/router'
 import listRouter from './resources/list/router'
 import itemRouter from './resources/item/router'
 import connectWebSocket from './socket/connector'
+import userRouter from './resources/user/router'
 
 export const app = express()
 const httpServer = createServer(app)
@@ -31,6 +32,7 @@ app.use(authSession)
 app.use('/auth', authRouter)
 app.use('/api', protect)
 app.use('/api/list', listRouter)
+app.use('/api/user', userRouter)
 
 // Websocket
 const io = new Server(httpServer)

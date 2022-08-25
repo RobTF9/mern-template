@@ -8,6 +8,7 @@ interface AuthContext {
   signOut: () => void
   authenticated?: boolean
   authLoading: boolean
+  user?: UserResource
 }
 
 const authContext = createContext<AuthContext>({
@@ -22,7 +23,7 @@ export const useAuthContext = (): AuthContext => useContext(authContext)
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { showMessage } = useMessageContext()
-
+  const [user, setUser] = useState<UserResource | undefined>()
   const [authLoading, setAuthLoading] = useState(false)
   const [authenticated, setAuthenticated] = useState<boolean | undefined>()
 
@@ -60,12 +61,25 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (response.message) showMessage(response.message)
   }
 
+  async function getAuthenticatedUser() {
+    const response = await get<UserResource>('/api/user')
+    if (response.data) setUser(response.data)
+  }
+
   useEffect(() => {
     checkAuth()
   }, [])
 
+  useEffect(() => {
+    if (authenticated) {
+      getAuthenticatedUser()
+    } else {
+      setUser(undefined)
+    }
+  }, [authenticated])
+
   return (
-    <authContext.Provider value={{ authLoading, signIn, signOut, signUp, authenticated }}>
+    <authContext.Provider value={{ authLoading, signIn, signOut, signUp, authenticated, user }}>
       {children}
     </authContext.Provider>
   )
