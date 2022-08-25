@@ -38,7 +38,6 @@ function crudControllers<T>(model: Model<T>, collection: string, io?: Server) {
 
     try {
       const items = await model.find(query())
-      console.log(items)
       return res.status(200).json({ data: items })
     } catch (error) {
       return next(error)
