@@ -64,6 +64,25 @@ const lists = [
       },
     ],
   },
+  {
+    _id: {
+      $oid: '62ebe39fea4bf07f32b51f1b',
+    },
+    name: 'List 2',
+    createdBy: {
+      $oid: '62ebe39aea4bf07f32b51f19',
+    },
+    items: [
+      {
+        $oid: '62ebe39fea4bf07f32b51f1d',
+      },
+    ],
+    editors: [
+      {
+        $oid: '62ebe39aea4bf07f32b51f18',
+      },
+    ],
+  },
 ]
 const items = [
   {
@@ -103,6 +122,21 @@ const items = [
     item: 'Item 3',
     createdBy: {
       $oid: '62ebe39aea4bf07f32b51f18',
+    },
+    createdAt: {
+      $date: date,
+    },
+    updatedAt: {
+      $date: date,
+    },
+  },
+  {
+    _id: {
+      $oid: '62ebe39fea4bf07f32b51f1g',
+    },
+    item: 'Item 4',
+    createdBy: {
+      $oid: '62ebe39aea4bf07f32b51f19',
     },
     createdAt: {
       $date: date,
