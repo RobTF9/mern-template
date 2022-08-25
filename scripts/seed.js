@@ -74,7 +74,7 @@ const lists = [
     },
     items: [
       {
-        $oid: '62ebe39fea4bf07f32b51f1d',
+        $oid: '62ebe39fea4bf07f32b51f10',
       },
     ],
     editors: [
@@ -88,6 +88,9 @@ const items = [
   {
     _id: {
       $oid: '62ebe39fea4bf07f32b51f1d',
+    },
+    list: {
+      $oid: '62ebe39fea4bf07f32b51f1a',
     },
     item: 'Item 1',
     createdBy: {
@@ -104,6 +107,9 @@ const items = [
     _id: {
       $oid: '62ebe39fea4bf07f32b51f1e',
     },
+    list: {
+      $oid: '62ebe39fea4bf07f32b51f1a',
+    },
     item: 'Item 2',
     createdBy: {
       $oid: '62ebe39aea4bf07f32b51f18',
@@ -119,6 +125,9 @@ const items = [
     _id: {
       $oid: '62ebe39fea4bf07f32b51f1f',
     },
+    list: {
+      $oid: '62ebe39fea4bf07f32b51f1a',
+    },
     item: 'Item 3',
     createdBy: {
       $oid: '62ebe39aea4bf07f32b51f18',
@@ -132,7 +141,10 @@ const items = [
   },
   {
     _id: {
-      $oid: '62ebe39fea4bf07f32b51f1g',
+      $oid: '62ebe39fea4bf07f32b51f10',
+    },
+    list: {
+      $oid: '62ebe39fea4bf07f32b51f1b',
     },
     item: 'Item 4',
     createdBy: {
