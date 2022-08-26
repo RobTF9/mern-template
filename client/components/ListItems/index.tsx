@@ -6,24 +6,40 @@ interface Item {
   _id: string
 }
 
-interface Props {
-  items: Item[]
+interface ItemEmitters {
   updateItem: (id: string, update: string) => void
+  userFocusedOnItem: (itemId: string) => void
+  userUnfocusedOnItem: (itemId: string) => void
 }
 
-const ListItems: React.FC<Props> = ({ items, updateItem }) => {
+interface Props extends ItemEmitters {
+  items: Item[]
+}
+
+const ListItems: React.FC<Props> = ({
+  items,
+  updateItem,
+  userFocusedOnItem,
+  userUnfocusedOnItem,
+}) => {
   return (
     <ListItemsWrapper>
       {items.map(({ item, _id }) => (
         <li key={_id}>
-          <Item _id={_id} item={item} updateItem={updateItem} />
+          <Item
+            _id={_id}
+            item={item}
+            updateItem={updateItem}
+            userFocusedOnItem={userFocusedOnItem}
+            userUnfocusedOnItem={userUnfocusedOnItem}
+          />
         </li>
       ))}
     </ListItemsWrapper>
   )
 }
 
-const Item: React.FC<Item & { updateItem: (id: string, update: string) => void }> = (props) => {
+const Item: React.FC<Item & ItemEmitters> = (props) => {
   const [item, setItem] = useState(props.item)
 
   useEffect(() => {
@@ -39,7 +55,13 @@ const Item: React.FC<Item & { updateItem: (id: string, update: string) => void }
         props.updateItem(props._id, item)
       }}
     >
-      <input type="text" value={item} onChange={(event) => setItem(event.target.value)} />
+      <input
+        onFocus={() => props.userFocusedOnItem(props._id)}
+        onBlur={() => props.userUnfocusedOnItem(props._id)}
+        type="text"
+        value={item}
+        onChange={(event) => setItem(event.target.value)}
+      />
     </form>
   )
 }

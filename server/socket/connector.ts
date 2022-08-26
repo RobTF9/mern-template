@@ -35,7 +35,15 @@ function connectWebSocket(io: Server) {
         list.items = update
         list.save()
       }
-      io.emit('item updated', list)
+      io.to(e.room).emit('item updated', list)
+    })
+
+    socket.on('user focused', (e: EventFromClient<{ itemId: string; userId: string }>) => {
+      io.to(e.room).emit('user focused', { ...e.data })
+    })
+
+    socket.on('user unfocused', (e: EventFromClient<{ itemId: string; userId: string }>) => {
+      io.to(e.room).emit('user unfocused', { ...e.data })
     })
 
     socket.on('disconnect', () => {

@@ -7,7 +7,7 @@ import useSocket from '../../hooks/useSocket'
 
 const List = () => {
   const { id } = useParams()
-  const { list, emitter, updateItem } = useSocket(id || '')
+  const { list, emitter, updateItem, userFocusedOnItem, userUnfocusedOnItem } = useSocket(id || '')
   const [item, setItem] = useState('')
 
   // emmiter when edit is focused
@@ -27,7 +27,14 @@ const List = () => {
             <input type="text" value={item} onChange={(event) => setItem(event.target.value)} />
           </label>
         </form>
-        {list && <ListItems items={list.items} updateItem={updateItem} />}
+        {list && (
+          <ListItems
+            items={list.items}
+            updateItem={updateItem}
+            userFocusedOnItem={userFocusedOnItem}
+            userUnfocusedOnItem={userUnfocusedOnItem}
+          />
+        )}
       </div>
     )
   )
