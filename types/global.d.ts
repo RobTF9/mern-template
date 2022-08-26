@@ -48,7 +48,7 @@ declare global {
 
   interface ListInterface {
     name: string
-    items: { item: string }[]
+    items: { item: string; _id: string }[]
     editors: ObjectId[]
     createdBy: ObjectId
   }

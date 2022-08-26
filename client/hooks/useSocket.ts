@@ -11,6 +11,10 @@ function useSocket<T>(id: string, listeners?: [string, (d: T) => void][]) {
     }
   }
 
+  function updateItem(id: string, update: string) {
+    emitter('update item', { id, update })
+  }
+
   useEffect(() => {
     if (socket.current == null) {
       socket.current = io()
@@ -26,6 +30,11 @@ function useSocket<T>(id: string, listeners?: [string, (d: T) => void][]) {
     })
 
     socket.current.on('item created', (list: ListResource) => {
+      setList(list)
+    })
+
+    socket.current.on('item updated', (list: ListResource) => {
+      console.log('recieved')
       console.log(list)
       setList(list)
     })
@@ -35,8 +44,6 @@ function useSocket<T>(id: string, listeners?: [string, (d: T) => void][]) {
     })
 
     socket.current.onAny((e, d) => {
-      console.log(e, d)
-
       listeners?.forEach(([event, action]) => {
         if (e === event) {
           action(d)
@@ -53,7 +60,7 @@ function useSocket<T>(id: string, listeners?: [string, (d: T) => void][]) {
     }
   }, [])
 
-  return { emitter, list }
+  return { emitter, list, updateItem }
 }
 
 export default useSocket

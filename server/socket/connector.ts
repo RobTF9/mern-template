@@ -26,6 +26,18 @@ function connectWebSocket(io: Server) {
       io.to(e.room).emit('item created', list)
     })
 
+    socket.on('update item', async (e: EventFromClient<{ id: string; update: string }>) => {
+      const list = await List.findById(e.room)
+      if (list && e.data) {
+        const update = list?.items.map((i) =>
+          `${i._id}` === e.data?.id ? { ...i, item: e.data.update } : i
+        )
+        list.items = update
+        list.save()
+      }
+      io.emit('item updated', list)
+    })
+
     socket.on('disconnect', () => {
       console.log('A user has disconnected')
     })
