@@ -7,10 +7,15 @@ import useSocket from '../../hooks/useSocket'
 
 const List = () => {
   const { id } = useParams()
-  const { list, emitter, updateItem, userFocusedOnItem, userUnfocusedOnItem } = useSocket(id || '')
+  const {
+    list,
+    emitter,
+    updateItem,
+    userFocusedOnItem,
+    userUnfocusedOnItem,
+    itemsFocusedOnByOtherUsers,
+  } = useSocket(id || '')
   const [item, setItem] = useState('')
-
-  // emmiter when edit is focused
 
   return (
     list && (
@@ -33,6 +38,7 @@ const List = () => {
             updateItem={updateItem}
             userFocusedOnItem={userFocusedOnItem}
             userUnfocusedOnItem={userUnfocusedOnItem}
+            itemsFocusedOnByOtherUsers={itemsFocusedOnByOtherUsers}
           />
         )}
       </div>
