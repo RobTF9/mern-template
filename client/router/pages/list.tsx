@@ -1,5 +1,3 @@
-// create a new socket that cruds items in a room equivalent to a active list id
-// push active list to session
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import ListItems from '../../components/ListItems'
