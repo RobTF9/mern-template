@@ -70,7 +70,8 @@
     "new": "node scripts/component.js",
     "kill": "kill-port 3000",
     "reset": "mongosh mern --eval \"db.dropDatabase();\"",
-    "seed": "node scripts/seed.js"
+    "seed": "node scripts/seed.js",
+    "constants": "node scripts/constants.js"
   },
   "alias": {
     "process": false
