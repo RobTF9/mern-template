@@ -17,7 +17,7 @@ const ListGrid: React.FC<Props> = ({ lists, user }) => {
           <p>
             {editors.length} editor{editors.length === 1 ? '' : 's'}
           </p>
-          <Link to={`/${_id}`}>Open</Link>
+          <Link to={`/${_id}`}>Open {name}</Link>
         </li>
       ))}
     </ListGridWrapper>

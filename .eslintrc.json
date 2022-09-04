@@ -9,7 +9,7 @@
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended"
   ],
-  "ignorePatterns": ["scripts"],
+  "ignorePatterns": ["scripts", "cypress.config.js"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {

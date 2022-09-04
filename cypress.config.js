@@ -4,5 +4,6 @@ module.exports = defineConfig({
   e2e: {
     baseUrl: 'http://localhost:4000',
     supportFile: false,
+    watchForFileChanges: true,
   },
 })
