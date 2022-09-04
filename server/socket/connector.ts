@@ -1,4 +1,5 @@
 import { Server } from 'socket.io'
+import { EVENTS } from '../constants'
 import List from '../resources/list/model'
 
 interface EventFromClient<T> {
@@ -10,23 +11,23 @@ function connectWebSocket(io: Server) {
   io.on('connect', (socket) => {
     console.log('A user is connected')
 
-    socket.on('join', async (e: EventFromClient<undefined>) => {
+    socket.on(EVENTS.JOIN, async (e: EventFromClient<undefined>) => {
       socket.join(e.room)
       const list = await List.findById(e.room)
-      io.to(e.room).emit('joined', list)
+      io.to(e.room).emit(EVENTS.JOINED, list)
     })
 
-    socket.on('create item', async (e: EventFromClient<{ item: string }>) => {
+    socket.on(EVENTS.CREATE_ITEM, async (e: EventFromClient<{ item: string }>) => {
       const list = await List.findByIdAndUpdate(
         e.room,
         { $push: { items: { $each: [e.data] } } },
         { new: true }
       )
 
-      io.to(e.room).emit('item created', list)
+      io.to(e.room).emit(EVENTS.ITEM_CREATED, list)
     })
 
-    socket.on('update item', async (e: EventFromClient<{ id: string; update: string }>) => {
+    socket.on(EVENTS.UPDATE_ITEM, async (e: EventFromClient<{ id: string; update: string }>) => {
       const list = await List.findById(e.room)
       if (list && e.data) {
         const update = list?.items.map((i) =>
@@ -35,18 +36,18 @@ function connectWebSocket(io: Server) {
         list.items = update
         list.save()
       }
-      io.to(e.room).emit('item updated', list)
+      io.to(e.room).emit(EVENTS.ITEM_UPDATED, list)
     })
 
-    socket.on('user focused', (e: EventFromClient<{ itemId: string; userId: string }>) => {
-      io.to(e.room).emit('user focused', { ...e.data })
+    socket.on(EVENTS.USER_FOCUSED, (e: EventFromClient<{ itemId: string; userId: string }>) => {
+      io.to(e.room).emit(EVENTS.USER_FOCUSED, { ...e.data })
     })
 
-    socket.on('user unfocused', (e: EventFromClient<{ itemId: string; userId: string }>) => {
-      io.to(e.room).emit('user unfocused', { ...e.data })
+    socket.on(EVENTS.USER_UNFOCUSED, (e: EventFromClient<{ itemId: string; userId: string }>) => {
+      io.to(e.room).emit(EVENTS.USER_UNFOCUSED, { ...e.data })
     })
 
-    socket.on('disconnect', () => {
+    socket.on(EVENTS.DISCONNECT, () => {
       console.log('A user has disconnected')
     })
   })

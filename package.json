@@ -57,7 +57,7 @@
     "build:server": "babel server --out-dir dist/server --extensions .ts",
     "build:client": "parcel build client/index.html --dist-dir dist/client",
     "build": "yarn build:server && yarn build:client",
-    "prebuild": "yarn clean",
+    "prebuild": "yarn clean && yarn constants",
     "dev:client": "parcel serve --hmr-port 3001 client/index.html --dist-dir dist/client",
     "dev:server": "nodemon",
     "predev": "yarn clean",

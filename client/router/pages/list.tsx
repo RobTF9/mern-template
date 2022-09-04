@@ -7,7 +7,7 @@ const List = () => {
   const { id } = useParams()
   const {
     list,
-    emitter,
+    createItem,
     updateItem,
     userFocusedOnItem,
     userUnfocusedOnItem,
@@ -22,7 +22,7 @@ const List = () => {
         <form
           onSubmit={async (event) => {
             event.preventDefault()
-            emitter('create item', { item })
+            createItem(item)
           }}
         >
           <label>
