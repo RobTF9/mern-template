@@ -18,7 +18,7 @@ const Home = () => {
       >
         <label>
           New list
-          <input value={newList} onChange={(event) => setNewList(event.target.value)} />
+          <input name="list" value={newList} onChange={(event) => setNewList(event.target.value)} />
         </label>
       </form>
       {user && <ListGrid lists={lists} user={user} />}

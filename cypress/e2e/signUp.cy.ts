@@ -7,6 +7,6 @@ describe('Sign up', () => {
     cy.get('input[name=email]').clear().type('b@b.com')
     cy.get('input[name=username]').clear().type('b')
     cy.get('input[name=password]').clear().type('password{enter}')
-    cy.get('h1').should('contain', 'Authenticated')
+    cy.get('a').should('contain', 'Home')
   })
 })

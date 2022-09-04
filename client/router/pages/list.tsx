@@ -27,7 +27,12 @@ const List = () => {
         >
           <label>
             New item{' '}
-            <input type="text" value={item} onChange={(event) => setItem(event.target.value)} />
+            <input
+              name="item"
+              type="text"
+              value={item}
+              onChange={(event) => setItem(event.target.value)}
+            />
           </label>
         </form>
         {list && (
