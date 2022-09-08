@@ -118,5 +118,6 @@ dist
 .DS_Store
 temp/
 cypress/videos
+cypress/screenshots
 client/constants.ts
 server/constants.ts
