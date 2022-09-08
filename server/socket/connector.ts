@@ -11,19 +11,18 @@ function connectWebSocket(io: Server) {
   io.on('connect', (socket) => {
     console.log('A user is connected')
 
-    const users = []
+    const users: RoomUser[] = []
     for (const [id, socket] of io.of('/').sockets) {
       users.push({
         socket: id,
         username: socket.request.session.user.username,
       })
     }
-    console.log(users)
 
     socket.on(EVENTS.JOIN, async (e: EventFromClient<undefined>) => {
       socket.join(e.room)
       const list = await List.findById(e.room)
-      io.to(e.room).emit(EVENTS.JOINED, list)
+      io.to(e.room).emit(EVENTS.JOINED, { list, users })
     })
 
     socket.on(EVENTS.CREATE_ITEM, async (e: EventFromClient<{ item: string }>) => {

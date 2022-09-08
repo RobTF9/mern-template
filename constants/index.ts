@@ -9,4 +9,5 @@ export const EVENTS = {
   JOINED: 'joined',
   CONNECT: 'connect',
   DISCONNECT: 'disconnect',
+  USER: 'user',
 }

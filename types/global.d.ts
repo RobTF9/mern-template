@@ -24,6 +24,11 @@ declare global {
     // updatedAt: string
   }
 
+  interface RoomUser {
+    socket: string
+    username: string
+  }
+
   /** A message object sent from the server */
   type Message = {
     /** Error or success, used to determine color on front end */

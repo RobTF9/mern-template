@@ -45,9 +45,13 @@ function useSocket<T>(id: string, listeners?: [string, (d: T) => void][]) {
       emitter(EVENTS.JOIN, id)
     })
 
-    socket.current.on(EVENTS.JOINED, (list: ListResource) => {
-      setList(list)
-    })
+    socket.current.on(
+      EVENTS.JOINED,
+      ({ list, users }: { list: ListResource; users: RoomUser[] }) => {
+        setList(list)
+        console.log(users)
+      }
+    )
 
     socket.current.on(EVENTS.USER_FOCUSED, (data: FocusedUser) => {
       if (data.userId !== user?._id) {
