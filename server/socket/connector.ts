@@ -11,12 +11,15 @@ function connectWebSocket(io: Server) {
   io.on('connect', (socket) => {
     console.log('A user is connected')
 
-    const users: RoomUser[] = []
+    let users: RoomUser[] = []
     for (const [id, socket] of io.of('/').sockets) {
-      users.push({
-        socket: id,
-        username: socket.request.session.user.username,
-      })
+      users = [
+        ...users,
+        {
+          socket: id,
+          username: socket.request.session.user.username,
+        },
+      ]
     }
 
     socket.on(EVENTS.JOIN, async (e: EventFromClient<undefined>) => {
@@ -55,7 +58,9 @@ function connectWebSocket(io: Server) {
       io.to(e.room).emit(EVENTS.USER_UNFOCUSED, { ...e.data })
     })
 
-    socket.on(EVENTS.DISCONNECT, () => {
+    socket.on('disconnect', () => {
+      users = users.filter((user) => user.socket !== socket.id)
+      io.emit(EVENTS.USER_DISCONNECTED, users)
       console.log('A user has disconnected')
     })
   })

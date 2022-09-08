@@ -74,6 +74,10 @@ function useSocket<T>(id: string, listeners?: [string, (d: T) => void][]) {
       setList(list)
     })
 
+    socket.current.on(EVENTS.USER_DISCONNECTED, (users: RoomUser[]) => {
+      setRoomUsers(users)
+    })
+
     socket.current.onAny((e, d) => {
       listeners?.forEach(([event, action]) => {
         if (e === event) {
