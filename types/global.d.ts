@@ -29,6 +29,11 @@ declare global {
     username: string
   }
 
+  interface EventFromClient<T> {
+    room: string
+    data?: T
+  }
+
   /** A message object sent from the server */
   type Message = {
     /** Error or success, used to determine color on front end */

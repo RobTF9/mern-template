@@ -22,19 +22,19 @@ function useSocket<T>(id: string, listeners?: [string, (d: T) => void][]) {
   }
 
   function createItem(item: string) {
-    emitter(EVENTS.CREATE_ITEM, { item })
+    emitter(EVENTS.LIST_CREATE_ITEM, { item })
   }
 
   function updateItem(id: string, update: string) {
-    emitter(EVENTS.UPDATE_ITEM, { id, update })
+    emitter(EVENTS.LIST_UPDATE_ITEM, { id, update })
   }
 
   function userFocusedOnItem(itemId: string) {
-    emitter(EVENTS.USER_FOCUSED, { userId: user?._id, itemId })
+    emitter(EVENTS.LIST_USER_FOCUSED_ITEM, { userId: user?._id, itemId })
   }
 
   function userUnfocusedOnItem(itemId: string) {
-    emitter(EVENTS.USER_UNFOCUSED, { userId: user?._id, itemId })
+    emitter(EVENTS.LIST_USER_UNFOCUSED_ITEM, { userId: user?._id, itemId })
   }
 
   useEffect(() => {
@@ -43,38 +43,38 @@ function useSocket<T>(id: string, listeners?: [string, (d: T) => void][]) {
     }
 
     socket.current.on(EVENTS.CONNECT, () => {
-      emitter(EVENTS.JOIN, id)
+      emitter(EVENTS.LIST_JOIN_REQUEST, id)
     })
 
     socket.current.on(
-      EVENTS.JOINED,
+      EVENTS.LIST_JOINED,
       ({ list, users }: { list: ListResource; users: RoomUser[] }) => {
         setList(list)
         setRoomUsers(users)
       }
     )
 
-    socket.current.on(EVENTS.USER_FOCUSED, (data: FocusedUser) => {
+    socket.current.on(EVENTS.LIST_USER_FOCUSED_ITEM, (data: FocusedUser) => {
       if (data.userId !== user?._id) {
         setItemsFocusedOnByOtherUsers((prev) => [...prev, data])
       }
     })
 
-    socket.current.on(EVENTS.USER_UNFOCUSED, (data: FocusedUser) => {
+    socket.current.on(EVENTS.LIST_USER_UNFOCUSED_ITEM, (data: FocusedUser) => {
       if (data.userId !== user?._id) {
         setItemsFocusedOnByOtherUsers((prev) => prev.filter((item) => item.itemId !== data.itemId))
       }
     })
 
-    socket.current.on(EVENTS.ITEM_CREATED, (list: ListResource) => {
+    socket.current.on(EVENTS.LIST_ITEM_CREATED, (list: ListResource) => {
       setList(list)
     })
 
-    socket.current.on(EVENTS.ITEM_UPDATED, (list: ListResource) => {
+    socket.current.on(EVENTS.LIST_ITEM_UPDATED, (list: ListResource) => {
       setList(list)
     })
 
-    socket.current.on(EVENTS.USER_DISCONNECTED, (users: RoomUser[]) => {
+    socket.current.on(EVENTS.LIST_DISCONNECTED, (users: RoomUser[]) => {
       setRoomUsers(users)
     })
 
