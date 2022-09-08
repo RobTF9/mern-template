@@ -25,4 +25,8 @@ describe('First user can interact with list...', () => {
   it('First user can click on other item', () => {
     cy.get('input[name="Hello r"]').type('focus')
   })
+
+  it('First user can see second online', () => {
+    cy.get('span').should('contain', 'r')
+  })
 })

@@ -20,8 +20,6 @@ export const signIn: RequestHandler = async (req, res, next) => {
       return res.status(401).json({ message: ERROR_MESSAGE.INVALID_EMAIL_OR_PASSWORD, auth: false })
     }
 
-    console.log(user)
-
     req.session.user = { _id: `${user._id}`, username: user.username }
 
     return res.status(201).send({ message: SUCCESS_MESSAGE.SUCCESSFUL_SIGN_IN, auth: true })

@@ -20,7 +20,14 @@ const List = () => {
     list && (
       <div>
         <h2>{list.name}</h2>
-        <p>Active users: {roomUsers.map(({ username }) => username).join(', ')}</p>
+        <p>
+          Active users:{' '}
+          {roomUsers.map(({ username, socket }) => (
+            <>
+              <span key={socket}>{username}</span>{' '}
+            </>
+          ))}
+        </p>
         <form
           onSubmit={async (event) => {
             event.preventDefault()

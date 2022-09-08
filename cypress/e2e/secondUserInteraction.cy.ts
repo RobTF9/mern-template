@@ -25,4 +25,8 @@ describe('Second user can interact with list...', () => {
   it('Second user can see first user in input', () => {
     cy.get('input[name="Hello r"]').should('be.disabled')
   })
+
+  it('Second user can see first online', () => {
+    cy.get('span').should('contain', 'm')
+  })
 })
