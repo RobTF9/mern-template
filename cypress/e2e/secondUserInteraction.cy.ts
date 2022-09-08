@@ -15,6 +15,6 @@ describe('Second user can interact with list...', () => {
 
   it('User can create a new item', () => {
     cy.get('input[name=item]').clear().type('Hello r{enter}')
-    cy.get('li>form>input').should('contain', 'Hello r')
+    cy.get('input').should('have.value', 'Hello r')
   })
 })
