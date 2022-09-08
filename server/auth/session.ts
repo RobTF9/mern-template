@@ -4,7 +4,10 @@ import config from '../config'
 
 declare module 'express-session' {
   export interface SessionData {
-    user: string
+    user: {
+      _id: string
+      username: string
+    }
     room: string
     save: () => void
   }

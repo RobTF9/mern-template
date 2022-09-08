@@ -68,6 +68,7 @@
     "cy:open": "cypress open",
     "cy:first": "cypress run --quiet --e2e --browser chrome --spec \"cypress/e2e/firstUserInteraction.cy.ts\"",
     "cy:second": "cypress run --quiet --e2e --browser chrome --spec \"cypress/e2e/secondUserInteraction.cy.ts\"",
+    "preinteract": "yarn seed",
     "interact": "concurrently \"yarn cy:first\" \"yarn cy:second\"",
     "test": "PORT=3000 NODE_ENV=test start-server-and-test 'yarn start' http://localhost:4000 'yarn cy:run'",
     "test:open": "yarn pretest && PORT=4000 NODE_ENV=test start-server-and-test 'yarn start' http://localhost:4000 'yarn cy:open'",
