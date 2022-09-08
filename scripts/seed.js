@@ -13,7 +13,7 @@ const users = [
     _id: {
       $oid: '62ebe39aea4bf07f32b51f17',
     },
-    username: 'observer',
+    username: 'obs',
     email: 'observer@me.com',
     password: '$2a$08$nR5AlhhxkvKp55iIv0jKreGtjNOg/FHb3A2g6obDp5BFajvnpT9I2',
     createdAt: {

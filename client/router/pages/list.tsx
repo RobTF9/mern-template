@@ -12,6 +12,7 @@ const List = () => {
     userFocusedOnItem,
     userUnfocusedOnItem,
     itemsFocusedOnByOtherUsers,
+    roomUsers,
   } = useSocket(id || '')
   const [item, setItem] = useState('')
 
@@ -19,6 +20,7 @@ const List = () => {
     list && (
       <div>
         <h2>{list.name}</h2>
+        <p>Active users: {roomUsers.map(({ username }) => username).join(', ')}</p>
         <form
           onSubmit={async (event) => {
             event.preventDefault()

@@ -13,6 +13,7 @@ function useSocket<T>(id: string, listeners?: [string, (d: T) => void][]) {
   const [list, setList] = useState<ListResource | undefined>()
   const [itemsFocusedOnByOtherUsers, setItemsFocusedOnByOtherUsers] = useState<FocusedUser[]>([])
   const socket = useRef<Socket | null>(null)
+  const [roomUsers, setRoomUsers] = useState<RoomUser[]>([])
 
   function emitter<T>(event: string, data: T) {
     if (socket.current) {
@@ -49,7 +50,7 @@ function useSocket<T>(id: string, listeners?: [string, (d: T) => void][]) {
       EVENTS.JOINED,
       ({ list, users }: { list: ListResource; users: RoomUser[] }) => {
         setList(list)
-        console.log(users)
+        setRoomUsers(users)
       }
     )
 
@@ -96,6 +97,7 @@ function useSocket<T>(id: string, listeners?: [string, (d: T) => void][]) {
     userFocusedOnItem,
     userUnfocusedOnItem,
     itemsFocusedOnByOtherUsers,
+    roomUsers,
   }
 }
 
