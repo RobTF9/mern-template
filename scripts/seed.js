@@ -11,6 +11,20 @@ const date = now.toISOString()
 const users = [
   {
     _id: {
+      $oid: '62ebe39aea4bf07f32b51f17',
+    },
+    username: 'observer',
+    email: 'observer@me.com',
+    password: '$2a$08$nR5AlhhxkvKp55iIv0jKreGtjNOg/FHb3A2g6obDp5BFajvnpT9I2',
+    createdAt: {
+      $date: date,
+    },
+    updatedAt: {
+      $date: date,
+    },
+  },
+  {
+    _id: {
       $oid: '62ebe39aea4bf07f32b51f18',
     },
     username: 'r',
@@ -48,7 +62,7 @@ const lists = [
       $oid: '62ebe39aea4bf07f32b51f18',
     },
     items: [],
-    editors: [{ $oid: '62ebe39aea4bf07f32b51f19' }],
+    editors: [{ $oid: '62ebe39aea4bf07f32b51f19' }, { $oid: '62ebe39aea4bf07f32b51f17' }],
   },
   {
     _id: {
