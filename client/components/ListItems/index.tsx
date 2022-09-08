@@ -65,6 +65,7 @@ const Item: React.FC<Item & ItemEmitters & { disabled: boolean }> = (props) => {
         onBlur={() => props.userUnfocusedOnItem(props._id)}
         type="text"
         value={item}
+        name={item}
         onChange={(event) => setItem(event.target.value)}
       />
     </form>
