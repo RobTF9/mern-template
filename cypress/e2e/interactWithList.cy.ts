@@ -1,7 +1,7 @@
-describe('List interactions', () => {
+export function interactWithList(email: string) {
   beforeEach(() => {
     cy.request('POST', '/auth/signin', {
-      email: 'r@r.com',
+      email,
       password: 'password',
     })
   })
@@ -27,4 +27,6 @@ describe('List interactions', () => {
     cy.get('li>form>input').clear().type('Updated{enter}')
     cy.get('li>form>input').should('have.value', 'Updated')
   })
-})
+}
+
+describe('List interactions', () => interactWithList('r@r.com'))
