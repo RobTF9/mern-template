@@ -8,12 +8,14 @@ function connectWebSocket(io: Server) {
     console.log('A user is connected')
 
     let users: RoomUser[] = []
+
     for (const [id, socket] of io.of('/').sockets) {
       users = [
         ...users,
         {
           socket: id,
           username: socket.request.session.user.username,
+          _id: socket.request.session.user._id,
         },
       ]
     }

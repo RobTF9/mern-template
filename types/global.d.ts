@@ -27,6 +27,7 @@ declare global {
   interface RoomUser {
     socket: string
     username: string
+    _id: string
   }
 
   interface EventFromClient<T> {
