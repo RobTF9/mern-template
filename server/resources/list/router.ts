@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import controllers from './controller'
+import controllers from './controllers'
 
 const { create, readAll, update, readOne, deleteOne } = controllers
 

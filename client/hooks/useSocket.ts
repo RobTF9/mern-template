@@ -25,8 +25,8 @@ function useSocket<T>(id: string, listeners?: [string, (d: T) => void][]) {
     emitter(EVENTS.LIST_CREATE_ITEM, { item })
   }
 
-  function updateItem(id: string, update: string) {
-    emitter(EVENTS.LIST_UPDATE_ITEM, { id, update })
+  function updateItem(_id: string, item: string) {
+    emitter(EVENTS.LIST_UPDATE_ITEM, { _id, item })
   }
 
   function userFocusedOnItem(itemId: string) {
@@ -79,6 +79,7 @@ function useSocket<T>(id: string, listeners?: [string, (d: T) => void][]) {
     })
 
     socket.current.onAny((e, d) => {
+      console.log(e, d)
       listeners?.forEach(([event, action]) => {
         if (e === event) {
           action(d)

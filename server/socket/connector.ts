@@ -47,6 +47,7 @@ function connectWebSocket(io: Server) {
         emitter(e, EVENTS.LIST_USER_UNFOCUSED_ITEM, { ...e.data }, io)
       }
     )
+    socket.onAny((e, d) => console.log(e, d))
 
     socket.on('disconnect', () => {
       users = users.filter((user) => user.socket !== socket.id)

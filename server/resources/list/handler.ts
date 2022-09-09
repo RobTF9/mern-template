@@ -27,8 +27,10 @@ async function listHandler(
 
     case EVENTS.LIST_UPDATE_ITEM:
       list = await List.findById(e.room)
+      console.log(list, _id, item)
       if (list && _id && item) {
-        list.items = list.items.map((i) => (`${i._id}` === _id ? { ...i } : i))
+        console.log('in handler condition')
+        list.items = list.items.map((i) => (`${i._id}` === _id ? { ...i, item } : i))
         list.save()
       }
       break
