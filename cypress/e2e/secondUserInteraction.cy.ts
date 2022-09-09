@@ -22,12 +22,12 @@ describe('Second user can interact with list...', () => {
     cy.get('input[name="Hello m"]').should('have.value', 'Hello m')
   })
 
-  it('Second user can see first user in input', () => {
+  it('Second user can see first user in input and the update', () => {
     cy.get('input[name="Hello r"]').should('be.disabled')
     cy.get('input[name="Hello rfocus"]').should('have.value', 'Hello rfocus')
   })
 
   it('Second user can see first online', () => {
-    cy.get('span').should('contain', 'm')
+    cy.get('span').should('contain', 'r')
   })
 })
