@@ -6,12 +6,13 @@ import Home from './pages/home'
 import List from './pages/list'
 
 const Authenticated = () => {
-  const { signOut } = useAuthContext()
+  const { user, signOut } = useAuthContext()
   return (
     <ListProvider>
       <div>
         <header>
           <Link to="/">Home</Link>
+          <p>Signed in as {user?.username}</p>
           <button onClick={signOut}>Sign out</button>
         </header>
         <Routes>
