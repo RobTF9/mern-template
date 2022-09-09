@@ -22,9 +22,7 @@ const List = () => {
       <p>
         Active users:{' '}
         {roomUsers.map(({ username, socket }) => (
-          <>
-            <span key={socket}>{username}</span>{' '}
-          </>
+          <span key={socket}>{username} </span>
         ))}
       </p>
       <form
