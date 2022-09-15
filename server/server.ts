@@ -14,7 +14,7 @@ import listRouter from './resources/list/router'
 import connectWebSocket from './socket/connector'
 import userRouter from './resources/user/router'
 
-export const app = express()
+const app = express()
 const httpServer = createServer(app)
 const port = process.env.PORT || 3000
 
