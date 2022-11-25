@@ -4,8 +4,17 @@ describe('Sign up', () => {
     cy.get('h1').should('contain', 'Sign up')
   })
   it('User can sign up with email, username and password', () => {
-    cy.get('input[name=email]').clear().type('b@b.com')
-    cy.get('input[name=username]').clear().type('b')
+    cy.get('input[name=email]').clear().type('user2@email.com')
+    cy.get('input[name=username]').clear().type('user2')
+    cy.get('input[name=password]').clear().type('password{enter}')
+    cy.get('h1').should('contain', 'Authenticated')
+  })
+
+  it('User can sign in with recently created account', () => {
+    cy.get('button').contains('Sign out').click()
+    cy.visit('/signin')
+    cy.get('h1').should('contain', 'Sign in')
+    cy.get('input[name=email]').clear().type('user2@email.com')
     cy.get('input[name=password]').clear().type('password{enter}')
     cy.get('h1').should('contain', 'Authenticated')
   })
