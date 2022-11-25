@@ -1,4 +1,10 @@
-import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react'
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
 import { useLocation } from 'react-router-dom'
 import Message from '../components/Message'
 
@@ -12,9 +18,12 @@ const messageContext = createContext<MessageContext>({
   hideMessage: () => null,
 })
 
-export const useMessageContext = (): MessageContext => useContext(messageContext)
+export const useMessageContext = (): MessageContext =>
+  useContext(messageContext)
 
-export const MessageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const MessageProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const location = useLocation()
   const [message, setMessage] = useState({
     type: '',

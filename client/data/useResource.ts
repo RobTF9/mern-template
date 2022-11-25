@@ -6,7 +6,16 @@ function useResource<R extends Resource, I>(endpoint: string) {
   const [update, updateLoading] = updateOne<R, R>([endpoint], endpoint)
   const [del, delLoading] = deleteOne<R>([endpoint], endpoint)
 
-  return { items, itemsLoading, create, createLoading, update, updateLoading, del, delLoading }
+  return {
+    items,
+    itemsLoading,
+    create,
+    createLoading,
+    update,
+    updateLoading,
+    del,
+    delLoading,
+  }
 }
 
 export default useResource
