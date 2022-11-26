@@ -12,7 +12,12 @@ const Items = () => {
   return (
     <div>
       <ItemForm create={create} />
-      <ItemList items={items} itemsLoading={itemsLoading} del={del} update={update} />
+      <ItemList
+        items={items}
+        itemsLoading={itemsLoading}
+        del={del}
+        update={update}
+      />
     </div>
   )
 }
