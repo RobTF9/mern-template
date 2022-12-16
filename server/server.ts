@@ -8,6 +8,7 @@ import errorHandler from './utils/error'
 import authSession from './auth/session'
 import { protect } from './auth/middleware'
 import authRouter from './auth/router'
+import videoRouter from './services/video'
 
 export const app = express()
 const port = process.env.PORT || 3000
@@ -20,6 +21,7 @@ app.use(authSession)
 app.use('/auth', authRouter)
 app.use('/api', protect)
 app.use('/api/item', itemRouter)
+app.use('/api/video', videoRouter)
 
 const clientPath = path.join(__dirname, '..', 'client')
 app.use(express.static(clientPath))
