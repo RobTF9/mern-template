@@ -36,15 +36,14 @@ async function uploadVideo(req: Request, res: Response, next: NextFunction) {
 
     const video = await cloudinary.uploader.upload(req.file.path, {
       resource_type: 'video',
+      raw_convert: 'google_speech',
     })
 
     if (!video) {
       return res.status(400).json({ message: 'No video' })
     }
 
-    return res
-      .status(200)
-      .json({ message: 'Video added', data: video.public_id })
+    return res.status(200).json({ message: 'Video added', data: { ...video } })
   } catch (error) {
     console.log(error)
     return next(error)
