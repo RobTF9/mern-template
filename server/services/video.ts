@@ -14,7 +14,7 @@ cloudinary.config({
 
 const storage = multer.diskStorage({
   filename: (
-    req: Request,
+    _,
     file: Express.Multer.File,
     callback: FileNameCallback
   ): void => {
