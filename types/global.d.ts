@@ -41,7 +41,8 @@ declare global {
   type ProjectResource = ProjectInterface & Resource
 
   interface EvidenceInterface {
-    content: string
+    video: string
+    transcript: string
   }
 
   type EvidenceResource = EvidenceInterface & Resource

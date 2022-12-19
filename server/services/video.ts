@@ -1,7 +1,7 @@
 import { v2 } from 'cloudinary'
-import { NextFunction, Request, Response, Router } from 'express'
+import { NextFunction, Request, Response } from 'express'
 import multer from 'multer'
-import fetch from 'node-fetch'
+import config from '../config'
 
 type FileNameCallback = (error: Error | null, filename: string) => void
 
@@ -9,6 +9,7 @@ const cloudinary = v2
 
 cloudinary.config({
   secure: true,
+  ...config.cloudinary,
 })
 
 const storage = multer.diskStorage({
@@ -17,17 +18,20 @@ const storage = multer.diskStorage({
     file: Express.Multer.File,
     callback: FileNameCallback
   ): void => {
-    console.log(req)
     callback(null, Date.now() + file.originalname)
   },
 })
 
 // middleware
-const singleVideoUpload = multer({
+export const multerMiddleware = multer({
   storage,
 }).single('video')
 
-async function uploadVideo(req: Request, res: Response, next: NextFunction) {
+export async function uploadVideo(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   // Use the uploaded file's name as the asset's public ID and
   // allow overwriting the asset with new versions
 
@@ -45,30 +49,29 @@ async function uploadVideo(req: Request, res: Response, next: NextFunction) {
       return res.status(400).json({ message: 'No video' })
     }
 
-    return res.status(200).json({ message: 'Video added', data: { ...video } })
-  } catch (error) {
-    console.log(error)
-    return next(error)
-  }
-}
+    const version = video.version + 1
 
-async function getTranscript(req: Request, res: Response, next: NextFunction) {
-  const transcript = cloudinary.url(
-    `https://res.cloudinary.com/dlhk8zpa5/raw/upload/v1671208577/${req.params.id}.transcript`
-  )
+    req.body = {
+      video: video.secure_url,
+      transcript: `https://res.cloudinary.com/dlhk8zpa5/raw/upload/v${version}/${video.public_id}.transcript`,
+    }
 
-  try {
-    const response = await fetch(transcript)
-    const json = await response.json()
-    return res.status(200).json({ data: { ...json } })
+    return next()
   } catch (error) {
     return next(error)
   }
 }
 
-const videoRouter = Router()
+// async function getTranscript(req: Request, res: Response, next: NextFunction) {
+//   const transcript = cloudinary.url(
+//     `https://res.cloudinary.com/dlhk8zpa5/raw/upload/v1671208577/${req.params.id}.transcript`
+//   )
 
-videoRouter.route('/').post(singleVideoUpload, uploadVideo)
-videoRouter.route('/:id').get(getTranscript)
-
-export default videoRouter
+//   try {
+//     const response = await fetch(transcript)
+//     const json = await response.json()
+//     return res.status(200).json({ data: { ...json } })
+//   } catch (error) {
+//     return next(error)
+//   }
+// }

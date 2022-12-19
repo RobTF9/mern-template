@@ -1,8 +1,8 @@
 import crudControllers from '../../utils/crud'
-import Project, { projectCollection } from './model'
+import Evidence, { evidenceCollection } from './model'
 
 const controllers = {
-  ...crudControllers<ProjectResource>(Project, projectCollection),
+  ...crudControllers<EvidenceResource>(Evidence, evidenceCollection),
 }
 
 export default controllers

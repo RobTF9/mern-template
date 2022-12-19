@@ -2,13 +2,13 @@ import express from 'express'
 import { json, urlencoded } from 'body-parser'
 import morgan from 'morgan'
 import projectRouter from './resources/project/router'
+import evidenceRouter from './resources/evidence/router'
 import path from 'path'
 import connect from './db/connect'
 import errorHandler from './utils/error'
 import authSession from './auth/session'
 import { protect } from './auth/middleware'
 import authRouter from './auth/router'
-import videoRouter from './services/video'
 import kill from 'kill-port'
 
 export const app = express()
@@ -22,7 +22,7 @@ app.use(authSession)
 app.use('/auth', authRouter)
 app.use('/api', protect)
 app.use('/api/project', projectRouter)
-app.use('/api/video', videoRouter)
+app.use('/api/evidence', evidenceRouter)
 
 const clientPath = path.join(__dirname, '..', 'client')
 app.use(express.static(clientPath))

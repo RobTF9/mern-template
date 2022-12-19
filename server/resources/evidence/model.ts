@@ -1,10 +1,11 @@
 import { Schema, model, SchemaTypes } from 'mongoose'
 
-export const projectCollection = 'project'
+export const evidenceCollection = 'evidence'
 
-const projectSchema = new Schema<ProjectResource>(
+const evidenceSchema = new Schema<EvidenceResource>(
   {
-    content: { type: String, required: true },
+    video: { type: String, required: true },
+    transcript: { type: String, required: true },
     createdBy: {
       type: SchemaTypes.ObjectId,
       required: true,
@@ -16,9 +17,9 @@ const projectSchema = new Schema<ProjectResource>(
       ref: 'user',
     },
   },
-  { timestamps: true, collection: projectCollection }
+  { timestamps: true, collection: evidenceCollection }
 )
 
-const Project = model<ProjectResource>(projectCollection, projectSchema)
+const Evidence = model<EvidenceResource>(evidenceCollection, evidenceSchema)
 
-export default Project
+export default Evidence

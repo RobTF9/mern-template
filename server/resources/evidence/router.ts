@@ -1,9 +1,13 @@
 import { Router } from 'express'
+import { multerMiddleware, uploadVideo } from '../../services/video'
 import controllers from './controller'
 
 const router = Router()
 
-router.route('/').post(controllers.create).get(controllers.readAll)
+router
+  .route('/')
+  .post(multerMiddleware, uploadVideo, controllers.create)
+  .get(controllers.readAll)
 router
   .route('/:id')
   .put(controllers.update)

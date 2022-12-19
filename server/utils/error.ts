@@ -3,7 +3,6 @@ import { ERROR_MESSAGE } from './messages'
 
 const errorHandler: ErrorRequestHandler = (err, _, res) => {
   if (err) {
-    console.log(err)
     return res.status(500).json({ message: ERROR_MESSAGE.INTERNAL_SERVER })
   }
   return res.end()
