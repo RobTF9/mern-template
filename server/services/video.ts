@@ -44,6 +44,7 @@ export async function uploadVideo(
     const video = await cloudinary.uploader.upload(req.file.path, {
       resource_type: 'video',
       raw_convert: 'google_speech',
+      notification_url: 'https://bas-wb3t.onrender.com/hook',
     })
 
     if (!video) {
