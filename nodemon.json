@@ -2,5 +2,7 @@
   "watch": ["server"],
   "ext": "ts,json",
   "ignore": ["dist", "cypress", "client"],
-  "exec": "yarn build:server && node dist/server/index.js"
+  "exec": "yarn build:server && node dist/server/index.js",
+  "runOnChangeOnly": false,
+  "restartable": "rs"
 }

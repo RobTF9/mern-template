@@ -9,6 +9,7 @@ import authSession from './auth/session'
 import { protect } from './auth/middleware'
 import authRouter from './auth/router'
 import videoRouter from './services/video'
+import kill from 'kill-port'
 
 export const app = express()
 const port = process.env.PORT || 3000
@@ -33,6 +34,8 @@ async function startServer(): Promise<void> {
   try {
     connect()
     app.listen(port, () => console.log(`Server running on ${port}`))
+
+    process.on('uncaughtException', () => kill(port, 'tcp'))
   } catch (error) {
     console.error(error)
   }
