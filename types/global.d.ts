@@ -34,11 +34,17 @@ declare global {
   }
 
   interface ProjectInterface {
+    title: string
     content: string
   }
 
-  /** Item resource from the database */
   type ProjectResource = ProjectInterface & Resource
+
+  interface EvidenceInterface {
+    content: string
+  }
+
+  type EvidenceResource = EvidenceInterface & Resource
 
   /** The user interface, without mongodb fields (timestamps & _id) */
   interface UserInterface {

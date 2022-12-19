@@ -5,7 +5,6 @@ export const projectCollection = 'project'
 const projectSchema = new Schema<ProjectResource>(
   {
     content: { type: String, required: true },
-    title: { type: String, required: true },
     createdBy: {
       type: SchemaTypes.ObjectId,
       required: true,

@@ -13,6 +13,7 @@ describe('API: Project Resource', () => {
       method: 'POST',
       url,
       body: {
+        title: 'Project',
         content: 'This is the project description',
       },
     }).then((response) => {
@@ -64,10 +65,7 @@ describe('API: Project Resource', () => {
       method: 'DELETE',
       url: `${url}/${id}`,
     }).then((response) => {
-      expect(response.body.data).has.property(
-        'content',
-        'This is the NEW project description'
-      )
+      expect(response.body.data).has.property('title', 'Project')
       expect(response.body.message).has.property('message', 'project deleted')
     })
   })
