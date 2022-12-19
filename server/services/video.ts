@@ -1,6 +1,7 @@
 import { v2 } from 'cloudinary'
 import { NextFunction, Request, Response } from 'express'
 import multer from 'multer'
+import fetch from 'node-fetch'
 import config from '../config'
 
 type FileNameCallback = (error: Error | null, filename: string) => void
@@ -62,16 +63,19 @@ export async function uploadVideo(
   }
 }
 
-// async function getTranscript(req: Request, res: Response, next: NextFunction) {
-//   const transcript = cloudinary.url(
-//     `https://res.cloudinary.com/dlhk8zpa5/raw/upload/v1671208577/${req.params.id}.transcript`
-//   )
+export async function getTranscript(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const transcript = cloudinary.url(req.body.transcript)
 
-//   try {
-//     const response = await fetch(transcript)
-//     const json = await response.json()
-//     return res.status(200).json({ data: { ...json } })
-//   } catch (error) {
-//     return next(error)
-//   }
-// }
+  try {
+    const response = await fetch(transcript)
+    const json = await response.json()
+
+    return res.status(200).json({ data: { ...json } })
+  } catch (error) {
+    return next(error)
+  }
+}
