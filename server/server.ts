@@ -24,6 +24,11 @@ app.use('/api', protect)
 app.use('/api/project', projectRouter)
 app.use('/api/evidence', evidenceRouter)
 
+app.use('/api/hook', (req, res) => {
+  console.log(req.body) // Call your action on the request here
+  res.status(200).end() // Responding is important
+})
+
 const clientPath = path.join(__dirname, '..', 'client')
 app.use(express.static(clientPath))
 app.use('*', express.static(clientPath))
