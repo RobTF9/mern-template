@@ -8,7 +8,6 @@ router
   .route('/')
   .post(multerMiddleware, uploadVideo, controllers.create)
   .get(controllers.readAll)
-router.route('/transcript').get(controllers.getTranscript)
 router
   .route('/:id')
   .put(controllers.update)

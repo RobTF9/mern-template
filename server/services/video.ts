@@ -3,6 +3,8 @@ import { NextFunction, Request, Response } from 'express'
 import multer from 'multer'
 import fetch from 'node-fetch'
 import config from '../config'
+import Evidence from '../resources/evidence/model'
+import { ERROR_MESSAGE } from '../utils/messages'
 
 type FileNameCallback = (error: Error | null, filename: string) => void
 
@@ -44,7 +46,10 @@ export async function uploadVideo(
     const video = await cloudinary.uploader.upload(req.file.path, {
       resource_type: 'video',
       raw_convert: 'google_speech',
-      notification_url: 'https://bas-wb3t.onrender.com/hook',
+      notification_url:
+        process.env.NODE_ENV === 'dev'
+          ? 'https://basis-test.loca.lt/hook'
+          : 'https://bas-wb3t.onrender.com/hook',
     })
 
     if (!video) {
@@ -56,6 +61,7 @@ export async function uploadVideo(
     req.body = {
       video: video.secure_url,
       transcript: `https://res.cloudinary.com/dlhk8zpa5/raw/upload/v${version}/${video.public_id}.transcript`,
+      public_id: video.public_id,
     }
 
     return next()
@@ -69,13 +75,24 @@ export async function getTranscript(
   res: Response,
   next: NextFunction
 ) {
-  const transcript = cloudinary.url(req.body.transcript)
-
   try {
-    const response = await fetch(transcript)
-    const json = await response.json()
-
-    return res.status(200).json({ data: { ...json } })
+    if (
+      req.body.info_kind === 'google_speech' &&
+      req.body.info_status === 'complete'
+    ) {
+      const evidence = await Evidence.findOne({ public_id: req.body.public_id })
+      if (!evidence) {
+        return res
+          .status(404)
+          .json({ message: ERROR_MESSAGE.RESOURCE_NOT_FOUND('evidence') })
+      }
+      const response = await fetch(evidence.transcript)
+      const json = await response.json()
+      console.log(json)
+      return res.send(200)
+    } else {
+      return res.send(200)
+    }
   } catch (error) {
     return next(error)
   }

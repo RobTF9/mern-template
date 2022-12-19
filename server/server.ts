@@ -10,6 +10,7 @@ import authSession from './auth/session'
 import { protect } from './auth/middleware'
 import authRouter from './auth/router'
 import kill from 'kill-port'
+import { getTranscript } from './services/video'
 
 export const app = express()
 const port = process.env.PORT || 3000
@@ -24,10 +25,7 @@ app.use('/api', protect)
 app.use('/api/project', projectRouter)
 app.use('/api/evidence', evidenceRouter)
 
-app.use('/hook', (req, res) => {
-  console.log(req.body) // Call your action on the request here
-  res.status(200).end() // Responding is important
-})
+app.use('/hook', getTranscript)
 
 const clientPath = path.join(__dirname, '..', 'client')
 app.use(express.static(clientPath))
@@ -38,10 +36,9 @@ app.use(errorHandler)
 async function startServer(): Promise<void> {
   try {
     connect()
+
     app.listen(port, () => console.log(`Server running on ${port}`))
-
     const toKill = typeof port === 'string' ? parseInt(port) : port
-
     process.on('uncaughtException', () => kill(toKill, 'tcp'))
   } catch (error) {
     console.error(error)

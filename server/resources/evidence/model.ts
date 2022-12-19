@@ -6,6 +6,7 @@ const evidenceSchema = new Schema<EvidenceResource>(
   {
     video: { type: String, required: true },
     transcript: { type: String, required: true },
+    public_id: { type: String, required: true },
     createdBy: {
       type: SchemaTypes.ObjectId,
       required: true,

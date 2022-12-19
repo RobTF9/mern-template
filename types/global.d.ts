@@ -43,6 +43,7 @@ declare global {
   interface EvidenceInterface {
     video: string
     transcript: string
+    public_id: string
   }
 
   type EvidenceResource = EvidenceInterface & Resource
