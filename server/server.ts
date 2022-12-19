@@ -1,7 +1,7 @@
 import express from 'express'
 import { json, urlencoded } from 'body-parser'
 import morgan from 'morgan'
-import itemRouter from './resources/item/router'
+import projectRouter from './resources/project/router'
 import path from 'path'
 import connect from './db/connect'
 import errorHandler from './utils/error'
@@ -21,7 +21,7 @@ app.set('trust proxy', 1)
 app.use(authSession)
 app.use('/auth', authRouter)
 app.use('/api', protect)
-app.use('/api/item', itemRouter)
+app.use('/api/project', projectRouter)
 app.use('/api/video', videoRouter)
 
 const clientPath = path.join(__dirname, '..', 'client')

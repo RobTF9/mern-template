@@ -29,7 +29,6 @@ declare global {
   interface ServerResponse<D = void> {
     auth?: boolean
     message?: Message
-
     data?: D
     searched?: boolean
   }
