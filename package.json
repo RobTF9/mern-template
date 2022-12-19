@@ -63,7 +63,7 @@
     "prebuild": "yarn clean",
     "dev:client": "parcel serve client/index.html --dist-dir dist/client",
     "dev:server": "nodemon",
-    "predev": "yarn kill && yarn clean",
+    "predev": "yarn clean",
     "dev": "concurrently \"yarn dev:server\" \"yarn dev:client\"",
     "start": "node dist/server/index.js",
     "pretest": "yarn reset && yarn seed && yarn build",
