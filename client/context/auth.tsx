@@ -20,7 +20,9 @@ const authContext = createContext<AuthContext>({
 
 export const useAuthContext = (): AuthContext => useContext(authContext)
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const { showMessage } = useMessageContext()
 
   const [authLoading, setAuthLoading] = useState(false)
@@ -28,7 +30,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   async function signIn(details: Email & Password) {
     setAuthLoading(true)
-    const response = await post<Email & Password, ServerReponse>('/auth/signin', details)
+    const response = await post<Email & Password, ServerResponse>(
+      '/auth/signin',
+      details
+    )
     if (response.auth) setAuthenticated(response.auth)
     if (!response.auth && response.message)
       if (!response.auth && response.message) {
@@ -40,7 +45,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   async function signUp(details: Email & Password & Username) {
     setAuthLoading(true)
-    const response = await post<Email & Password & Username, ServerReponse>('/auth/signup', details)
+    const response = await post<Email & Password & Username, ServerResponse>(
+      '/auth/signup',
+      details
+    )
     if (response.auth) setAuthenticated(response.auth)
     if (!response.auth && response.message) {
       setAuthenticated(response.auth)
@@ -50,13 +58,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }
 
   async function signOut() {
-    const response = await get<ServerReponse>('/auth/signout')
+    const response = await get<ServerResponse>('/auth/signout')
     setAuthenticated(response.auth)
     if (response.message) showMessage(response.message)
   }
 
   async function checkAuth() {
-    const response = await get<ServerReponse>('/auth')
+    const response = await get<ServerResponse>('/auth')
     setAuthenticated(response.auth)
     if (response.message) showMessage(response.message)
   }
@@ -66,7 +74,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [])
 
   return (
-    <authContext.Provider value={{ authLoading, signIn, signOut, signUp, authenticated }}>
+    <authContext.Provider
+      value={{ authLoading, signIn, signOut, signUp, authenticated }}
+    >
       {children}
     </authContext.Provider>
   )

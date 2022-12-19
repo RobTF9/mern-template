@@ -35,7 +35,9 @@ async function startServer(): Promise<void> {
     connect()
     app.listen(port, () => console.log(`Server running on ${port}`))
 
-    process.on('uncaughtException', () => kill(port, 'tcp'))
+    const toKill = typeof port === 'string' ? parseInt(port) : port
+
+    process.on('uncaughtException', () => kill(toKill, 'tcp'))
   } catch (error) {
     console.error(error)
   }

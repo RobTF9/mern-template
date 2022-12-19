@@ -18,36 +18,32 @@ declare global {
 
   /** A message object sent from the server */
   type Message = {
-    /** Error or success, used to determine color on front end */
     type: string
-    /** Boolean to check if message should show or not */
     visible: boolean
-    /** The message text content */
     message: string
   }
 
   /** The generic Server response
    * @D typically a resource, or array of resources, from the database
    */
-  interface ServerReponse<D = void> {
-    /** A boolean that determines if client is authorised */
+  interface ServerResponse<D = void> {
     auth?: boolean
     message?: Message
-    /** Data returned from the response */
+
     data?: D
     searched?: boolean
   }
 
-  /** The item interface, without mongodb fields (timestamps & _id) */
-  interface ItemInterface {
-    item: string
+  interface ProjectInterface {
+    content: string
   }
 
   /** Item resource from the database */
-  type ItemResource = ItemInterface & Resource
+  type ProjectResource = ProjectInterface & Resource
 
   /** The user interface, without mongodb fields (timestamps & _id) */
   interface UserInterface {
+    _id: ObjectId
     username: string
     email: string
     password: string
@@ -63,7 +59,4 @@ declare global {
     username: string
     email: string
   }
-
-  /** User resource from the database */
-  type UserResource = PublicUserInterface & Resource
 }

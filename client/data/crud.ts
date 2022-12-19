@@ -36,14 +36,14 @@ export function getOne<T>(
 export function createOne<T, U>(
   cache: QueryKey,
   endpoint: string,
-  callback?: (res: ServerReponse<U>) => void
+  callback?: (res: ServerResponse<U>) => void
 ): [
-  mutate: UseMutateFunction<ServerReponse<U>, unknown, T, unknown>,
+  mutate: UseMutateFunction<ServerResponse<U>, unknown, T, unknown>,
   isLoading: boolean
 ] {
   const { showMessage } = useMessageContext()
   const { mutate, isLoading } = useMutation(
-    (u: T) => post<T, ServerReponse<U>>(endpoint, u),
+    (u: T) => post<T, ServerResponse<U>>(endpoint, u),
     {
       onSuccess: (res) => {
         queryClient.invalidateQueries(cache)
@@ -64,15 +64,15 @@ export function createOne<T, U>(
 export function updateOne<T extends Resource, U>(
   cache: QueryKey,
   endpoint: string,
-  callback?: (res: ServerReponse<U>) => void
+  callback?: (res: ServerResponse<U>) => void
 ): [
-  mutate: UseMutateFunction<ServerReponse<U>, unknown, T, unknown>,
+  mutate: UseMutateFunction<ServerResponse<U>, unknown, T, unknown>,
   isLoading: boolean
 ] {
   const { showMessage } = useMessageContext()
   const { mutate, isLoading } = useMutation(
     (u: T) =>
-      put<T, ServerReponse<U>>(`${endpoint}/${u._id}`, {
+      put<T, ServerResponse<U>>(`${endpoint}/${u._id}`, {
         ...u,
         updatedAt: undefined,
       }),
@@ -96,16 +96,16 @@ export function updateOne<T extends Resource, U>(
 export function patchOne<T, U>(
   cache: QueryKey,
   endpoint: string,
-  callback?: (res: ServerReponse<U>) => void
+  callback?: (res: ServerResponse<U>) => void
 ): [
-  mutate: UseMutateFunction<ServerReponse<U>, unknown, T, unknown>,
+  mutate: UseMutateFunction<ServerResponse<U>, unknown, T, unknown>,
   isLoading: boolean
 ] {
   const { showMessage } = useMessageContext()
 
   const { mutate, isLoading } = useMutation(
     (u: T) =>
-      patch<T, ServerReponse<U>>(endpoint, {
+      patch<T, ServerResponse<U>>(endpoint, {
         ...u,
         updatedAt: undefined,
       }),
@@ -130,15 +130,15 @@ export function patchOne<T, U>(
 export function deleteOne<U>(
   cache: QueryKey,
   endpoint: string,
-  callback?: (res: ServerReponse<U>) => void
+  callback?: (res: ServerResponse<U>) => void
 ): [
-  mutate: UseMutateFunction<ServerReponse<U>, unknown, string, unknown>,
+  mutate: UseMutateFunction<ServerResponse<U>, unknown, string, unknown>,
   isLoading: boolean
 ] {
   const { showMessage } = useMessageContext()
 
   const { mutate, isLoading } = useMutation(
-    (id: string) => del<ServerReponse<U>>(`${endpoint}/${id}`),
+    (id: string) => del<ServerResponse<U>>(`${endpoint}/${id}`),
     {
       onSuccess: (res) => {
         queryClient.invalidateQueries(cache)
