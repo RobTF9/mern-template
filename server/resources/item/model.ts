@@ -2,10 +2,15 @@ import { Schema, model, SchemaTypes } from 'mongoose'
 
 const collection = 'item'
 
-const itemSchema = new Schema<ItemInterface>(
+const itemSchema = new Schema<ItemResource>(
   {
     item: { type: String, required: true },
     createdBy: {
+      type: SchemaTypes.ObjectId,
+      required: true,
+      ref: 'user',
+    },
+    updatedBy: {
       type: SchemaTypes.ObjectId,
       required: true,
       ref: 'user',
@@ -14,6 +19,6 @@ const itemSchema = new Schema<ItemInterface>(
   { timestamps: true, collection }
 )
 
-const Item = model<ItemInterface>(collection, itemSchema)
+const Item = model<ItemResource>(collection, itemSchema)
 
 export default Item

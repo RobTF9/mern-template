@@ -2,12 +2,16 @@ import { RequestHandler } from 'express'
 import { Model } from 'mongoose'
 import { ERROR_MESSAGE, SUCCESS_MESSAGE } from './messages'
 
-function crudControllers<T>(model: Model<T>, collection: string) {
+function crudControllers<T extends Resource>(
+  model: Model<T>,
+  collection: string
+) {
   const create: RequestHandler = async (req, res, next) => {
     try {
       const item = await model.create({
         ...req.body,
         createdBy: req.session.user,
+        updatedBy: req.session.user,
       })
       return res.status(200).json({
         data: item,
@@ -45,7 +49,10 @@ function crudControllers<T>(model: Model<T>, collection: string) {
   const update: RequestHandler = async (req, res, next) => {
     try {
       const item = await model
-        .findByIdAndUpdate(req.params.id, req.body)
+        .findByIdAndUpdate(req.params.id, {
+          ...req.body,
+          updatedBy: req.session.user,
+        })
         .lean()
         .exec()
 

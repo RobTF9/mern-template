@@ -1,6 +1,7 @@
 import { v2 } from 'cloudinary'
 import { NextFunction, Request, Response, Router } from 'express'
 import multer from 'multer'
+import fetch from 'node-fetch'
 
 type FileNameCallback = (error: Error | null, filename: string) => void
 
@@ -16,6 +17,7 @@ const storage = multer.diskStorage({
     file: Express.Multer.File,
     callback: FileNameCallback
   ): void => {
+    console.log(req)
     callback(null, Date.now() + file.originalname)
   },
 })
@@ -50,8 +52,23 @@ async function uploadVideo(req: Request, res: Response, next: NextFunction) {
   }
 }
 
+async function getTranscript(req: Request, res: Response, next: NextFunction) {
+  const transcript = cloudinary.url(
+    `https://res.cloudinary.com/dlhk8zpa5/raw/upload/v1671208577/${req.params.id}.transcript`
+  )
+
+  try {
+    const response = await fetch(transcript)
+    const json = await response.json()
+    return res.status(200).json({ data: { ...json } })
+  } catch (error) {
+    return next(error)
+  }
+}
+
 const videoRouter = Router()
 
 videoRouter.route('/').post(singleVideoUpload, uploadVideo)
+videoRouter.route('/:id').get(getTranscript)
 
 export default videoRouter

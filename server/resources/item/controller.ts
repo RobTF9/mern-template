@@ -1,4 +1,8 @@
 import crudControllers from '../../utils/crud'
 import Item from './model'
 
-export default crudControllers<ItemInterface>(Item, 'item')
+const controllers = {
+  ...crudControllers<ItemResource>(Item, 'item'),
+}
+
+export default controllers

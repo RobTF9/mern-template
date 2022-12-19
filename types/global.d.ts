@@ -9,10 +9,11 @@ declare global {
 
   /** Base mongoose resource, always contain timestamps and _id */
   interface Resource {
-    _id: string
-    createdAt: string
-    // createdBy: string
-    // updatedAt: string
+    _id: ObjectId
+    createdAt: Date
+    createdBy: ObjectId
+    updatedAt: Date
+    updatedBy: ObjectId
   }
 
   /** A message object sent from the server */
@@ -40,7 +41,6 @@ declare global {
   /** The item interface, without mongodb fields (timestamps & _id) */
   interface ItemInterface {
     item: string
-    createdBy: ObjectId
   }
 
   /** Item resource from the database */

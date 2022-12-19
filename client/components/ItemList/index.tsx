@@ -16,7 +16,12 @@ const ItemList: React.FC<Props> = ({ items, itemsLoading, del, update }) => {
       {items &&
         items.data &&
         items.data.map((item) => (
-          <ItemElement key={item._id} item={item} del={del} update={update} />
+          <ItemElement
+            key={`${item._id}`}
+            item={item}
+            del={del}
+            update={update}
+          />
         ))}
     </ItemListWrapper>
   )
@@ -38,10 +43,13 @@ const ItemElement: React.FC<{
       >
         <label>
           Item
-          <input value={i.item} onChange={(event) => setI({ ...i, item: event.target.value })} />
+          <input
+            value={i.item}
+            onChange={(event) => setI({ ...i, item: event.target.value })}
+          />
         </label>
       </form>
-      <button type="button" onClick={() => del(item._id)}>
+      <button type="button" onClick={() => del(`${item._id}`)}>
         Delete
       </button>
     </li>
