@@ -69,7 +69,7 @@
     "pretest": "yarn reset && yarn seed && yarn build",
     "cy:run": "cypress run",
     "test": "PORT=4000 NODE_ENV=test start-server-and-test 'yarn start' http://localhost:4000 'yarn cy:run'",
-    "test:api": "PORT=4000 NODE_ENV=test start-server-and-test 'yarn start' http://localhost:4000 'yarn cy:run --spec cypress/e2e/api/*.cy.ts'",
+    "test:api": "PORT=4000 NODE_ENV=test start-server-and-test 'yarn start' http://localhost:4000 'yarn cy:run --spec cypress/e2e/api/*.cy.ts --quiet'",
     "clean": "rimraf .parcel-cache dist",
     "new": "node scripts/component.js",
     "kill": "kill-port 3000",
