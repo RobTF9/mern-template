@@ -23,10 +23,13 @@ export const SUCCESS_MESSAGE = {
 export const ERROR_MESSAGE = {
   INTERNAL_SERVER: errorMessage('Internal server error'),
   NO_EMAIL_OR_PASSWORD: errorMessage('Provide an email and password'),
-  NO_EMAIL_OR_USERNAME_OR_PASSWORD: errorMessage('Provide an email, username and password'),
+  NO_EMAIL_OR_USERNAME_OR_PASSWORD: errorMessage(
+    'Provide an email, username and password'
+  ),
   INVALID_EMAIL_OR_PASSWORD: errorMessage('Invalild email and password '),
   EMAIL_IN_USE: errorMessage('Email address is already in use'),
   USERNAME_IN_USE: errorMessage('Username is already in use'),
   NOT_AUTHORIZED: errorMessage('Not authorized'),
-  RESOURCE_NOT_FOUND: (resource: string) => succesMessage(`${resource} deleted`),
+  RESOURCE_NOT_FOUND: (resource: string) =>
+    succesMessage(`${resource} deleted`),
 }

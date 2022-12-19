@@ -49,10 +49,14 @@ function crudControllers<T extends Resource>(
   const update: RequestHandler = async (req, res, next) => {
     try {
       const item = await model
-        .findByIdAndUpdate(req.params.id, {
-          ...req.body,
-          updatedBy: req.session.user,
-        })
+        .findByIdAndUpdate(
+          req.params.id,
+          {
+            ...req.body,
+            updatedBy: req.session.user,
+          },
+          { new: true }
+        )
         .lean()
         .exec()
 
