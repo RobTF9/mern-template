@@ -1,22 +1,14 @@
 import React from 'react'
-import ProjectForm from '../../components/ProjectForm'
 import ProjectList from '../../components/ProjectList'
 import useResource from '../../data/useResource'
 
-const Items = () => {
+const Projects = () => {
   const resource = useResource<ProjectResource, ProjectInterface>(
     '/api/project'
   )
-  const { items, itemsLoading, create, createLoading } = resource
+  const { items: projects, itemsLoading: projectsLoading } = resource
 
-  if (itemsLoading || createLoading) return <h1>Loading...</h1>
-
-  return (
-    <div>
-      <ProjectForm create={create} />
-      <ProjectList projects={items} itemsLoading={itemsLoading} />
-    </div>
-  )
+  return <ProjectList projects={projects} itemsLoading={projectsLoading} />
 }
 
-export default Items
+export default Projects

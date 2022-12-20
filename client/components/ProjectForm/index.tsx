@@ -15,15 +15,16 @@ const ProjectForm: React.FC<Props> = ({ create }) => {
         create({ title, content })
       }}
     >
+      <h3>New project</h3>
       <label>
-        New project{' '}
+        <p>Title</p>
         <input
           value={title}
           onChange={(event) => setTitle(event.target.value)}
         />
       </label>
       <label>
-        New project{' '}
+        <p>Objective</p>
         <textarea
           value={content}
           onChange={(event) => setContent(event.target.value)}

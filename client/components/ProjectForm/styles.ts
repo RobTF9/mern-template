@@ -2,10 +2,7 @@ import styled from 'styled-components'
 
 export const ProjectFormWrapper = styled.form`
   width: 100%;
-  display: flex;
-  margin-top: 1rem;
-  padding: 2rem 0 0;
-  border-top: 0.01rem solid rgba(0, 0, 0, 0.2);
+  padding: 2rem 2rem 0 0;
 
   button {
     background-color: var(--success);
@@ -13,12 +10,11 @@ export const ProjectFormWrapper = styled.form`
 
   label {
     flex-grow: 1;
-    display: flex;
     align-items: center;
 
-    input {
-      flex-grow: 1;
-      margin: 0 1rem;
+    input,
+    textarea {
+      width: 100%;
     }
   }
 `
