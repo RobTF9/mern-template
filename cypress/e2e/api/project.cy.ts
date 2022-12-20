@@ -1,7 +1,7 @@
-const url = 'http://localhost:4000/api/project'
-let id: string
-
 describe('API: Project Resource', () => {
+  const url = 'http://localhost:4000/api/project'
+  let id: string
+
   beforeEach(() => {
     cy.request('POST', '/auth/signin', {
       email: 'user@email.com',
