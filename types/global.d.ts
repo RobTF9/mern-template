@@ -42,6 +42,7 @@ declare global {
 
   interface EvidenceInterface {
     video: string
+    participant: string
     transcript: string
     public_id: string
     transcriptObject?: [

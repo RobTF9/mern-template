@@ -14,6 +14,7 @@ describe('API: Evidence Resource', () => {
       .then((blob) => {
         const formdata = new FormData()
         formdata.append('video', blob, 'test.mov')
+        formdata.append('participant', 'Bob')
 
         cy.request({
           method: 'POST',
