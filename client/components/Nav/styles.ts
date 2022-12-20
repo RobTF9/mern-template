@@ -5,7 +5,8 @@ export const NavWrapper = styled.nav`
   justify-content: space-between;
   align-items: center;
   border-bottom: 0.01rem solid rgba(0, 0, 0, 0.2);
-  padding-bottom: 2rem;
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
 
   div {
     display: flex;

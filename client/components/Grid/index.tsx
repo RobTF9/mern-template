@@ -3,7 +3,7 @@ import { GridWrapper, Grid } from './styles'
 
 interface Props {
   children: React.ReactNode
-  grid: Grid
+  grid?: Grid
 }
 
 const Grid = ({ children, grid }: Props) => {

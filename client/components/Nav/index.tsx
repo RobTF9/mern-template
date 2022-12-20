@@ -10,7 +10,7 @@ interface Props {
 const Nav = ({ user, signOut }: Props) => {
   return (
     <NavWrapper>
-      <h1>Basis</h1>
+      <strong>Basis</strong>
       <ul>
         <li>
           <NavLink to="/">Projects</NavLink>
