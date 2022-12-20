@@ -70,7 +70,14 @@ declare global {
 
   type ObservationResource = ObservationInterface & Resource
 
-  /** The user interface, without mongodb fields (timestamps & _id) */
+  interface AssumptionInterface {
+    content: string
+    supporting: ObjectId[]
+    opposing: ObjectId[]
+  }
+
+  type AssumptionResource = AssumptionInterface & Resource
+
   interface UserInterface {
     _id: ObjectId
     username: string
