@@ -28,49 +28,42 @@ describe('API: Evidence Resource', () => {
           .should('be.equal', 200)
       })
   })
-  // it('update', () => {
-  //   cy.request({
-  //     method: 'PUT',
-  //     url: `${url}/${id}`,
-  //     body: {
-  //       content: 'This is the NEW project description',
-  //     },
-  //   }).then((response) => {
-  //     expect(response.body.data).has.property(
-  //       'content',
-  //       'This is the NEW project description'
-  //     )
-  //   })
-  // })
-  // it('readOne', () => {
-  //   cy.request({
-  //     method: 'GET',
-  //     url: `${url}/${id}`,
-  //   }).then((response) => {
-  //     expect(response.body.data).has.property(
-  //       'content',
-  //       'This is the NEW project description'
-  //     )
-  //   })
-  // })
-  // it('readAll', () => {
-  //   cy.request({
-  //     method: 'GET',
-  //     url,
-  //   }).then((response) => {
-  //     expect(response.body.data[0]).has.property(
-  //       'content',
-  //       'This is the NEW project description'
-  //     )
-  //   })
-  // })
-  // it('deleteOne', () => {
-  //   cy.request({
-  //     method: 'DELETE',
-  //     url: `${url}/${id}`,
-  //   }).then((response) => {
-  //     expect(response.body.data).has.property('title', 'Project')
-  //     expect(response.body.message).has.property('message', 'project deleted')
-  //   })
-  // })
+  it('readAll', () => {
+    cy.request({
+      method: 'GET',
+      url,
+    }).then((response) => {
+      id = response.body.data[0]._id
+      expect(response.body.data[0]).has.property('participant', 'Bob')
+    })
+  })
+  it('update', () => {
+    cy.request({
+      method: 'PUT',
+      url: `${url}/${id}`,
+      body: {
+        participant: 'Glenda',
+      },
+    }).then((response) => {
+      expect(response.body.data).has.property('participant', 'Glenda')
+    })
+  })
+  it('readOne', () => {
+    cy.request({
+      method: 'GET',
+      url: `${url}/${id}`,
+    }).then((response) => {
+      expect(response.body.data).has.property('participant', 'Glenda')
+    })
+  })
+
+  it('deleteOne', () => {
+    cy.request({
+      method: 'DELETE',
+      url: `${url}/${id}`,
+    }).then((response) => {
+      expect(response.body.data).has.property('participant', 'Glenda')
+      expect(response.body.message).has.property('message', 'evidence deleted')
+    })
+  })
 })
