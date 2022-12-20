@@ -1,5 +1,5 @@
-describe('API: Observation Resource', () => {
-  const url = 'http://localhost:4000/api/observation'
+describe('API: Assumption Resource', () => {
+  const url = 'http://localhost:4000/api/assumption'
   let id: string
 
   beforeEach(() => {
@@ -13,14 +13,14 @@ describe('API: Observation Resource', () => {
       method: 'POST',
       url,
       body: {
-        evidence: '62ebe39fea4bf07f32b51f1d',
-        content: 'This is the observation',
+        supporting: '62ebe39fea4bf07f32b51f1e',
+        content: 'This is the assumption',
       },
     }).then((response) => {
       id = response.body.data._id
       expect(response.body.data).has.property(
         'content',
-        'This is the observation'
+        'This is the assumption'
       )
     })
   })
@@ -29,12 +29,12 @@ describe('API: Observation Resource', () => {
       method: 'PUT',
       url: `${url}/${id}`,
       body: {
-        content: 'This is the NEW observation',
+        content: 'This is the NEW assumption',
       },
     }).then((response) => {
       expect(response.body.data).has.property(
         'content',
-        'This is the NEW observation'
+        'This is the NEW assumption'
       )
     })
   })
@@ -45,22 +45,7 @@ describe('API: Observation Resource', () => {
     }).then((response) => {
       expect(response.body.data).has.property(
         'content',
-        'This is the NEW observation'
-      )
-    })
-  })
-  it('deleteOne', () => {
-    cy.request({
-      method: 'DELETE',
-      url: `${url}/${id}`,
-    }).then((response) => {
-      expect(response.body.data).has.property(
-        'content',
-        'This is the NEW observation'
-      )
-      expect(response.body.message).has.property(
-        'message',
-        'observation deleted'
+        'This is the NEW assumption'
       )
     })
   })
@@ -69,9 +54,22 @@ describe('API: Observation Resource', () => {
       method: 'GET',
       url,
     }).then((response) => {
-      expect(response.body.data[0]).has.property(
-        'content',
-        'This is an observation'
+      expect('62ebe39fea4bf07f32b51f1e').to.be.oneOf(
+        response.body.data[0].supporting
+      )
+    })
+  })
+  it('deleteOne', () => {
+    cy.request({
+      method: 'DELETE',
+      url: `${url}/${id}`,
+    }).then((response) => {
+      expect('62ebe39fea4bf07f32b51f1e').to.be.oneOf(
+        response.body.data[0].supporting
+      )
+      expect(response.body.message).has.property(
+        'message',
+        'assumption deleted'
       )
     })
   })

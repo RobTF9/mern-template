@@ -8,6 +8,21 @@ const now = new Date()
 const date = now.toISOString()
 // const yesterday = new Date(now - 1)
 
+const resourceFields = {
+  createdBy: {
+    $oid: '62ebe39aea4bf07f32b51f18',
+  },
+  updatedBy: {
+    $oid: '62ebe39aea4bf07f32b51f18',
+  },
+  createdAt: {
+    $date: date,
+  },
+  updatedAt: {
+    $date: date,
+  },
+}
+
 const users = [
   {
     _id: {
@@ -32,18 +47,7 @@ const projects = [
     },
     content: 'The project description',
     title: 'A project',
-    createdBy: {
-      $oid: '62ebe39aea4bf07f32b51f18',
-    },
-    updatedBy: {
-      $oid: '62ebe39aea4bf07f32b51f18',
-    },
-    createdAt: {
-      $date: date,
-    },
-    updatedAt: {
-      $date: date,
-    },
+    ...resourceFields,
   },
 ]
 
@@ -62,17 +66,19 @@ const evidence = [
     project: {
       $oid: '62ebe39fea4bf07f32b51f1a',
     },
-    createdBy: {
-      $oid: '62ebe39aea4bf07f32b51f18',
+    ...resourceFields,
+  },
+]
+
+const observations = [
+  {
+    ...resourceFields,
+    _id: {
+      $oid: '62ebe39fea4bf07f32b51f1e',
     },
-    updatedBy: {
-      $oid: '62ebe39aea4bf07f32b51f18',
-    },
-    createdAt: {
-      $date: date,
-    },
-    updatedAt: {
-      $date: date,
+    content: 'This is an observation',
+    evidence: {
+      $oid: '62ebe39fea4bf07f32b51f1d',
     },
   },
 ]
@@ -105,3 +111,4 @@ async function postCollection(collection, object) {
 postCollection('project', projects)
 postCollection('evidence', evidence)
 postCollection('users', users)
+postCollection('observation', observations)
