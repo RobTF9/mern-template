@@ -44,6 +44,19 @@ declare global {
     video: string
     transcript: string
     public_id: string
+    transcriptObject?: [
+      {
+        confidence: number
+        transcript: string
+        words: [
+          {
+            word: string
+            start_time: number
+            end_time: number
+          }
+        ]
+      }
+    ]
   }
 
   type EvidenceResource = EvidenceInterface & Resource

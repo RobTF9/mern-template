@@ -25,7 +25,6 @@ const storage = multer.diskStorage({
   },
 })
 
-// middleware
 export const multerMiddleware = multer({
   storage,
 }).single('video')
@@ -35,9 +34,6 @@ export async function uploadVideo(
   res: Response,
   next: NextFunction
 ) {
-  // Use the uploaded file's name as the asset's public ID and
-  // allow overwriting the asset with new versions
-
   try {
     if (!req.file) {
       return res.status(400).json({ message: 'No file' })
@@ -88,7 +84,12 @@ export async function getTranscript(
       }
       const response = await fetch(evidence.transcript)
       const json = await response.json()
-      console.log(json)
+
+      await Evidence.findOneAndUpdate(
+        { public_id: req.body.public_id },
+        { transcriptObject: json }
+      )
+
       return res.send(200)
     } else {
       return res.send(200)
