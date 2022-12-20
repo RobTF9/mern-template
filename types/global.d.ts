@@ -45,6 +45,7 @@ declare global {
     participant: string
     transcript: string
     public_id: string
+    project: ObjectId
     transcriptObject?: [
       {
         confidence: number

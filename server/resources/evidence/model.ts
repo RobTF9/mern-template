@@ -15,6 +15,11 @@ const evidenceSchema = new Schema<EvidenceResource>(
         words: [{ word: String, start_time: Number, end_time: Number }],
       },
     ],
+    project: {
+      type: SchemaTypes.ObjectId,
+      required: true,
+      ref: 'project',
+    },
     createdBy: {
       type: SchemaTypes.ObjectId,
       required: true,

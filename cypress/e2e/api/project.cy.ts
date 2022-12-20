@@ -49,17 +49,6 @@ describe('API: Project Resource', () => {
       )
     })
   })
-  it('readAll', () => {
-    cy.request({
-      method: 'GET',
-      url,
-    }).then((response) => {
-      expect(response.body.data[0]).has.property(
-        'content',
-        'This is the NEW project description'
-      )
-    })
-  })
   it('deleteOne', () => {
     cy.request({
       method: 'DELETE',
@@ -67,6 +56,17 @@ describe('API: Project Resource', () => {
     }).then((response) => {
       expect(response.body.data).has.property('title', 'Project')
       expect(response.body.message).has.property('message', 'project deleted')
+    })
+  })
+  it('readAll', () => {
+    cy.request({
+      method: 'GET',
+      url,
+    }).then((response) => {
+      expect(response.body.data[0]).has.property(
+        'content',
+        'The project description'
+      )
     })
   })
 })

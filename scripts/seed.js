@@ -24,6 +24,29 @@ const users = [
     },
   },
 ]
+
+const projects = [
+  {
+    _id: {
+      $oid: '62ebe39fea4bf07f32b51f1a',
+    },
+    content: 'The project description',
+    title: 'A project',
+    createdBy: {
+      $oid: '62ebe39aea4bf07f32b51f18',
+    },
+    updatedBy: {
+      $oid: '62ebe39aea4bf07f32b51f18',
+    },
+    createdAt: {
+      $date: date,
+    },
+    updatedAt: {
+      $date: date,
+    },
+  },
+]
+
 const evidence = [
   {
     _id: {
@@ -36,6 +59,9 @@ const evidence = [
     public_id: 'r2mlt1vkqw6sswgqfvw7',
     participant: 'Bob',
     transcriptObject: [],
+    project: {
+      $oid: '62ebe39fea4bf07f32b51f1a',
+    },
     createdBy: {
       $oid: '62ebe39aea4bf07f32b51f18',
     },
@@ -76,5 +102,6 @@ async function postCollection(collection, object) {
   )
 }
 
+postCollection('project', projects)
 postCollection('evidence', evidence)
 postCollection('users', users)

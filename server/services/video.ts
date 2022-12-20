@@ -35,7 +35,7 @@ export async function uploadVideo(
   next: NextFunction
 ) {
   try {
-    const participant = req.body.participant
+    const { participant, project } = req.body
 
     if (!req.file) {
       return res.status(400).json({ message: 'No file' })
@@ -61,6 +61,7 @@ export async function uploadVideo(
       transcript: `https://res.cloudinary.com/dlhk8zpa5/raw/upload/v${version}/${video.public_id}.transcript`,
       public_id: video.public_id,
       participant,
+      project,
     }
 
     return next()
