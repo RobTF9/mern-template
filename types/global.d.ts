@@ -62,6 +62,13 @@ declare global {
 
   type EvidenceResource = EvidenceInterface & Resource
 
+  interface ObservationInterface {
+    content: string
+    evidence: ObjectId
+  }
+
+  type ObservationResource = ObservationInterface & Resource
+
   /** The user interface, without mongodb fields (timestamps & _id) */
   interface UserInterface {
     _id: ObjectId
