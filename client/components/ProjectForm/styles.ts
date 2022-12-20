@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const ItemFormWrapper = styled.form`
+export const ProjectFormWrapper = styled.form`
   width: 100%;
   display: flex;
   margin-top: 1rem;

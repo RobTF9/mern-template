@@ -2,7 +2,7 @@ import React from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { useAuthContext } from '../context/auth'
 import QueryContext from '../context/query'
-import Items from './pages/items'
+import Projects from './pages/projects'
 
 const Authenticated = () => {
   const { signOut } = useAuthContext()
@@ -14,7 +14,7 @@ const Authenticated = () => {
           <button onClick={signOut}>Sign out</button>
         </header>
         <Routes>
-          <Route path="/" element={<Items />} />
+          <Route path="/" element={<Projects />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>
