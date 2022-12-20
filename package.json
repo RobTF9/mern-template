@@ -55,7 +55,9 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.5.0",
-    "styled-components": "^5.3.5"
+    "styled-components": "^5.3.5",
+    "wink-eng-lite-web-model": "^1.4.3",
+    "wink-nlp": "^1.13.0"
   },
   "scripts": {
     "build:server": "babel server --out-dir dist/server --extensions .ts",

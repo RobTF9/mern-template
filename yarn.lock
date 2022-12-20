@@ -6432,6 +6432,16 @@ which@^2.0.1:
   dependencies:
     isexe "^2.0.0"
 
+wink-eng-lite-web-model@^1.4.3:
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/wink-eng-lite-web-model/-/wink-eng-lite-web-model-1.4.3.tgz#2612dc3075fe0e6d68b98f5489ee87a59b94320c"
+  integrity sha512-HAx6nmDdoCucs4RnPhlxpTqiw0/MYiiGtSyfykYM03KTxvCVjX6HNtdfBhmdUeGLzGh0M/D4WJANU42qH6/1nA==
+
+wink-nlp@^1.13.0:
+  version "1.13.0"
+  resolved "https://registry.yarnpkg.com/wink-nlp/-/wink-nlp-1.13.0.tgz#c4ec1e22597f6177b9472f1f8c2b96edc8315141"
+  integrity sha512-aK+KAOwIkeCzCX1E9SNJ3VT5F98Fln4AYRk7XsACcHjgQzJV6Fw6dQoB4UHRybLJt65YGLiQRAXlALd8aFJBcw==
+
 word-wrap@^1.2.3, word-wrap@~1.2.3:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/word-wrap/-/word-wrap-1.2.3.tgz#610636f6b1f703891bd34771ccb17fb93b47079c"

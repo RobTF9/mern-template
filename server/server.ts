@@ -14,6 +14,7 @@ import { protect } from './auth/middleware'
 import authRouter from './auth/router'
 import kill from 'kill-port'
 import { getTranscript } from './services/video'
+import { detection } from './services/nlp'
 
 export const app = express()
 const port = process.env.PORT || 3000
@@ -24,7 +25,7 @@ app.use(morgan('dev'))
 app.set('trust proxy', 1)
 app.use(authSession)
 app.use('/auth', authRouter)
-app.use('/api', protect)
+app.use('/api', protect, detection)
 app.use('/api/project', projectRouter)
 app.use('/api/evidence', evidenceRouter)
 app.use('/api/observation', observationRouter)
