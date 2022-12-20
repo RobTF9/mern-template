@@ -65,7 +65,7 @@ describe('API: Assumption Resource', () => {
       url: `${url}/${id}`,
     }).then((response) => {
       expect('62ebe39fea4bf07f32b51f1e').to.be.oneOf(
-        response.body.data[0].supporting
+        response.body.data.supporting
       )
       expect(response.body.message).has.property(
         'message',

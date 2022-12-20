@@ -24,7 +24,6 @@ function crudControllers<T extends Resource>(
 
   const readAll: RequestHandler = async (req, res, next) => {
     try {
-      console.log(req.session.user)
       const items = await model.find({ createdBy: req.session.user })
       return res.status(200).json({ data: items })
     } catch (error) {
@@ -53,8 +52,8 @@ function crudControllers<T extends Resource>(
   const update: RequestHandler = async (req, res, next) => {
     try {
       const item = await model
-        .findByIdAndUpdate(
-          req.params.id,
+        .findOneAndUpdate(
+          { _id: req.params.id, createdBy: req.session.user },
           {
             ...req.body,
             updatedBy: req.session.user,
