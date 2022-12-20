@@ -1,18 +1,16 @@
 import React from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
+import Nav from '../components/Nav'
 import { useAuthContext } from '../context/auth'
 import QueryContext from '../context/query'
 import Projects from './pages/projects'
 
 const Authenticated = () => {
-  const { signOut } = useAuthContext()
+  const { signOut, user } = useAuthContext()
   return (
     <QueryContext>
       <div>
-        <header>
-          <h1>Authenticated</h1>
-          <button onClick={signOut}>Sign out</button>
-        </header>
+        {user && <Nav user={user} signOut={signOut} />}
         <Routes>
           <Route path="/" element={<Projects />} />
           <Route path="*" element={<Navigate to="/" />} />

@@ -5,6 +5,7 @@ import projectRouter from './resources/project/router'
 import evidenceRouter from './resources/evidence/router'
 import observationRouter from './resources/observation/router'
 import assumptionRouter from './resources/assumption/router'
+import userRouter from './resources/user/router'
 import path from 'path'
 import connect from './db/connect'
 import errorHandler from './utils/error'
@@ -27,6 +28,7 @@ app.use('/api', protect)
 app.use('/api/project', projectRouter)
 app.use('/api/evidence', evidenceRouter)
 app.use('/api/observation', observationRouter)
+app.use('/api/user', userRouter)
 app.use('/api/assumption', assumptionRouter)
 
 app.use('/hook', getTranscript)
