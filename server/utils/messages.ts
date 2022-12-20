@@ -31,5 +31,5 @@ export const ERROR_MESSAGE = {
   USERNAME_IN_USE: errorMessage('Username is already in use'),
   NOT_AUTHORIZED: errorMessage('Not authorized'),
   RESOURCE_NOT_FOUND: (resource: string) =>
-    succesMessage(`${resource} deleted`),
+    errorMessage(`${resource} not found`),
 }

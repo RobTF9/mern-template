@@ -24,7 +24,10 @@ function crudControllers<T extends Resource>(
 
   const readAll: RequestHandler = async (req, res, next) => {
     try {
-      const items = await model.find({ createdBy: req.session.user })
+      const items = await model.find({
+        createdBy: req.session.user,
+        ...req.query,
+      })
       return res.status(200).json({ data: items })
     } catch (error) {
       return next(error)
@@ -53,7 +56,7 @@ function crudControllers<T extends Resource>(
     try {
       const item = await model
         .findOneAndUpdate(
-          { _id: req.params.id, createdBy: req.session.user },
+          { _id: req.params.id, createdBy: req.session.user, ...req.query },
           {
             ...req.body,
             updatedBy: req.session.user,
@@ -63,10 +66,11 @@ function crudControllers<T extends Resource>(
         .lean()
         .exec()
 
-      if (!item)
-        res
+      if (!item) {
+        return res
           .status(404)
           .json({ message: ERROR_MESSAGE.RESOURCE_NOT_FOUND(collection) })
+      }
 
       return res.status(201).json({
         data: item,
