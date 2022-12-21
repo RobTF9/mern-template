@@ -97,10 +97,14 @@ declare global {
   }
 
   interface Related {
+    parentId: string
+    detected: string[]
     observations: ObservationResource[]
     assumptions: AssumptionResource[]
     projects: ProjectResource[]
   }
+
+  type RelatedResource = Related & Resource
 
   namespace Express {
     interface Request {

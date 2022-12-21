@@ -1,5 +1,6 @@
 import { RequestHandler } from 'express'
 import { Model } from 'mongoose'
+import RelatedModel from '../resources/related/model'
 import { ERROR_MESSAGE, SUCCESS_MESSAGE } from './messages'
 
 function crudControllers<T extends Resource>(
@@ -13,10 +14,18 @@ function crudControllers<T extends Resource>(
         createdBy: req.session.user,
         updatedBy: req.session.user,
       })
+
+      const related = await RelatedModel.create({
+        ...req.related,
+        parentId: `${item._id}`,
+        createdBy: req.session.user,
+        updatedBy: req.session.user,
+      })
+
       return res.status(200).json({
         data: item,
         message: SUCCESS_MESSAGE.RESOURCE_CREATED(collection),
-        related: req.related ? req.related : undefined,
+        related,
       })
     } catch (error) {
       return next(error)
@@ -42,12 +51,15 @@ function crudControllers<T extends Resource>(
         .lean()
         .exec()
 
-      if (!item)
-        res
+      if (!item) {
+        return res
           .status(404)
           .json({ message: ERROR_MESSAGE.RESOURCE_NOT_FOUND(collection) })
+      }
 
-      return res.status(200).json({ data: item })
+      const related = await RelatedModel.findOne({ parentId: `${item._id}` })
+
+      return res.status(200).json({ data: item, related })
     } catch (error) {
       return next(error)
     }
@@ -73,10 +85,18 @@ function crudControllers<T extends Resource>(
           .json({ message: ERROR_MESSAGE.RESOURCE_NOT_FOUND(collection) })
       }
 
+      const related = await RelatedModel.findOneAndUpdate(
+        { parentId: `${item._id}` },
+        {
+          ...req.related,
+          updatedBy: req.session.user,
+        }
+      )
+
       return res.status(201).json({
         data: item,
         message: SUCCESS_MESSAGE.RESOURCE_UPDATED(collection),
-        related: req.related ? req.related : undefined,
+        related,
       })
     } catch (error) {
       return next(error)
@@ -86,8 +106,22 @@ function crudControllers<T extends Resource>(
   const deleteOne: RequestHandler = async (req, res, next) => {
     try {
       const item = await model.findByIdAndDelete(req.params.id).lean().exec()
+
+      if (!item) {
+        return res
+          .status(404)
+          .json({ message: ERROR_MESSAGE.RESOURCE_NOT_FOUND(collection) })
+      }
+
+      const related = await RelatedModel.findOneAndDelete({
+        parentId: `${item._id}`,
+      })
+        .lean()
+        .exec()
+
       return res.status(200).json({
         data: item,
+        related,
         message: SUCCESS_MESSAGE.RESOURCE_DELETED(collection),
       })
     } catch (error) {

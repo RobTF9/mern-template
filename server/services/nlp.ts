@@ -25,14 +25,12 @@ export default languageProcessor
 
 export async function detection(req: Request, _: Response, next: NextFunction) {
   try {
-    const related: {
-      observations: ObservationResource[]
-      assumptions: AssumptionResource[]
-      projects: ProjectResource[]
-    } = {
+    const related: Related = {
+      parentId: '',
       observations: [],
       assumptions: [],
       projects: [],
+      detected: [],
       // evidence: [],
     }
     if (req.body.title) {
@@ -44,6 +42,8 @@ export async function detection(req: Request, _: Response, next: NextFunction) {
     if (req.body.content) {
       const doc = languageProcessor.readDoc(req.body.content)
       const detectedEntities = doc.customEntities().out()
+      related.detected = [...detectedEntities]
+
       const regex = detectedEntities.map((e) => new RegExp(e, 'i'))
 
       const relatedObservation = await Observation.find({
