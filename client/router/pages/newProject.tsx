@@ -21,7 +21,7 @@ const NewProject = () => {
         event.preventDefault()
         create(project, {
           onSuccess: (r) => {
-            navigate(`/${r.data?._id}`)
+            navigate(`/${r.data?._id}`, { state: r.related })
           },
         })
       }}
