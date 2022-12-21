@@ -30,7 +30,7 @@ declare global {
     auth?: boolean
     message?: Message
     data?: D
-    related?: Related
+    related?: RelatedResource
   }
 
   interface ProjectInterface {
