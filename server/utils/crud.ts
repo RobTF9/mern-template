@@ -16,6 +16,7 @@ function crudControllers<T extends Resource>(
       return res.status(200).json({
         data: item,
         message: SUCCESS_MESSAGE.RESOURCE_CREATED(collection),
+        related: req.related ? req.related : undefined,
       })
     } catch (error) {
       return next(error)
@@ -75,6 +76,7 @@ function crudControllers<T extends Resource>(
       return res.status(201).json({
         data: item,
         message: SUCCESS_MESSAGE.RESOURCE_UPDATED(collection),
+        related: req.related ? req.related : undefined,
       })
     } catch (error) {
       return next(error)

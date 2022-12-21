@@ -9,7 +9,10 @@ async function http<T>(endpoint: RequestInfo, config: RequestInit): Promise<T> {
   }
 }
 
-export async function get<T>(endpoint: string, config?: RequestInit): Promise<T> {
+export async function get<T>(
+  endpoint: string,
+  config?: RequestInit
+): Promise<T> {
   const init = {
     method: 'GET',
     ...config,
@@ -19,7 +22,11 @@ export async function get<T>(endpoint: string, config?: RequestInit): Promise<T>
   return response
 }
 
-export async function post<T, U>(endpoint: string, body: T, config?: RequestInit): Promise<U> {
+export async function post<T, U>(
+  endpoint: string,
+  body: T,
+  config?: RequestInit
+): Promise<U> {
   const init = {
     method: 'POST',
     body: JSON.stringify(body),
@@ -30,7 +37,11 @@ export async function post<T, U>(endpoint: string, body: T, config?: RequestInit
   return response
 }
 
-export async function put<T, U>(endpoint: string, body: T, config?: RequestInit): Promise<U> {
+export async function put<T, U>(
+  endpoint: string,
+  body: T,
+  config?: RequestInit
+): Promise<U> {
   const init = {
     method: 'PUT',
     body: JSON.stringify(body),
@@ -41,7 +52,11 @@ export async function put<T, U>(endpoint: string, body: T, config?: RequestInit)
   return response
 }
 
-export async function patch<T, U>(endpoint: string, body: T, config?: RequestInit): Promise<U> {
+export async function patch<T, U>(
+  endpoint: string,
+  body: T,
+  config?: RequestInit
+): Promise<U> {
   const init = {
     method: 'PATCH',
     body: JSON.stringify(body),
@@ -52,7 +67,10 @@ export async function patch<T, U>(endpoint: string, body: T, config?: RequestIni
   return response
 }
 
-export async function del<U>(endpoint: string, config?: RequestInit): Promise<U> {
+export async function del<U>(
+  endpoint: string,
+  config?: RequestInit
+): Promise<U> {
   const init = {
     method: 'DELETE',
     ...config,

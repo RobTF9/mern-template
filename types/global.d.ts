@@ -30,7 +30,7 @@ declare global {
     auth?: boolean
     message?: Message
     data?: D
-    searched?: boolean
+    related?: Related
   }
 
   interface ProjectInterface {
@@ -94,5 +94,17 @@ declare global {
   interface PublicUserInterface {
     username: string
     email: string
+  }
+
+  interface Related {
+    observations: ObservationResource[]
+    assumptions: AssumptionResource[]
+    projects: ProjectResource[]
+  }
+
+  namespace Express {
+    interface Request {
+      related?: Related
+    }
   }
 }
