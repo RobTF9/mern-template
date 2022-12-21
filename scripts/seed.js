@@ -45,8 +45,9 @@ const projects = [
     _id: {
       $oid: '62ebe39fea4bf07f32b51f1a',
     },
-    content: 'The project description',
-    title: 'A project',
+    content:
+      'This is a project description you should be able to detect entities within it. This should help find observations or assumptions that are related',
+    title: 'A project to gather observations and create assumptions',
     ...resourceFields,
   },
 ]
@@ -57,15 +58,52 @@ const evidence = [
       $oid: '62ebe39fea4bf07f32b51f1d',
     },
     video:
-      'https://res.cloudinary.com/dlhk8zpa5/video/upload/v1671537591/r2mlt1vkqw6sswgqfvw7.mov',
+      'https://res.cloudinary.com/dlhk8zpa5/video/upload/v1671611534/sbchhrsixmclzfzmmxbx.mov',
     transcript:
-      'https://res.cloudinary.com/dlhk8zpa5/raw/upload/v1671537592/r2mlt1vkqw6sswgqfvw7.transcript',
-    public_id: 'r2mlt1vkqw6sswgqfvw7',
+      'https://res.cloudinary.com/dlhk8zpa5/raw/upload/v1671611535/sbchhrsixmclzfzmmxbx.transcript',
+    public_id: 'sbchhrsixmclzfzmmxbx',
     participant: 'Bob',
-    transcriptObject: [],
-    project: {
-      $oid: '62ebe39fea4bf07f32b51f1a',
-    },
+    project: '62ebe39fea4bf07f32b51f1a',
+    transcriptObject: [
+      {
+        confidence: 0.9128385782241821,
+        transcript: 'in a kitchen, that is',
+        words: [
+          {
+            word: 'in',
+            start_time: 0.1,
+            end_time: 0.5,
+            _id: '63a2c4de9ff7fb3e1e6bff8d',
+          },
+          {
+            word: 'a',
+            start_time: 0.5,
+            end_time: 0.6,
+            _id: '63a2c4de9ff7fb3e1e6bff8e',
+          },
+          {
+            word: 'kitchen,',
+            start_time: 0.6,
+            end_time: 1.2,
+            _id: '63a2c4de9ff7fb3e1e6bff8f',
+          },
+          {
+            word: 'that',
+            start_time: 1.2,
+            end_time: 1.6,
+            _id: '63a2c4de9ff7fb3e1e6bff90',
+          },
+          {
+            word: 'is',
+            start_time: 1.6,
+            end_time: 1.7,
+            _id: '63a2c4de9ff7fb3e1e6bff91',
+          },
+        ],
+        _id: '63a2c4de9ff7fb3e1e6bff8c',
+      },
+    ],
+
     ...resourceFields,
   },
 ]
@@ -76,10 +114,43 @@ const observations = [
     _id: {
       $oid: '62ebe39fea4bf07f32b51f1e',
     },
-    content: 'This is an observation',
+    content:
+      'This is an observation, you should be able to detect entities within it, these should be surfaced in projects or on assumptions',
     evidence: {
       $oid: '62ebe39fea4bf07f32b51f1d',
     },
+  },
+  {
+    ...resourceFields,
+    _id: {
+      $oid: '62ebe39fea4bf07f32b51f1f',
+    },
+    content:
+      'This is another observation, it observes something different from the first. It apposes the assumption',
+    evidence: {
+      $oid: '62ebe39fea4bf07f32b51f1d',
+    },
+  },
+]
+
+const assumptions = [
+  {
+    _id: {
+      $oid: '62ebe39fea4bf07f32b51f19',
+    },
+    content:
+      'This is the assumption. The source and basis for all knowledge. Test it, iterate on it and become all powerful',
+    opposing: [
+      {
+        $oid: '62ebe39fea4bf07f32b51f1f',
+      },
+    ],
+    supporting: [
+      {
+        $oid: '62ebe39fea4bf07f32b51f1e',
+      },
+    ],
+    ...resourceFields,
   },
 ]
 
@@ -112,3 +183,4 @@ postCollection('project', projects)
 postCollection('evidence', evidence)
 postCollection('users', users)
 postCollection('observation', observations)
+postCollection('assumption', assumptions)
