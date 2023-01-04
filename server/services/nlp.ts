@@ -21,9 +21,15 @@ const patterns = [
 
 languageProcessor.learnCustomEntities(patterns)
 
-export default languageProcessor
-
-export async function detection(req: Request, _: Response, next: NextFunction) {
+export async function detection(
+  req: Request<
+    unknown,
+    unknown,
+    { title?: string; content?: string; transcriptObject?: TranscriptObject }
+  >,
+  _: Response,
+  next: NextFunction
+) {
   try {
     const related: Related = {
       parentId: '',
@@ -31,6 +37,7 @@ export async function detection(req: Request, _: Response, next: NextFunction) {
       assumptions: [],
       projects: [],
       detected: [],
+      // TODO get related evidence
       // evidence: [],
     }
     if (req.body.title) {
@@ -41,6 +48,31 @@ export async function detection(req: Request, _: Response, next: NextFunction) {
 
     if (req.body.content) {
       const doc = languageProcessor.readDoc(req.body.content)
+      const detectedEntities = doc.customEntities().out()
+      related.detected = [...detectedEntities]
+
+      const regex = detectedEntities.map((e) => new RegExp(e, 'i'))
+
+      const relatedObservation = await Observation.find({
+        content: { $in: regex },
+      })
+      related.observations = [...relatedObservation]
+
+      const relatedAssumptions = await Assumption.find({
+        content: { $in: regex },
+      })
+      related.assumptions = [...relatedAssumptions]
+
+      const relatedProject = await Project.find({
+        content: { $in: regex },
+      })
+      related.projects = [...relatedProject]
+    }
+
+    if (req.body.transcriptObject) {
+      const { transcriptObject: t } = req.body
+      const combined = t.map(({ transcript }) => transcript).join(' ')
+      const doc = languageProcessor.readDoc(combined)
       const detectedEntities = doc.customEntities().out()
       related.detected = [...detectedEntities]
 

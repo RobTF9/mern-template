@@ -40,25 +40,27 @@ declare global {
 
   type ProjectResource = ProjectInterface & Resource
 
+  type TranscriptObject = [
+    {
+      confidence: number
+      transcript: string
+      words: [
+        {
+          word: string
+          start_time: number
+          end_time: number
+        }
+      ]
+    }
+  ]
+
   interface EvidenceInterface {
     video: string
     participant: string
     transcript: string
     public_id: string
     project: ObjectId
-    transcriptObject?: [
-      {
-        confidence: number
-        transcript: string
-        words: [
-          {
-            word: string
-            start_time: number
-            end_time: number
-          }
-        ]
-      }
-    ]
+    transcriptObject?: TranscriptObject
   }
 
   type EvidenceResource = EvidenceInterface & Resource

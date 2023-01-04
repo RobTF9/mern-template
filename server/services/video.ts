@@ -4,6 +4,7 @@ import multer from 'multer'
 import fetch from 'node-fetch'
 import config from '../config'
 import Evidence from '../resources/evidence/model'
+import RelatedModel from '../resources/related/model'
 import { ERROR_MESSAGE } from '../utils/messages'
 
 type FileNameCallback = (error: Error | null, filename: string) => void
@@ -89,15 +90,42 @@ export async function getTranscript(
       const response = await fetch(evidence.transcript)
       const json = await response.json()
 
-      await Evidence.findOneAndUpdate(
-        { public_id: req.body.public_id },
-        { transcriptObject: json }
-      )
-
-      return res.send(200)
-    } else {
-      return res.send(200)
+      req.body.transcriptObject = json
+      return next()
     }
+    return res.sendStatus(200)
+  } catch (error) {
+    return next(error)
+  }
+}
+
+export async function updateEvidenceWithTranscript(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const evidence = await Evidence.findOneAndUpdate(
+      {
+        public_id: req.body.public_id,
+      },
+      { transcriptObject: req.body.transcriptObject }
+    )
+      .lean()
+      .exec()
+
+    if (evidence) {
+      await RelatedModel.create({
+        ...req.related,
+        parentId: `${evidence._id}`,
+        createdBy: evidence.createdBy,
+        updatedBy: evidence.createdBy,
+      })
+
+      return res.sendStatus(200)
+    }
+
+    return res.sendStatus(200)
   } catch (error) {
     return next(error)
   }

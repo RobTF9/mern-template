@@ -13,7 +13,7 @@ import authSession from './auth/session'
 import { protect } from './auth/middleware'
 import authRouter from './auth/router'
 import kill from 'kill-port'
-import { getTranscript } from './services/video'
+import { getTranscript, updateEvidenceWithTranscript } from './services/video'
 import { detection } from './services/nlp'
 
 export const app = express()
@@ -32,7 +32,7 @@ app.use('/api/observation', observationRouter)
 app.use('/api/user', userRouter)
 app.use('/api/assumption', assumptionRouter)
 
-app.use('/hook', getTranscript)
+app.use('/hook', getTranscript, detection, updateEvidenceWithTranscript)
 
 const clientPath = path.join(__dirname, '..', 'client')
 app.use(express.static(clientPath))
