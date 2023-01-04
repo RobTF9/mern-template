@@ -8,6 +8,11 @@ const relatedSchema = new Schema<RelatedResource>(
       type: String,
       required: true,
     },
+    parentType: {
+      type: String,
+      enum: ['observation', 'assumption', 'project', 'evidence'],
+      required: true,
+    },
     observations: [
       {
         _id: SchemaTypes.ObjectId,

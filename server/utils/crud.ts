@@ -18,6 +18,7 @@ function crudControllers<T extends Resource>(
       const related = await RelatedModel.create({
         ...req.related,
         parentId: `${item._id}`,
+        parentType: collection,
         createdBy: req.session.user,
         updatedBy: req.session.user,
       })

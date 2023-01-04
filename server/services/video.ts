@@ -118,6 +118,7 @@ export async function updateEvidenceWithTranscript(
       await RelatedModel.create({
         ...req.related,
         parentId: `${evidence._id}`,
+        parentType: `evidence`,
         createdBy: evidence.createdBy,
         updatedBy: evidence.createdBy,
       })

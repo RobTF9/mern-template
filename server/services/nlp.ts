@@ -33,6 +33,7 @@ export async function detection(
   try {
     const related: Related = {
       parentId: '',
+      parentType: 'observation',
       observations: [],
       assumptions: [],
       projects: [],

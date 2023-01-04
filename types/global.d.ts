@@ -100,6 +100,7 @@ declare global {
 
   interface Related {
     parentId: string
+    parentType: 'observation' | 'assumption' | 'project' | 'evidence'
     detected: string[]
     observations: ObservationResource[]
     assumptions: AssumptionResource[]
