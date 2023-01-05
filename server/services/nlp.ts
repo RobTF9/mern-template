@@ -30,6 +30,10 @@ export async function detection(
   _: Response,
   next: NextFunction
 ) {
+  console.log(
+    '====================== DETECTION MIDDLEWARE ======================'
+  )
+  console.log(req.body)
   try {
     const related: Related = {
       parentId: '',
@@ -73,6 +77,9 @@ export async function detection(
     if (req.body.transcriptObject) {
       const { transcriptObject: t } = req.body
       const combined = t.map(({ transcript }) => transcript).join(' ')
+      console.log('====================== COMBINED ======================')
+      console.log(combined)
+
       const doc = languageProcessor.readDoc(combined)
       const detectedEntities = doc.customEntities().out()
       related.detected = [...detectedEntities]
@@ -95,7 +102,10 @@ export async function detection(
       related.projects = [...relatedProject]
     }
 
+    console.log('====================== RELATED ======================')
+
     req.related = related
+    console.log(req.related)
 
     return next()
   } catch (error) {

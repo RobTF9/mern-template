@@ -36,6 +36,10 @@ export async function uploadVideo(
   next: NextFunction
 ) {
   try {
+    console.log(
+      '====================== UPLOAD VIDEO MIDDLEWARE ======================'
+    )
+    console.log(req.body)
     const { participant, project } = req.body
 
     if (!req.file) {
@@ -61,6 +65,7 @@ export async function uploadVideo(
       video: video.secure_url,
       transcript: `https://res.cloudinary.com/dlhk8zpa5/raw/upload/v${version}/${video.public_id}.transcript`,
       public_id: video.public_id,
+      transcriptObject: undefined,
       participant,
       project,
     }
@@ -76,6 +81,10 @@ export async function getTranscript(
   res: Response,
   next: NextFunction
 ) {
+  console.log(
+    '====================== TRANSCRIPT MIDDLEWARE ======================'
+  )
+  console.log(req.body)
   try {
     if (
       req.body.info_kind === 'google_speech' &&

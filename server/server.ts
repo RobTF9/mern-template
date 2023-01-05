@@ -25,7 +25,12 @@ app.use(morgan('dev'))
 app.set('trust proxy', 1)
 app.use(authSession)
 app.use('/auth', authRouter)
-app.use('/api', protect, detection)
+
+app.use('/api', protect, detection, (req, _, next) => {
+  console.log('====================== REQUEST ======================')
+  console.log(req.body)
+  return next()
+})
 app.use('/api/project', projectRouter)
 app.use('/api/evidence', evidenceRouter)
 app.use('/api/observation', observationRouter)
