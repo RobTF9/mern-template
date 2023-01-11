@@ -68,7 +68,7 @@
     "dev:server": "nodemon",
     "ngrok": "lt --port 3000 --subdomain basis-test",
     "predev": "yarn clean",
-    "dev": "NODE_ENV=dev concurrently \"yarn ngrok\" \"yarn dev:server\" \"yarn dev:client\"",
+    "dev": "NODE_ENV=dev concurrently -p \"{name} ➜\" -n \"tunnel,server,client\" -c \"yellow.bold,blue.bold,green.bold\" \"yarn ngrok\" \"yarn dev:server\" \"yarn dev:client\"",
     "start": "node dist/server/index.js",
     "pretest": "yarn reset && yarn seed && yarn build",
     "pretest:api": "yarn clean && yarn reset && yarn seed && yarn build",
