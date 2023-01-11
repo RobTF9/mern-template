@@ -7,7 +7,14 @@ const evidenceSchema = new Schema<EvidenceResource>(
     video: { type: String, required: true },
     transcript: { type: String, required: true },
     public_id: { type: String, required: true },
-    participant: { type: String, required: true },
+    source: {
+      segment: {
+        type: SchemaTypes.ObjectId,
+        required: true,
+        ref: 'segment',
+      },
+      participant: { type: String, required: true },
+    },
     transcriptObject: [
       {
         confidence: Number,

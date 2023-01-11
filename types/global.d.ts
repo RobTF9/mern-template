@@ -56,7 +56,7 @@ declare global {
 
   interface EvidenceInterface {
     video: string
-    participant: string
+    source: { segment: ObjectId; participant: string }
     transcript: string
     public_id: string
     project: ObjectId
@@ -80,6 +80,13 @@ declare global {
 
   type AssumptionResource = AssumptionInterface & Resource
 
+  interface SegmentInterface {
+    title: string
+    participants: string[]
+  }
+
+  type SegmentResource = SegmentInterface & Resource
+
   interface UserInterface {
     _id: ObjectId
     username: string
@@ -100,7 +107,12 @@ declare global {
 
   interface Related {
     parentId: string
-    parentType: 'observation' | 'assumption' | 'project' | 'evidence'
+    parentType:
+      | 'observation'
+      | 'assumption'
+      | 'project'
+      | 'evidence'
+      | 'segment'
     detected: string[]
     observations: ObservationResource[]
     assumptions: AssumptionResource[]

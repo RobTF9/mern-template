@@ -10,7 +10,7 @@ const relatedSchema = new Schema<RelatedResource>(
     },
     parentType: {
       type: String,
-      enum: ['observation', 'assumption', 'project', 'evidence'],
+      enum: ['observation', 'assumption', 'project', 'evidence', 'segment'],
       required: true,
     },
     observations: [
