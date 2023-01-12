@@ -65,7 +65,7 @@ describe('API: Project Resource', () => {
     }).then((response) => {
       expect(response.body.data[0]).has.property(
         'content',
-        'The project description'
+        'Asking participants these questions... When did you become a parent? What are your favourite parts about being a parent? What are you most afraid of being a parent? What are your aspirations for your child?'
       )
     })
   })

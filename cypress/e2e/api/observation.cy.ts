@@ -71,7 +71,7 @@ describe('API: Observation Resource', () => {
     }).then((response) => {
       expect(response.body.data[0]).has.property(
         'content',
-        'This is an observation'
+        "One of my most afraid of being a parent? Is probably that my children will be unhappy. That they'll grow up in this kind of crazy world that we have around us will continue to get crazier and crazier. It means that there's very limited opportunity for them to find who they are and to be who they are and to live the type of life that they want to live, but is probably a stupid fear and that the live whatever life they want to live. Whether I agree with it or not. I just want them to have opportunity at my my greatest fear is that they won't have opportunity."
       )
     })
   })

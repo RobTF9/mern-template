@@ -36,10 +36,6 @@ export async function uploadVideo(
   next: NextFunction
 ) {
   try {
-    console.log(
-      '====================== UPLOAD VIDEO MIDDLEWARE ======================'
-    )
-    console.log(JSON.stringify(req.body))
     const { participant, project } = req.body
 
     if (!req.file) {

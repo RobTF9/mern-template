@@ -8,10 +8,6 @@ function crudControllers<T extends Resource>(
   collection: string
 ) {
   const create: RequestHandler = async (req, res, next) => {
-    console.log(
-      `====================== create ${collection} ======================`
-    )
-    console.log(req.body)
     try {
       const item = await model.create({
         ...req.body,
@@ -38,10 +34,6 @@ function crudControllers<T extends Resource>(
   }
 
   const readAll: RequestHandler = async (req, res, next) => {
-    console.log(
-      `====================== readAll ${collection} ======================`
-    )
-    console.log(req.body)
     try {
       const items = await model.find({
         createdBy: req.session.user,
@@ -54,10 +46,6 @@ function crudControllers<T extends Resource>(
   }
 
   const readOne: RequestHandler = async (req, res, next) => {
-    console.log(
-      `====================== readOne ${collection} ======================`
-    )
-    console.log(req.body)
     try {
       const item = await model
         .findOne({ _id: req.params.id, createdBy: req.session.user })
@@ -79,10 +67,6 @@ function crudControllers<T extends Resource>(
   }
 
   const update: RequestHandler = async (req, res, next) => {
-    console.log(
-      `====================== update ${collection} ======================`
-    )
-    console.log(req.body)
     try {
       const item = await model
         .findOneAndUpdate(
@@ -121,10 +105,6 @@ function crudControllers<T extends Resource>(
   }
 
   const deleteOne: RequestHandler = async (req, res, next) => {
-    console.log(
-      `====================== deleteOne ${collection} ======================`
-    )
-    console.log(req.body)
     try {
       const item = await model.findByIdAndDelete(req.params.id).lean().exec()
 
