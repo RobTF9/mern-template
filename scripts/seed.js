@@ -62,6 +62,10 @@ const evidence = [
     transcript:
       'https://res.cloudinary.com/dlhk8zpa5/raw/upload/v1673088670/pmktmmc1vxqkvkbjikd6.transcript',
     public_id: 'pmktmmc1vxqkvkbjikd6',
+    source: {
+      segement: '63c068ee891ce6c29c2eaba2',
+      participant: 'Glen',
+    },
     project: {
       $oid: '63b947da68e5d809ddc89a06',
     },
@@ -5271,6 +5275,15 @@ const evidence = [
         },
       },
     ],
+    ...resourceFields,
+  },
+]
+
+const segements = [
+  {
+    title: 'Rochester Dads',
+    participants: ['Glen'],
+    _id: '63c068ee891ce6c29c2eaba2',
     ...resourceFields,
   },
 ]
