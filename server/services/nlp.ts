@@ -4,8 +4,7 @@ import model from 'wink-eng-lite-web-model'
 import Observation from '../resources/observation/model'
 import Assumption from '../resources/assumption/model'
 import Project from '../resources/project/model'
-
-const languageProcessor = WinkFn(model)
+import { Model } from 'mongoose'
 
 // TODO PATTERNS SHOULD BE STORED IN A DB
 const patterns = [
@@ -19,7 +18,42 @@ const patterns = [
   { name: 'keywords', patterns: ['in-depth investigations'] },
 ]
 
+// eslint-disable-next-line
+const models: ['observations' | 'assumptions' | 'projects', Model<any>][] = [
+  ['observations', Observation],
+  ['assumptions', Assumption],
+  ['projects', Project],
+]
+
+const languageProcessor = WinkFn(model)
 languageProcessor.learnCustomEntities(patterns)
+
+const setRelated = async (text: string): Promise<Related> => {
+  const related: Related = {
+    parentId: '',
+    parentType: 'observation',
+    observations: [],
+    assumptions: [],
+    projects: [],
+    detected: [],
+    // TODO get related evidence after you query related object
+  }
+
+  const doc = languageProcessor.readDoc(text)
+  const detectedEntities = doc.customEntities().out()
+  related.detected = [...detectedEntities]
+
+  const regex = detectedEntities.map((e) => new RegExp(e, 'i'))
+
+  for (const [c, m] of models) {
+    const relatedModels = await m.find({
+      content: { $in: regex },
+    })
+    related[c] = [...relatedModels]
+  }
+
+  return related
+}
 
 export async function detection(
   req: Request<
@@ -30,82 +64,18 @@ export async function detection(
   _: Response,
   next: NextFunction
 ) {
-  console.log(
-    '====================== DETECTION MIDDLEWARE ======================'
-  )
-  console.log(req.body)
   try {
-    const related: Related = {
-      parentId: '',
-      parentType: 'observation',
-      observations: [],
-      assumptions: [],
-      projects: [],
-      detected: [],
-      // TODO get related evidence
-      // evidence: [],
-    }
-    if (req.body.title) {
-      const doc = languageProcessor.readDoc(req.body.title)
-      const detectedEntities = doc.customEntities().out()
-      console.log('Title: ' + detectedEntities)
-    }
-
     if (req.body.content) {
-      const doc = languageProcessor.readDoc(req.body.content)
-      const detectedEntities = doc.customEntities().out()
-      related.detected = [...detectedEntities]
-
-      const regex = detectedEntities.map((e) => new RegExp(e, 'i'))
-
-      const relatedObservation = await Observation.find({
-        content: { $in: regex },
-      })
-      related.observations = [...relatedObservation]
-
-      const relatedAssumptions = await Assumption.find({
-        content: { $in: regex },
-      })
-      related.assumptions = [...relatedAssumptions]
-
-      const relatedProject = await Project.find({
-        content: { $in: regex },
-      })
-      related.projects = [...relatedProject]
+      req.related = await setRelated(req.body.content)
+      return next()
     }
 
     if (req.body.transcriptObject) {
       const { transcriptObject: t } = req.body
       const combined = t.map(({ transcript }) => transcript).join(' ')
-      console.log('====================== COMBINED ======================')
-      console.log(combined)
-
-      const doc = languageProcessor.readDoc(combined)
-      const detectedEntities = doc.customEntities().out()
-      related.detected = [...detectedEntities]
-
-      const regex = detectedEntities.map((e) => new RegExp(e, 'i'))
-
-      const relatedObservation = await Observation.find({
-        content: { $in: regex },
-      })
-      related.observations = [...relatedObservation]
-
-      const relatedAssumptions = await Assumption.find({
-        content: { $in: regex },
-      })
-      related.assumptions = [...relatedAssumptions]
-
-      const relatedProject = await Project.find({
-        content: { $in: regex },
-      })
-      related.projects = [...relatedProject]
+      req.related = await setRelated(combined)
+      return next()
     }
-
-    console.log('====================== RELATED ======================')
-
-    req.related = related
-    console.log(req.related)
 
     return next()
   } catch (error) {

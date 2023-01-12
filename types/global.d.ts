@@ -105,7 +105,7 @@ declare global {
     email: string
   }
 
-  interface Related {
+  type Related = {
     parentId: string
     parentType:
       | 'observation'
