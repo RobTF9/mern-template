@@ -5279,7 +5279,7 @@ const evidence = [
   },
 ]
 
-const segements = [
+const segments = [
   {
     title: 'Rochester Dads',
     participants: ['Glen'],
@@ -5320,6 +5320,47 @@ const patterns = [
 
 const assumptions = []
 
+const related = [
+  {
+    parentId: '63bb05073692ffa273fda236',
+    parentType: 'observation',
+    observations: [],
+    assumptions: [],
+    projects: ['63b947da68e5d809ddc89a06'],
+    detected: [
+      'parent',
+      'children',
+      'kind',
+      'crazy world',
+      'limited opportunity',
+      'type',
+      'life',
+      'stupid fear',
+      'opportunity',
+      'greatest fear',
+    ],
+    _id: '63c3d4587f12f00bb02cbaa9',
+    ...resourceFields,
+  },
+  {
+    parentId: '63b947da68e5d809ddc89a06',
+    parentType: 'project',
+    observations: ['63bb05073692ffa273fda236'],
+    assumptions: [],
+    projects: [],
+    detected: [
+      'participants',
+      'questions',
+      'parent',
+      'favourite parts',
+      'aspirations',
+      'child',
+    ],
+    _id: '63b947da68e5d809ddc89a08',
+    ...resourceFields,
+  },
+]
+
 async function postCollection(collection, object) {
   await fs.writeFile(
     `./scripts/seed-data/${collection}.json`,
@@ -5350,5 +5391,6 @@ postCollection('evidence', evidence)
 postCollection('users', users)
 postCollection('observation', observations)
 postCollection('assumption', assumptions)
-postCollection('segment', segements)
+postCollection('segment', segments)
 postCollection('pattern', patterns)
+postCollection('related', related)

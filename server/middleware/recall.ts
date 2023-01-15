@@ -47,6 +47,7 @@ const setRelated = async (
     const relatedModels = await m.find({
       content: { $in: regex },
     })
+
     related[c] = [...relatedModels.map(({ _id }) => _id)]
   }
 

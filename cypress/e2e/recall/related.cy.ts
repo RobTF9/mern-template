@@ -10,8 +10,6 @@ describe('RECALL: Related entity detection', () => {
     })
   })
 
-  // create observation
-
   it('Create observation', () => {
     cy.request({
       method: 'POST',
@@ -53,8 +51,6 @@ describe('RECALL: Related entity detection', () => {
       ])
     })
   })
-
-  // see if recall comes back
 
   // TODO create new observation
 
