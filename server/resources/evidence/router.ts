@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { multerMiddleware, uploadVideo } from '../../services/video'
+import { multerMiddleware, uploadVideo } from '../../middleware/video'
 import controllers from './controller'
 
 const router = Router()

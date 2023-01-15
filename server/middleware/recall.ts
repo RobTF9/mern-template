@@ -7,6 +7,12 @@ import Project from '../resources/project/model'
 import { Model } from 'mongoose'
 import PatternModel from '../resources/pattern/model'
 
+type RequestToDetect = Request<
+  unknown,
+  unknown,
+  { title?: string; content?: string; transcriptObject?: TranscriptObject }
+>
+
 // eslint-disable-next-line
 const models: ['observations' | 'assumptions' | 'projects', Model<any>][] = [
   ['observations', Observation],
@@ -48,39 +54,23 @@ const setRelated = async (
 }
 
 const patternMap: Map<string, PatternResource> = new Map()
-async function getPatterns(
-  req: Request<
-    unknown,
-    unknown,
-    { title?: string; content?: string; transcriptObject?: TranscriptObject }
-  >
-): Promise<PatternResource> {
-  if (req.session.user) {
-    const existing = patternMap.get(req.session.user)
-    if (existing) {
-      return existing
-    } else {
-      const pattern = await PatternModel.findOne({
-        createdBy: req.session.user,
-      })
-      if (pattern) {
-        patternMap.set(req.session.user, pattern)
-        return pattern
-      } else {
-        throw Error('No pattern!')
-      }
-    }
-  } else {
-    throw Error('No user!')
+async function getPatterns(req: RequestToDetect): Promise<PatternResource> {
+  const { user } = req.session
+  if (!user) throw Error('No user!')
+
+  const existing = patternMap.get(user)
+  if (existing) {
+    return existing
   }
+
+  const pattern = await PatternModel.findOne({ createdBy: user })
+  if (!pattern) throw Error('No pattern!')
+  patternMap.set(user, pattern)
+  return pattern
 }
 
 export async function detection(
-  req: Request<
-    unknown,
-    unknown,
-    { title?: string; content?: string; transcriptObject?: TranscriptObject }
-  >,
+  req: RequestToDetect,
   _: Response,
   next: NextFunction
 ) {
