@@ -5302,6 +5302,17 @@ const observations = [
   },
 ]
 
+const patterns = [
+  { name: 'adjectiveNounPair', patterns: ['ADJ NOUN'] },
+  { name: 'nounPair', patterns: ['NOUN NOUN'] },
+  { name: 'nounTriple', patterns: ['NOUN NOUN NOUN'] },
+  {
+    name: 'nounPhrase',
+    patterns: ['[|ADJ] [NOUN|PROPN]'],
+  },
+  { name: 'keywords', patterns: ['in-depth investigations'] },
+]
+
 const assumptions = []
 
 async function postCollection(collection, object) {

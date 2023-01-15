@@ -16,6 +16,7 @@ import kill from 'kill-port'
 import { getTranscript, updateEvidenceWithTranscript } from './services/video'
 import { detection } from './services/nlp'
 import segmentRouter from './resources/segment/router'
+import patternRouter from './resources/pattern/router'
 
 export const app = express()
 const port = process.env.PORT || 3000
@@ -34,6 +35,7 @@ app.use('/api/observation', observationRouter)
 app.use('/api/user', userRouter)
 app.use('/api/assumption', assumptionRouter)
 app.use('/api/segment', segmentRouter)
+app.use('/api/pattern', patternRouter)
 
 app.use('/hook', getTranscript, detection, updateEvidenceWithTranscript)
 
