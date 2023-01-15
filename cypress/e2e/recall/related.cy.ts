@@ -31,7 +31,6 @@ describe('RECALL: Related entity detection', () => {
         'feeling purpose',
         'things',
         'favorite part',
-        'parent',
         'concept',
         'relationship',
         'people',

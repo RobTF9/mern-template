@@ -39,7 +39,7 @@ const setRelated = async (
   languageProcessor.learnCustomEntities(patterns.patterns)
   const doc = languageProcessor.readDoc(text)
   const detectedEntities = doc.customEntities().out()
-  related.detected = [...detectedEntities]
+  related.detected = [...new Set(detectedEntities)]
 
   const regex = detectedEntities.map((e) => new RegExp(e, 'i'))
 
