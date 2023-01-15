@@ -112,7 +112,7 @@ declare global {
   }
 
   type Related = {
-    parentId: string
+    parentId?: ObjectId
     parentType:
       | 'observation'
       | 'assumption'

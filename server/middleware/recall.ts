@@ -1,24 +1,14 @@
 import { NextFunction, Request, Response } from 'express'
 import WinkFn from 'wink-nlp'
 import model from 'wink-eng-lite-web-model'
-import Observation from '../resources/observation/model'
-import Assumption from '../resources/assumption/model'
-import Project from '../resources/project/model'
-import { Model } from 'mongoose'
 import PatternModel from '../resources/pattern/model'
+import RelatedModel from '../resources/related/model'
 
 type RequestToDetect = Request<
   unknown,
   unknown,
   { title?: string; content?: string; transcriptObject?: TranscriptObject }
 >
-
-// eslint-disable-next-line
-const models: ['observations' | 'assumptions' | 'projects', Model<any>][] = [
-  ['observations', Observation],
-  ['assumptions', Assumption],
-  ['projects', Project],
-]
 
 const languageProcessor = WinkFn(model)
 
@@ -27,7 +17,7 @@ const setRelated = async (
   text: string
 ): Promise<Related> => {
   const related: Related = {
-    parentId: '',
+    parentId: undefined,
     parentType: 'observation',
     observations: [],
     assumptions: [],
@@ -43,13 +33,24 @@ const setRelated = async (
 
   const regex = detectedEntities.map((e) => new RegExp(e, 'i'))
 
-  for (const [c, m] of models) {
-    const relatedModels = await m.find({
-      content: { $in: regex },
-    })
+  const relatedOthers = await RelatedModel.find({ detected: { $in: regex } })
 
-    related[c] = [...relatedModels.map(({ _id }) => _id)]
-  }
+  relatedOthers.forEach((r) => {
+    if (!r.parentId) throw Error('No parentId!')
+    switch (r.parentType) {
+      case 'observation':
+        related.observations.push(r.parentId)
+        break
+      case 'assumption':
+        related.assumptions.push(r.parentId)
+        break
+      case 'project':
+        related.projects.push(r.parentId)
+        break
+      default:
+        break
+    }
+  })
 
   return related
 }
