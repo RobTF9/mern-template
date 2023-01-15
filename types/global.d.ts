@@ -120,9 +120,9 @@ declare global {
       | 'evidence'
       | 'segment'
     detected: string[]
-    observations: ObservationResource[]
-    assumptions: AssumptionResource[]
-    projects: ProjectResource[]
+    observations: ObjectId[]
+    assumptions: ObjectId[]
+    projects: ObjectId[]
   }
 
   type RelatedResource = Related & Resource

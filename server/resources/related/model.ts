@@ -22,24 +22,20 @@ const relatedSchema = new Schema<RelatedResource>(
     },
     observations: [
       {
-        _id: SchemaTypes.ObjectId,
-        content: String,
-        evidence: SchemaTypes.ObjectId,
+        type: SchemaTypes.ObjectId,
+        ref: 'observation',
       },
     ],
     assumptions: [
       {
-        _id: SchemaTypes.ObjectId,
-        content: String,
-        supporting: [SchemaTypes.ObjectId],
-        opposing: [SchemaTypes.ObjectId],
+        type: SchemaTypes.ObjectId,
+        ref: 'assumption',
       },
     ],
     projects: [
       {
-        _id: SchemaTypes.ObjectId,
-        content: String,
-        title: String,
+        type: SchemaTypes.ObjectId,
+        ref: 'project',
       },
     ],
     detected: [String],
