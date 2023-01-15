@@ -87,6 +87,12 @@ declare global {
 
   type SegmentResource = SegmentInterface & Resource
 
+  interface PatternInterface {
+    patterns: { name: string; patterns: string[] }[]
+  }
+
+  type PatternResource = PatternInterface & Resource
+
   interface UserInterface {
     _id: ObjectId
     username: string
