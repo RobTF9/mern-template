@@ -5,18 +5,7 @@ import Observation from '../resources/observation/model'
 import Assumption from '../resources/assumption/model'
 import Project from '../resources/project/model'
 import { Model } from 'mongoose'
-
-// TODO PATTERNS SHOULD BE STORED IN A DB
-const patterns = [
-  { name: 'adjectiveNounPair', patterns: ['ADJ NOUN'] },
-  { name: 'nounPair', patterns: ['NOUN NOUN'] },
-  { name: 'nounTriple', patterns: ['NOUN NOUN NOUN'] },
-  {
-    name: 'nounPhrase',
-    patterns: ['[|ADJ] [NOUN|PROPN]'],
-  },
-  { name: 'keywords', patterns: ['in-depth investigations'] },
-]
+import PatternModel from '../resources/pattern/model'
 
 // eslint-disable-next-line
 const models: ['observations' | 'assumptions' | 'projects', Model<any>][] = [
@@ -26,9 +15,11 @@ const models: ['observations' | 'assumptions' | 'projects', Model<any>][] = [
 ]
 
 const languageProcessor = WinkFn(model)
-languageProcessor.learnCustomEntities(patterns)
 
-const setRelated = async (text: string): Promise<Related> => {
+const setRelated = async (
+  patterns: PatternResource,
+  text: string
+): Promise<Related> => {
   const related: Related = {
     parentId: '',
     parentType: 'observation',
@@ -39,6 +30,7 @@ const setRelated = async (text: string): Promise<Related> => {
     // TODO get related evidence after you query related object
   }
 
+  languageProcessor.learnCustomEntities(patterns.patterns)
   const doc = languageProcessor.readDoc(text)
   const detectedEntities = doc.customEntities().out()
   related.detected = [...detectedEntities]
@@ -55,6 +47,34 @@ const setRelated = async (text: string): Promise<Related> => {
   return related
 }
 
+const patternMap: Map<string, PatternResource> = new Map()
+async function getPatterns(
+  req: Request<
+    unknown,
+    unknown,
+    { title?: string; content?: string; transcriptObject?: TranscriptObject }
+  >
+): Promise<PatternResource> {
+  if (req.session.user) {
+    const existing = patternMap.get(req.session.user)
+    if (existing) {
+      return existing
+    } else {
+      const pattern = await PatternModel.findOne({
+        createdBy: req.session.user,
+      })
+      if (pattern) {
+        patternMap.set(req.session.user, pattern)
+        return pattern
+      } else {
+        throw Error('No pattern!')
+      }
+    }
+  } else {
+    throw Error('No user!')
+  }
+}
+
 export async function detection(
   req: Request<
     unknown,
@@ -65,15 +85,17 @@ export async function detection(
   next: NextFunction
 ) {
   try {
+    const patterns = await getPatterns(req)
+
     if (req.body.content) {
-      req.related = await setRelated(req.body.content)
+      req.related = await setRelated(patterns, req.body.content)
       return next()
     }
 
     if (req.body.transcriptObject) {
       const { transcriptObject: t } = req.body
       const combined = t.map(({ transcript }) => transcript).join(' ')
-      req.related = await setRelated(combined)
+      req.related = await setRelated(patterns, combined)
       return next()
     }
 

@@ -5303,14 +5303,19 @@ const observations = [
 ]
 
 const patterns = [
-  { name: 'adjectiveNounPair', patterns: ['ADJ NOUN'] },
-  { name: 'nounPair', patterns: ['NOUN NOUN'] },
-  { name: 'nounTriple', patterns: ['NOUN NOUN NOUN'] },
   {
-    name: 'nounPhrase',
-    patterns: ['[|ADJ] [NOUN|PROPN]'],
+    ...resourceFields,
+    patterns: [
+      { name: 'adjectiveNounPair', patterns: ['ADJ NOUN'] },
+      { name: 'nounPair', patterns: ['NOUN NOUN'] },
+      { name: 'nounTriple', patterns: ['NOUN NOUN NOUN'] },
+      {
+        name: 'nounPhrase',
+        patterns: ['[|ADJ] [NOUN|PROPN]'],
+      },
+      { name: 'keywords', patterns: ['in-depth investigations'] },
+    ],
   },
-  { name: 'keywords', patterns: ['in-depth investigations'] },
 ]
 
 const assumptions = []
@@ -5346,3 +5351,4 @@ postCollection('users', users)
 postCollection('observation', observations)
 postCollection('assumption', assumptions)
 postCollection('segment', segements)
+postCollection('pattern', patterns)
