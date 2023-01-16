@@ -1,4 +1,5 @@
 import { RequestHandler } from 'express'
+import PatternModel from '../resources/pattern/model'
 import User from '../resources/user/model'
 import { ERROR_MESSAGE, SUCCESS_MESSAGE } from '../utils/messages'
 
@@ -63,6 +64,20 @@ export const signUp: RequestHandler = async (req, res, next) => {
 
     const user = await User.create(req.body)
     req.session.user = `${user._id}`
+
+    await PatternModel.create({
+      createdBy: user._id,
+      updatedBy: user._id,
+      patterns: [
+        { name: 'adjectiveNounPair', patterns: ['ADJ NOUN'] },
+        { name: 'nounPair', patterns: ['NOUN NOUN'] },
+        { name: 'nounTriple', patterns: ['NOUN NOUN NOUN'] },
+        {
+          name: 'nounPhrase',
+          patterns: ['[|ADJ] [NOUN|PROPN]'],
+        },
+      ],
+    })
 
     return res
       .status(201)

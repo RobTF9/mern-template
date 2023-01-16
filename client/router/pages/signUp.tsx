@@ -18,7 +18,11 @@ const SignUp = () => {
   return (
     <>
       <h1>Sign up</h1>
-      <AuthenticationForm details={details} submit={() => signUp(details)} onChange={onChange} />
+      <AuthenticationForm
+        details={details}
+        submit={() => signUp(details)}
+        onChange={onChange}
+      />
       <NavLink to="/signin">Sign in</NavLink>
     </>
   )

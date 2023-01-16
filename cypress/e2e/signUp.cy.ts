@@ -7,7 +7,7 @@ describe('Sign up', () => {
     cy.get('input[name=email]').clear().type('user2@email.com')
     cy.get('input[name=username]').clear().type('user2')
     cy.get('input[name=password]').clear().type('password{enter}')
-    cy.get('h1').should('contain', 'Authenticated')
+    cy.get('strong').should('contain', 'Basis')
   })
 
   it('User can sign in with recently created account', () => {
@@ -16,6 +16,6 @@ describe('Sign up', () => {
     cy.get('h1').should('contain', 'Sign in')
     cy.get('input[name=email]').clear().type('user2@email.com')
     cy.get('input[name=password]').clear().type('password{enter}')
-    cy.get('h1').should('contain', 'Authenticated')
+    cy.get('strong').should('contain', 'Basis')
   })
 })

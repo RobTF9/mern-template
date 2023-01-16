@@ -16,7 +16,7 @@ const Authenticated = () => {
         <Routes>
           <Route path="/" element={<Projects />} />
           <Route path="/new-project" element={<NewProject />} />
-          <Route path="/:id" element={<Project />} />
+          <Route path="/project/:id" element={<Project />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>
