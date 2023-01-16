@@ -23,6 +23,14 @@ function crudControllers<T extends Resource>(
         updatedBy: req.session.user,
       })
 
+      await RelatedModel.updateMany(
+        { detected: { $in: related.detected }, _id: { $ne: related._id } },
+        { [`${collection}s`]: related._id },
+        { new: true }
+      )
+        .lean()
+        .exec()
+
       return res.status(200).json({
         data: item,
         message: SUCCESS_MESSAGE.RESOURCE_CREATED(collection),
@@ -92,6 +100,17 @@ function crudControllers<T extends Resource>(
           ...req.related,
           updatedBy: req.session.user,
         }
+      )
+
+      if (!related) {
+        return res
+          .status(400)
+          .json({ message: ERROR_MESSAGE.RESOURCE_NOT_FOUND('related') })
+      }
+
+      await RelatedModel.updateMany(
+        { detected: { $in: related.detected }, _id: { $ne: related._id } },
+        { [collection]: related._id }
       )
 
       return res.status(201).json({
