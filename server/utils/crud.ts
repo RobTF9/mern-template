@@ -25,7 +25,7 @@ function crudControllers<T extends Resource>(
 
       await RelatedModel.updateMany(
         { detected: { $in: related.detected }, _id: { $ne: related._id } },
-        { [`${collection}s`]: related._id },
+        { [`${collection}s`]: related.parentId },
         { new: true }
       )
         .lean()
@@ -110,7 +110,7 @@ function crudControllers<T extends Resource>(
 
       await RelatedModel.updateMany(
         { detected: { $in: related.detected }, _id: { $ne: related._id } },
-        { [`${collection}s`]: related._id },
+        { [`${collection}s`]: related.parentId },
         { new: true }
       )
         .lean()

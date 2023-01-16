@@ -2,6 +2,7 @@ import { observations } from '../../fixtures/data.json'
 
 describe('RECALL: Related entity detection', () => {
   const url = 'http://localhost:4000/api/'
+  let id: string
 
   beforeEach(() => {
     cy.request('POST', '/auth/signin', {
@@ -10,7 +11,7 @@ describe('RECALL: Related entity detection', () => {
     })
   })
 
-  it('Create observation', () => {
+  it('Can detect entities in a new observation', () => {
     cy.request({
       method: 'POST',
       url: url + 'observation',
@@ -18,6 +19,8 @@ describe('RECALL: Related entity detection', () => {
         ...observations[0],
       },
     }).then((response) => {
+      id = response.body.data._id
+
       expect(response.body.data).has.property(
         'content',
         observations[0].content
@@ -49,6 +52,18 @@ describe('RECALL: Related entity detection', () => {
       expect(response.body.related.projects).to.deep.eq([
         '63b947da68e5d809ddc89a06',
       ])
+    })
+  })
+
+  it('Has updated the existing related record', () => {
+    cy.request({
+      method: 'GET',
+      url: url + `observation/63bb05073692ffa273fda236`,
+      body: {
+        ...observations[0],
+      },
+    }).then((response) => {
+      expect(response.body.related.observations).to.deep.eq([id])
     })
   })
 
