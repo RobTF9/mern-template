@@ -4,7 +4,7 @@ import AuthenticationForm from '../../components/AuthenticationForm'
 import { useAuthContext } from '../../context/auth'
 
 const SignUp = () => {
-  const { signUp, authLoading } = useAuthContext()
+  const { signUp } = useAuthContext()
   const [details, setDetails] = useState<Email & Username & Password>({
     email: '',
     username: '',
