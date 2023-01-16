@@ -110,8 +110,11 @@ function crudControllers<T extends Resource>(
 
       await RelatedModel.updateMany(
         { detected: { $in: related.detected }, _id: { $ne: related._id } },
-        { [collection]: related._id }
+        { [`${collection}s`]: related._id },
+        { new: true }
       )
+        .lean()
+        .exec()
 
       return res.status(201).json({
         data: item,
