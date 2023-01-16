@@ -3,6 +3,9 @@ import WinkFn from 'wink-nlp'
 import model from 'wink-eng-lite-web-model'
 import PatternModel from '../resources/pattern/model'
 import RelatedModel from '../resources/related/model'
+import { observationCollection } from '../resources/observation/model'
+import { assumptionCollection } from '../resources/assumption/model'
+import { projectCollection } from '../resources/project/model'
 
 type RequestToDetect = Request<
   unknown,
@@ -23,7 +26,6 @@ const setRelated = async (
     assumptions: [],
     projects: [],
     detected: [],
-    // TODO get related evidence after you query related object
   }
 
   languageProcessor.learnCustomEntities(patterns.patterns)
@@ -37,14 +39,15 @@ const setRelated = async (
 
   relatedOthers.forEach((r) => {
     if (!r.parentId) throw Error('No parentId!')
+
     switch (r.parentType) {
-      case 'observation':
+      case observationCollection:
         related.observations.push(r.parentId)
         break
-      case 'assumption':
+      case assumptionCollection:
         related.assumptions.push(r.parentId)
         break
-      case 'project':
+      case projectCollection:
         related.projects.push(r.parentId)
         break
       default:
