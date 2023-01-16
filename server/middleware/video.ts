@@ -36,7 +36,7 @@ export async function uploadVideo(
   next: NextFunction
 ) {
   try {
-    const { participant, project } = req.body
+    const { source, project } = req.body
 
     if (!req.file) {
       return res.status(400).json({ message: 'No file' })
@@ -47,7 +47,7 @@ export async function uploadVideo(
       raw_convert: 'google_speech',
       notification_url:
         process.env.NODE_ENV === 'dev'
-          ? 'https://basis-test.loca.lt/hook'
+          ? 'https://bas-webber-test-test.loca.lt/hook'
           : 'https://bas-wb3t.onrender.com/hook',
     })
 
@@ -59,10 +59,10 @@ export async function uploadVideo(
 
     req.body = {
       video: video.secure_url,
-      transcript: `https://res.cloudinary.com/dlhk8zpa5/raw/upload/v${version}/${video.public_id}.transcript`,
+      transcript: `https://res.cloudinary.com/djpdmso8x/raw/upload/v${version}/${video.public_id}.transcript`,
       public_id: video.public_id,
       transcriptObject: undefined,
-      participant,
+      source: { ...JSON.parse(source) },
       project,
     }
 
@@ -77,10 +77,6 @@ export async function getTranscript(
   res: Response,
   next: NextFunction
 ) {
-  console.log(
-    '====================== TRANSCRIPT MIDDLEWARE ======================'
-  )
-  console.log(req.body)
   try {
     if (
       req.body.info_kind === 'google_speech' &&
@@ -96,6 +92,8 @@ export async function getTranscript(
       const json = await response.json()
 
       req.body.transcriptObject = json
+      req.session.user = `${evidence.createdBy}`
+
       return next()
     }
     return res.sendStatus(200)
@@ -120,14 +118,27 @@ export async function updateEvidenceWithTranscript(
       .exec()
 
     if (evidence) {
-      await RelatedModel.create({
-        ...req.related,
-        parentId: `${evidence._id}`,
-        parentType: `evidence`,
-        createdBy: evidence.createdBy,
-        updatedBy: evidence.createdBy,
-      })
+      const related = await RelatedModel.findOneAndUpdate(
+        { parentId: `${evidence._id}` },
+        {
+          ...req.related,
+        },
+        { new: true }
+      )
+        .lean()
+        .exec()
 
+      if (related) {
+        await RelatedModel.updateMany(
+          { detected: { $in: related.detected }, _id: { $ne: related._id } },
+          { evidence: related.parentId },
+          { new: true }
+        )
+          .lean()
+          .exec()
+      }
+
+      req.session.destroy((e) => console.log(e))
       return res.sendStatus(200)
     }
 

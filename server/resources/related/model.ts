@@ -38,6 +38,12 @@ const relatedSchema = new Schema<RelatedResource>(
         ref: 'project',
       },
     ],
+    evidence: [
+      {
+        type: SchemaTypes.ObjectId,
+        ref: 'evidence',
+      },
+    ],
     detected: [String],
     createdBy: {
       type: SchemaTypes.ObjectId,

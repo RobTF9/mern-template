@@ -23,6 +23,7 @@ const setRelated = async (
     parentId: undefined,
     parentType: 'observation',
     observations: [],
+    evidence: [],
     assumptions: [],
     projects: [],
     detected: [],

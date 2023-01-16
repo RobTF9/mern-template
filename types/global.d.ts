@@ -123,6 +123,7 @@ declare global {
     observations: ObjectId[]
     assumptions: ObjectId[]
     projects: ObjectId[]
+    evidence: ObjectId[]
   }
 
   type RelatedResource = Related & Resource
@@ -130,6 +131,7 @@ declare global {
   namespace Express {
     interface Request {
       related?: Related
+      patternId?: ObjectId
     }
   }
 }
