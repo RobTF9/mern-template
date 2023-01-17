@@ -4,7 +4,7 @@ import AuthenticationForm from '../../components/AuthenticationForm'
 import { useAuthContext } from '../../context/auth'
 
 const SignIn = () => {
-  const { signIn, authLoading } = useAuthContext()
+  const { signIn } = useAuthContext()
   const [details, setDetails] = useState<Email & Password>({
     email: '',
     password: '',
@@ -17,7 +17,11 @@ const SignIn = () => {
   return (
     <>
       <h1>Sign in</h1>
-      <AuthenticationForm details={details} submit={() => signIn(details)} onChange={onChange} />
+      <AuthenticationForm
+        details={details}
+        submit={() => signIn(details)}
+        onChange={onChange}
+      />
       <NavLink to="/">Sign up</NavLink>
     </>
   )
