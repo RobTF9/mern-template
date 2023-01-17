@@ -1,13 +1,13 @@
 import { Router } from 'express'
 import controllers from './controller'
 
-const router = Router()
+const observationRouter = Router()
 
-router.route('/').post(controllers.create).get(controllers.readAll)
-router
+observationRouter.route('/').post(controllers.create).get(controllers.readAll)
+observationRouter
   .route('/:id')
   .put(controllers.update)
   .get(controllers.readOne)
   .delete(controllers.deleteOne)
 
-export default router
+export default observationRouter

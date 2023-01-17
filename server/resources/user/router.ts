@@ -1,8 +1,8 @@
 import { Router } from 'express'
 import { getUser } from './controllers'
 
-const router = Router()
+const userRouter = Router()
 
-router.route('/').get(getUser)
+userRouter.route('/').get(getUser)
 
-export default router
+export default userRouter
