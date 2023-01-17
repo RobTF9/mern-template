@@ -2,13 +2,10 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import Grid from '../../components/Grid'
 import ProjectList from '../../components/ProjectList'
-import useResource from '../../data/useResource'
+import { getProjects } from '../../data/projectResource'
 
 const Projects = () => {
-  const resource = useResource<ProjectResource, ProjectInterface>(
-    '/api/project'
-  )
-  const { items: projects, itemsLoading: projectsLoading } = resource
+  const [projects, projectsLoading] = getProjects()
 
   return (
     <Grid>
