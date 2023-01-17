@@ -18,7 +18,7 @@ const ProjectList: React.FC<Props> = ({ projects, itemsLoading }) => {
           <li key={`${project._id}`}>
             <strong>{project.title}</strong>
             <p>{project.content}</p>
-            <NavLink to={`/${project._id}`}>Open</NavLink>
+            <NavLink to={`/project/${project._id}`}>Open</NavLink>
           </li>
         ))}
     </ProjectListWrapper>
