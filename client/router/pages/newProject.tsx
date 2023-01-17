@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import useResource from '../../data/projectResource'
+import useResource from '../../data/resources/project'
 
 const NewProject = () => {
   const resource = useResource<ProjectResource, ProjectInterface>(

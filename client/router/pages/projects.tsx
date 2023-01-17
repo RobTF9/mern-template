@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import Grid from '../../components/Grid'
 import ProjectList from '../../components/ProjectList'
-import { getProjects } from '../../data/projectResource'
+import { getProjects } from '../../data/resources/project'
 
 const Projects = () => {
   const [projects, projectsLoading] = getProjects()
