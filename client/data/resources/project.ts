@@ -1,4 +1,4 @@
-import { getMany, getOne } from '../crud'
+import { getMany, getOne, createOne } from '../crud'
 
 export function getProjects(query?: string) {
   return getMany<ProjectResource>(
@@ -10,4 +10,11 @@ export function getProjects(query?: string) {
 
 export function getProject(id: string) {
   return getOne<ProjectResource>([`/api/project/${id}`], `/api/project/${id}`)
+}
+
+export function createProject() {
+  return createOne<ProjectInterface, ProjectResource>(
+    [`/api/project`],
+    `/api/project`
+  )
 }

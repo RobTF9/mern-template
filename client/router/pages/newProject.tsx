@@ -1,12 +1,9 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import useResource from '../../data/resources/project'
+import { createProject } from '../../data/resources/project'
 
 const NewProject = () => {
-  const resource = useResource<ProjectResource, ProjectInterface>(
-    '/api/project'
-  )
-  const { create, createLoading } = resource
+  const [create, createLoading] = createProject()
 
   const [project, setProject] = useState<ProjectInterface>({
     title: '',
@@ -21,7 +18,7 @@ const NewProject = () => {
         event.preventDefault()
         create(project, {
           onSuccess: (r) => {
-            navigate(`/${r.data?._id}`, { state: r.related })
+            navigate(`/project/${r.data?._id}`)
           },
         })
       }}
